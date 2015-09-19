@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.Player;
+import fr.motaz.rasp.music.PlayerListener;
 import fr.motaz.rasp.music.impl.handler.PausedHandler;
 import fr.motaz.rasp.music.impl.handler.PlayingHandler;
 import fr.motaz.rasp.music.impl.handler.StopedHandler;
@@ -16,26 +17,22 @@ import javafx.scene.media.MediaPlayer;
 public class PlayerImpl implements Player {
 
 	private static List<MediaPlayer> mPlayers = new ArrayList<MediaPlayer>();
+	private static Integer currentMusicNum = -1;
+	private static List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 
 	@Override
 	public void stop() {
-		if (!mPlayers.isEmpty()) {
-			mPlayers.get(0).stop();
-		}
+		getCurrentPlayer().stop();
 	}
 
 	@Override
 	public void play() {
-		if (!mPlayers.isEmpty()) {
-			mPlayers.get(0).play();
-		}
+		getCurrentPlayer().play();
 	}
 
 	@Override
 	public void pause() {
-		if (!mPlayers.isEmpty()) {
-			mPlayers.get(0).pause();
-		}
+		getCurrentPlayer().pause();
 
 	}
 
@@ -43,11 +40,22 @@ public class PlayerImpl implements Player {
 	public void addMusic(Music musique) {
 		System.out.println("addMusic");
 		mPlayers.add(createMediaPlayer((musique.getFile().toURI().toString())));
+		if (currentMusicNum == -1) {
+			currentMusicNum++;
+		}
 	}
 
 	@Override
 	public Media getCurrentMusic() {
-		return mPlayers.get(0).getMedia();
+		return getCurrentPlayer().getMedia();
+	}
+
+	private MediaPlayer getCurrentPlayer() {
+		if(currentMusicNum>-1){
+			return mPlayers.get(currentMusicNum);
+		}else{
+			return null;
+		}
 	}
 
 	private MediaPlayer createMediaPlayer(String uri) {
@@ -66,5 +74,24 @@ public class PlayerImpl implements Player {
 	public void destroy() throws Exception {
 		System.out.println("clean up");
 		Platform.exit();
+	}
+
+	@Override
+	public void next() {
+		getCurrentPlayer().stop();
+		currentMusicNum++;
+		getCurrentPlayer().play();
+	}
+
+	@Override
+	public void previous() {
+		getCurrentPlayer().stop();
+		currentMusicNum--;
+		getCurrentPlayer().play();
+	}
+
+	@Override
+	public void addListener(PlayerListener listener) {
+		listeners.add(listener);
 	}
 }

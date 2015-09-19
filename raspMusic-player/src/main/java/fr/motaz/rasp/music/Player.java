@@ -7,5 +7,8 @@ public interface Player {
 	public void pause();
 	public void stop();
 	public void addMusic(Music musique);
+	public void next();
+	public void previous();
+	public void addListener(PlayerListener listener);
 	public Media getCurrentMusic();
 }
