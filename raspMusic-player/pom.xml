@@ -6,7 +6,7 @@
 		<artifactId>raspMusic-parent</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>raspMusic-player-api</artifactId>
+	<artifactId>raspMusic-player</artifactId>
 
 	<build>
 		<plugins>
@@ -20,5 +20,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		</build>
+	</build>
 </project>

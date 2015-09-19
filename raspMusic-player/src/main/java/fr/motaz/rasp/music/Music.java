@@ -2,7 +2,7 @@ package fr.motaz.rasp.music;
 
 import java.io.File;
 
-public abstract class Musique {
+public abstract class Music {
 	private String artiste;
 	private String titre;
 	private String album;

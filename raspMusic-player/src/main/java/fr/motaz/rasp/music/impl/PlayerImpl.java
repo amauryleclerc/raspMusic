@@ -3,7 +3,7 @@ package fr.motaz.rasp.music.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.motaz.rasp.music.Musique;
+import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.impl.handler.PausedHandler;
 import fr.motaz.rasp.music.impl.handler.PlayingHandler;
@@ -38,7 +38,7 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void addMusic(Musique musique) {
+	public void addMusic(Music musique) {
 		System.out.println("addMusic");
 		mPlayers.add(createMediaPlayer((musique.getFile().toURI().toString())));
 	}

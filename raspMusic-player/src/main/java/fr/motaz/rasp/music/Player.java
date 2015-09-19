@@ -6,6 +6,6 @@ public interface Player {
 	public void play();
 	public void pause();
 	public void stop();
-	public void addMusic(Musique musique);
+	public void addMusic(Music musique);
 	public Media getCurrentMusic();
 }
