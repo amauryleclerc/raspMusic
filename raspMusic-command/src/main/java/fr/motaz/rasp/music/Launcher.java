@@ -8,21 +8,28 @@ public class Launcher {
 	private static Player player;
 
 	public static void main(String[] args) throws Exception {
-		Music music = null;
+	
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "classpath:applicationContext-player.xml" })) {
 			player = (Player) context.getBean("player");
-			music = (Music) context.getBean("music");
+			Music music = (Music) context.getBean("music");
+			Music music2 = (Music) context.getBean("music");
 			// File file = new File("/Users/Ludovic/Desktop/test.mp3");
 			File file = new File("D:\\musique\\musique_itunes\\Music\\Bonobo\\Black Sands\\1-02 Kiara.mp3");
-
+			File file2 = new File("D:\\musique\\musique_itunes\\Music\\Bonobo\\Late Night Tales (Mixed)\\05 Baltimore.mp3");
 			music.setFile(file);
+			music2.setFile(file2);
 			player.addMusic(music);
 			player.play();
 			Thread.sleep(2000);
 			player.pause();
 			Thread.sleep(2000);
 			player.play();
+			player.addMusic(music2);
+			Thread.sleep(2000);
+			player.next();
+			Thread.sleep(2000);
+			player.previous();
 			Thread.sleep(2000);
 			player.stop();
 		}
