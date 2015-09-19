@@ -1,14 +1,12 @@
 package fr.motaz.rasp.music;
 
-import javafx.scene.media.Media;
-
 public interface Player {
-	public void play();
-	public void pause();
-	public void stop();
+	public void play() throws Exception;
+	public void pause() throws Exception;
+	public void stop() throws Exception;
 	public void addMusic(Music musique);
-	public void next();
-	public void previous();
+	public void next() throws Exception;
+	public void previous() throws Exception;
 	public void addListener(PlayerListener listener);
-	public Media getCurrentMusic();
+	public Music getCurrentMusic() throws Exception;
 }

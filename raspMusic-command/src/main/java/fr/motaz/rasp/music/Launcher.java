@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Launcher {
 	private static Player player;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 		Music music = null;
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "classpath:applicationContext-player.xml" })) {

@@ -6,69 +6,56 @@ import java.util.List;
 import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.PlayerListener;
-import fr.motaz.rasp.music.impl.handler.PausedHandler;
-import fr.motaz.rasp.music.impl.handler.PlayingHandler;
-import fr.motaz.rasp.music.impl.handler.StopedHandler;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class PlayerImpl implements Player {
 
-	private static List<MediaPlayer> mPlayers = new ArrayList<MediaPlayer>();
+	private static List<Music> musicList = new ArrayList<Music>();
 	private static Integer currentMusicNum = -1;
 	private static List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 
+
 	@Override
-	public void stop() {
-		getCurrentPlayer().stop();
+	public void stop() throws Exception {
+		((MusicImpl)getCurrentMusic()).getMediaPlayer().stop();
 	}
 
 	@Override
-	public void play() {
-		getCurrentPlayer().play();
+	public void play() throws Exception {
+		((MusicImpl)getCurrentMusic()).getMediaPlayer().play();
 	}
 
 	@Override
-	public void pause() {
-		getCurrentPlayer().pause();
-
+	public void pause() throws Exception {
+		((MusicImpl)getCurrentMusic()).getMediaPlayer().pause();
 	}
 
 	@Override
 	public void addMusic(Music musique) {
 		System.out.println("addMusic");
-		mPlayers.add(createMediaPlayer((musique.getFile().toURI().toString())));
+		musicList.add(musique);
 		if (currentMusicNum == -1) {
 			currentMusicNum++;
 		}
 	}
 
 	@Override
-	public Media getCurrentMusic() {
-		return getCurrentPlayer().getMedia();
-	}
-
-	private MediaPlayer getCurrentPlayer() {
-		if(currentMusicNum>-1){
-			return mPlayers.get(currentMusicNum);
-		}else{
-			return null;
+	public Music getCurrentMusic() throws Exception {
+		if (currentMusicNum > -1) {
+			return musicList.get(currentMusicNum);
+		} else {
+			throw new Exception("pas de music");
+			
 		}
 	}
 
-	private MediaPlayer createMediaPlayer(String uri) {
-		MediaPlayer mediaPlayer = new MediaPlayer(new Media(uri));
-		mediaPlayer.setOnPlaying(new PlayingHandler());
-		mediaPlayer.setOnPaused(new PausedHandler());
-		mediaPlayer.setOnStopped(new StopedHandler());
-		return mediaPlayer;
-	}
+	
 
 	public void init() throws Exception {
 		System.out.println("Init");
 		new JFXPanel();
+
 	}
 
 	public void destroy() throws Exception {
@@ -77,17 +64,17 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void next() {
-		getCurrentPlayer().stop();
+	public void next() throws Exception {
+		this.stop();
 		currentMusicNum++;
-		getCurrentPlayer().play();
+		this.play();
 	}
 
 	@Override
-	public void previous() {
-		getCurrentPlayer().stop();
+	public void previous() throws Exception {
+		this.stop();
 		currentMusicNum--;
-		getCurrentPlayer().play();
+		this.play();
 	}
 
 	@Override
