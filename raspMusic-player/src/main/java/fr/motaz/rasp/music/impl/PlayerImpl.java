@@ -8,6 +8,8 @@ import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.impl.handler.PausedHandler;
 import fr.motaz.rasp.music.impl.handler.PlayingHandler;
 import fr.motaz.rasp.music.impl.handler.StopedHandler;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -56,4 +58,13 @@ public class PlayerImpl implements Player {
 		return mediaPlayer;
 	}
 
+	public void init() throws Exception {
+		System.out.println("Init");
+		new JFXPanel();
+	}
+
+	public void destroy() throws Exception {
+		System.out.println("clean up");
+		Platform.exit();
+	}
 }
