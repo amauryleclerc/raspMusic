@@ -6,10 +6,8 @@
 
 	<bean id="player" class="fr.motaz.rasp.music.impl.PlayerImpl"
 		scope="singleton" init-method="init" destroy-method="destroy">
-
 	</bean>
 	<bean id="music" class="fr.motaz.rasp.music.impl.MusicImpl" scope="prototype">
-
 	</bean>
 </beans>
                 
