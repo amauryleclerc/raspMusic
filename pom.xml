@@ -9,6 +9,7 @@
 		<module>raspMusic-player</module>
 		<module>raspMusic-command</module>
 		<module>raspMusic-webService</module>
+		<module>raspMusic-model</module>
 	</modules>
 
 	<properties>
