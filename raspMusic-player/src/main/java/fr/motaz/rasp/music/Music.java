@@ -6,7 +6,7 @@ public abstract class Music {
 	private String artiste;
 	private String titre;
 	private String album;
-	private File file;
+	private transient File file;
 	public String getArtiste() {
 		return artiste;
 	}

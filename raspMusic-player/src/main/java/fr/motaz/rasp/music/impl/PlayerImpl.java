@@ -15,6 +15,16 @@ public class PlayerImpl implements Player {
 	private static Integer currentMusicNum = -1;
 	private static List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 
+	  private static PlayerImpl instance;
+
+	  public static PlayerImpl getInstance(){
+	    if(instance==null){
+	 
+	          instance = new PlayerImpl();
+	        
+	    }
+	    return instance;
+	  }
 
 	@Override
 	public void stop() throws Exception {

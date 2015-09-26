@@ -1,12 +1,9 @@
 package fr.motaz.rasp.music.impl;
 
 import java.io.File;
-import java.io.IOException;
 
 import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
 
 import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.impl.handler.PausedHandler;
@@ -16,14 +13,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class MusicImpl extends Music {
-	private MediaPlayer mediaPlayer;
+	private transient MediaPlayer mediaPlayer;
 	
 	@Override
 	public void setFile(File file) {
 		Mp3File mp3file = null;
 		try {
 			 mp3file = new Mp3File( file);
-		} catch (UnsupportedTagException | InvalidDataException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
