@@ -8,9 +8,9 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.impl.MusicImpl;
+import fr.motaz.rasp.music.model.Music;
 
 @Path("/player")
 public class PlayerResource {

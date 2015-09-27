@@ -1,5 +1,7 @@
 package fr.motaz.rasp.music;
 
+import fr.motaz.rasp.music.model.Music;
+
 public interface Player {
 	public void play() throws Exception;
 	public void pause() throws Exception;

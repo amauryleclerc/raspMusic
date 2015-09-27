@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import fr.motaz.rasp.music.model.Music;
+
 public class Launcher {
 	private static Player player;
 

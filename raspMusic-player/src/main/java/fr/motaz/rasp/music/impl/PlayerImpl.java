@@ -3,9 +3,9 @@ package fr.motaz.rasp.music.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.motaz.rasp.music.Music;
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.PlayerListener;
+import fr.motaz.rasp.music.model.Music;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 
@@ -19,9 +19,7 @@ public class PlayerImpl implements Player {
 
 	  public static PlayerImpl getInstance(){
 	    if(instance==null){
-	 
 	          instance = new PlayerImpl();
-	        
 	    }
 	    return instance;
 	  }
@@ -63,7 +61,7 @@ public class PlayerImpl implements Player {
 	
 
 	public void init() throws Exception {
-		System.out.println("Init");
+		System.out.println("Initialisation du player");
 		new JFXPanel();
 
 	}

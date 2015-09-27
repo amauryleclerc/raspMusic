@@ -22,11 +22,14 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
-
 		<dependency>
 			<groupId>fr.motaz.raspMusic</groupId>
 			<artifactId>raspMusic-player</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.motaz.raspMusic</groupId>
+			<artifactId>raspMusic-model</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
@@ -60,7 +63,6 @@
 			<version>${jersey.version}</version>
 		</dependency>
 
-		<!-- Spring 3 dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
