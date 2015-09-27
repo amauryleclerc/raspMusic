@@ -11,6 +11,7 @@
 		<module>raspMusic-webService</module>
 		<module>raspMusic-model</module>
 		<module>raspMusic-webApp</module>
+		<module>raspMusic-storage</module>
 	</modules>
 
 	<properties>

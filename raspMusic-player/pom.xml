@@ -13,10 +13,6 @@
 			<artifactId>raspMusic-model</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		<dependency>
-			<groupId>com.mpatric</groupId>
-			<artifactId>mp3agic</artifactId>
-			<version>0.8.3</version>
-		</dependency>
+		
 	</dependencies>
 </project>
