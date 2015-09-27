@@ -1,15 +1,16 @@
 package fr.motaz.rasp.music.listener;
 
 import fr.motaz.rasp.music.PlayerListener;
+import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.webSocket.Message;
 import fr.motaz.rasp.music.webSocket.WebSocketServer;
 
-public class WebSocketListener implements PlayerListener {
+public class PlayerListenerWS implements PlayerListener {
 
 	@Override
-	public void onPlay() {
+	public void onPlay(Music music) {
 
-		WebSocketServer.broadcast(new Message("PLAY"));
+		WebSocketServer.broadcast(new Message("PLAY", music));
 
 	}
 

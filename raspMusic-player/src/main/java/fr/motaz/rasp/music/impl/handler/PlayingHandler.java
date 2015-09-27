@@ -12,7 +12,7 @@ public class PlayingHandler implements Runnable {
 		Music music = null;
 		try {
 			music = player.getCurrentMusic();
-			System.out.println("Lecture de " + music.getTitre()+ " - " + music.getArtist().getNom());	
+			System.out.println("Lecture de " + music.getTitle()+ " - " + music.getArtist().getName());	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

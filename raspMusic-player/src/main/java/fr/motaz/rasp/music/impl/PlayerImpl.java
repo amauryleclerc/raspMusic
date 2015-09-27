@@ -37,7 +37,7 @@ public class PlayerImpl implements Player {
 	public void play() throws Exception {
 		((MusicImpl) getCurrentMusic()).getMediaPlayer().play();
 		for (PlayerListener listener : listeners) {
-			listener.onPlay();
+			listener.onPlay(this.getCurrentMusic());
 		}
 	}
 

@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('PlayerCtrl', [ 'Player', function(Player) {
-
+app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, PlayerService) {
+	this.music = PlayerService.currentMusic;
 	this.add = function() {
 		Player.add();
 	}
@@ -14,4 +14,7 @@ app.controller('PlayerCtrl', [ 'Player', function(Player) {
 	this.stop = function() {
 		Player.stop();
 	}
+	
+
+		
 } ]);

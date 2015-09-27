@@ -14,12 +14,12 @@ public class ContextListener {
 	@Autowired
 	private Player player;
 
-	private static WebSocketListener listener;
+	private static PlayerListenerWS listener;
 
 	@PostConstruct
 	public void contextInitialized() {
 		System.out.println("Context Initialised");
-		listener = new WebSocketListener();
+		listener = new PlayerListenerWS();
 		player.addListener(listener);
 	}
 

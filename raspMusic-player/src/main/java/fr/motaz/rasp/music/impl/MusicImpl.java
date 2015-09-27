@@ -27,12 +27,12 @@ public class MusicImpl extends Music {
 		
 		if (mp3file.hasId3v2Tag()) {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-			super.setTitre(id3v2Tag.getTitle());
+			super.setTitle(id3v2Tag.getTitle());
 			Artist artist = new Artist();
-			artist.setNom(id3v2Tag.getArtist());
+			artist.setName(id3v2Tag.getArtist());
 			Album album = new Album();
 			album.addMusic(this);
-			album.setNom(id3v2Tag.getAlbum());
+			album.setName(id3v2Tag.getAlbum());
 			super.setAlbum(album);
 			super.setArtist(artist);
 		}

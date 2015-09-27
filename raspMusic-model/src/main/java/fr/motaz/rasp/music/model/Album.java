@@ -6,15 +6,16 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Album {
-	private String nom;
+	private String name;
 	private Artist artiste;
 	private transient List<Music> musicList= null ;
 	
-	public String getNom() {
-		return nom;
+
+	public String getName() {
+		return name;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Artist getArtiste() {
 		return artiste;
