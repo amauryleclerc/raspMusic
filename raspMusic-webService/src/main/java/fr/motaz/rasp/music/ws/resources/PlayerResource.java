@@ -2,9 +2,10 @@ package fr.motaz.rasp.music.ws.resources;
 
 import java.io.File;
 
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,18 +19,18 @@ public class PlayerResource {
 	@Autowired
 	Player player;
 
-	@GET
+	@POST
 	@Path("/add")
 	@Produces("application/json")
-	public Music addMusic() throws Exception{
+	public Response addMusic() throws Exception{
 		Music music = new MusicImpl();
 		File file = new File("D:\\musique\\musique_itunes\\Music\\Bonobo\\Black Sands\\1-02 Kiara.mp3");
 		music.setFile(file);
 		player.addMusic(music);
-		return player.getCurrentMusic();
+		return Response.ok().build();
 	}
 	
-	@GET
+	@POST
 	@Path("/play")
 	@Produces("application/json")
 	public Music play() throws Exception{
@@ -37,14 +38,16 @@ public class PlayerResource {
 		return player.getCurrentMusic();
 	}
 	
-	@GET
+	@POST
 	@Path("/stop")
-	public void stop() throws Exception{
+	public Response stop() throws Exception{
 		player.stop();
+		return Response.ok().build();
 	}
-	@GET
+	@POST
 	@Path("/pause")
-	public void pause() throws Exception{
+	public Response pause() throws Exception{
 		player.pause();
+		return Response.ok().build();
 	}
 }

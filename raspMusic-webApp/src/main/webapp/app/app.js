@@ -1,6 +1,6 @@
 'use strict';
 
-var app =  angular.module('raspMusicApp',  ['ngRoute']);
+var app =  angular.module('raspMusicApp',  ['ngRoute','ngResource']);
 app.constant('_', _);
 app.config(function($routeProvider) {
     $routeProvider

@@ -31,7 +31,7 @@ public class MusicImpl extends Music {
 			Artist artist = new Artist();
 			artist.setNom(id3v2Tag.getArtist());
 			Album album = new Album();
-			album.getMusicList().add(this);
+			album.addMusic(this);
 			album.setNom(id3v2Tag.getAlbum());
 			super.setAlbum(album);
 			super.setArtist(artist);

@@ -1,11 +1,12 @@
 package fr.motaz.rasp.music.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
 	private String nom;
 	private Artist artiste;
-	private List<Music> musicList;
+	private List<Music> musicList= null ;
 	
 	public String getNom() {
 		return nom;
@@ -25,6 +26,11 @@ public class Album {
 	public void setMusicList(List<Music> musicList) {
 		this.musicList = musicList;
 	}
-	
+	public void addMusic(Music music){
+		if(this.musicList == null){
+			this.musicList = new ArrayList<Music>();
+		}
+		this.musicList.add(music);
+	}
 	
 }
