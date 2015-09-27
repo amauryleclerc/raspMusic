@@ -10,5 +10,6 @@ public interface Player {
 	public void next() throws Exception;
 	public void previous() throws Exception;
 	public void addListener(PlayerListener listener);
+	public void removeListener(PlayerListener listener);
 	public Music getCurrentMusic() throws Exception;
 }

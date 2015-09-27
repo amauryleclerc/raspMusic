@@ -15,28 +15,38 @@ public class PlayerImpl implements Player {
 	private static Integer currentMusicNum = -1;
 	private static List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 
-	  private static PlayerImpl instance;
+	private static PlayerImpl instance;
 
-	  public static PlayerImpl getInstance(){
-	    if(instance==null){
-	          instance = new PlayerImpl();
-	    }
-	    return instance;
-	  }
+	public static PlayerImpl getInstance() {
+		if (instance == null) {
+			instance = new PlayerImpl();
+		}
+		return instance;
+	}
 
 	@Override
 	public void stop() throws Exception {
-		((MusicImpl)getCurrentMusic()).getMediaPlayer().stop();
+		((MusicImpl) getCurrentMusic()).getMediaPlayer().stop();
+
+		for (PlayerListener listener : listeners) {
+			listener.onStop();
+		}
 	}
 
 	@Override
 	public void play() throws Exception {
-		((MusicImpl)getCurrentMusic()).getMediaPlayer().play();
+		((MusicImpl) getCurrentMusic()).getMediaPlayer().play();
+		for (PlayerListener listener : listeners) {
+			listener.onPlay();
+		}
 	}
 
 	@Override
 	public void pause() throws Exception {
-		((MusicImpl)getCurrentMusic()).getMediaPlayer().pause();
+		((MusicImpl) getCurrentMusic()).getMediaPlayer().pause();
+		for (PlayerListener listener : listeners) {
+			listener.onPause();
+		}
 	}
 
 	@Override
@@ -46,6 +56,9 @@ public class PlayerImpl implements Player {
 		if (currentMusicNum == -1) {
 			currentMusicNum++;
 		}
+		for (PlayerListener listener : listeners) {
+			listener.onAdd();
+		}
 	}
 
 	@Override
@@ -54,11 +67,9 @@ public class PlayerImpl implements Player {
 			return musicList.get(currentMusicNum);
 		} else {
 			throw new Exception("pas de music");
-			
+
 		}
 	}
-
-	
 
 	public void init() throws Exception {
 		System.out.println("Initialisation du player");
@@ -88,5 +99,11 @@ public class PlayerImpl implements Player {
 	@Override
 	public void addListener(PlayerListener listener) {
 		listeners.add(listener);
+	}
+
+	@Override
+	public void removeListener(PlayerListener listener) {
+		listeners.remove(listener);
+
 	}
 }

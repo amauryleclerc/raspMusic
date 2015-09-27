@@ -17,7 +17,7 @@ import fr.motaz.rasp.music.model.Music;
 public class PlayerResource {
 
 	@Autowired
-	Player player;
+	private Player player;
 
 	@POST
 	@Path("/add")

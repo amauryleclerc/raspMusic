@@ -23,6 +23,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>fr.motaz.raspMusic</groupId>
 			<artifactId>raspMusic-player</artifactId>
 			<version>0.0.1</version>
@@ -89,6 +95,11 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
 
 	</dependencies>
 
