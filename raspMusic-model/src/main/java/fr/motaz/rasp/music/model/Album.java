@@ -3,10 +3,12 @@ package fr.motaz.rasp.music.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Album {
 	private String nom;
 	private Artist artiste;
-	private List<Music> musicList= null ;
+	private transient List<Music> musicList= null ;
 	
 	public String getNom() {
 		return nom;
@@ -20,6 +22,7 @@ public class Album {
 	public void setArtiste(Artist artiste) {
 		this.artiste = artiste;
 	}
+	@JsonIgnore
 	public List<Music> getMusicList() {
 		return musicList;
 	}
