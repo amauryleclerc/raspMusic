@@ -10,6 +10,7 @@
 		<module>raspMusic-command</module>
 		<module>raspMusic-webService</module>
 		<module>raspMusic-model</module>
+		<module>raspMusic-webApp</module>
 	</modules>
 
 	<properties>
