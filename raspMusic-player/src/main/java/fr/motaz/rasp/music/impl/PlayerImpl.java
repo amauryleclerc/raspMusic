@@ -50,9 +50,9 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void addMusic(Music musique) {
+	public void addMusic(Music music) {
 		System.out.println("addMusic");
-		musicList.add(musique);
+		musicList.add(music);
 		if (currentMusicNum == -1) {
 			currentMusicNum++;
 		}

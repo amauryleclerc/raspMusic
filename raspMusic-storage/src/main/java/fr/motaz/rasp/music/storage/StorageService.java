@@ -13,7 +13,13 @@ public class StorageService {
 		List<Music> musics = new ArrayList<Music>();
 		Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
 		    if (Files.isRegularFile(filePath)) {
-		    	musics.add(new Music(new File(filePath.toUri())));
+		    	System.out.println(filePath.toUri());
+		    	try {
+					musics.add(new Music(new File(filePath.toUri())));
+					System.out.println("add");
+				} catch (Exception e) {
+					System.out.println("exception");
+				}
 		    }
 		});
 		return musics;

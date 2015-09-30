@@ -1,10 +1,13 @@
 package fr.motaz.rasp.music.model;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -15,13 +18,11 @@ public class Music {
 	private Artist artist;
 	private transient MediaPlayer mediaPlayer;
 
-	public Music(File file) {
+	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
 		Mp3File mp3file = null;
-		try {
+	
 			mp3file = new Mp3File(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 
 		if (mp3file.hasId3v2Tag()) {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
