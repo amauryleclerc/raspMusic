@@ -16,27 +16,32 @@ public class Music {
 	private String title;
 	private Album album;
 	private Artist artist;
+	private String path;
 	private transient MediaPlayer mediaPlayer;
 
 	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
-		Mp3File mp3file = null;
-	
-			mp3file = new Mp3File(file);
-		
-
-		if (mp3file.hasId3v2Tag()) {
-			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-			this.setTitle(id3v2Tag.getTitle());
-			Artist artist = new Artist();
-			artist.setName(id3v2Tag.getArtist());
-			Album album = new Album();
-			album.addMusic(this);
-			album.setName(id3v2Tag.getAlbum());
-			this.setAlbum(album);
-			this.setArtist(artist);
-		}
-		this.setMediaPlayer(this.createMediaPlayer(file));
+		this.setFile(file);
 	}
+	private void setFile(File file) throws UnsupportedTagException, InvalidDataException, IOException{
+		Mp3File mp3file = null;
+		
+		mp3file = new Mp3File(file);
+	
+	if (mp3file.hasId3v2Tag()) {
+		ID3v2 id3v2Tag = mp3file.getId3v2Tag();
+		this.setTitle(id3v2Tag.getTitle());
+		Artist artist = new Artist();
+		artist.setName(id3v2Tag.getArtist());
+		Album album = new Album();
+		album.addMusic(this);
+		album.setName(id3v2Tag.getAlbum());
+		this.setAlbum(album);
+		this.setArtist(artist);
+		this.path = (file.getPath());
+	}
+	this.setMediaPlayer(this.createMediaPlayer(file));
+	}
+	
 	public Music() {
 		
 	}
@@ -65,27 +70,7 @@ public class Music {
 		this.artist = artist;
 	}
 
-	public void setFile(File file) {
-		Mp3File mp3file = null;
-		try {
-			mp3file = new Mp3File(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		if (mp3file.hasId3v2Tag()) {
-			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-			this.setTitle(id3v2Tag.getTitle());
-			Artist artist = new Artist();
-			artist.setName(id3v2Tag.getArtist());
-			Album album = new Album();
-			album.addMusic(this);
-			album.setName(id3v2Tag.getAlbum());
-			this.setAlbum(album);
-			this.setArtist(artist);
-		}
-		this.setMediaPlayer(this.createMediaPlayer(file));
-	}
 
 	@JsonIgnore
 	public MediaPlayer getMediaPlayer() {
@@ -99,6 +84,18 @@ public class Music {
 	private MediaPlayer createMediaPlayer(File file) {
 		MediaPlayer mediaPlayer = new MediaPlayer(new Media(file.toURI().toString()));
 		return mediaPlayer;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+		try {
+			this.setFile(new File(path));
+		} catch (UnsupportedTagException | InvalidDataException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
