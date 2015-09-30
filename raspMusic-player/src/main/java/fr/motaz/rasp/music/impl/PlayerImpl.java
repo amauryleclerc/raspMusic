@@ -26,7 +26,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void stop() throws Exception {
-	 getCurrentMusic().getMediaPlayer().stop();
+		getCurrentMusic().getMediaPlayer().stop();
 
 		for (PlayerListener listener : listeners) {
 			listener.onStop();
@@ -35,7 +35,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void play() throws Exception {
-		 getCurrentMusic().getMediaPlayer().play();
+		getCurrentMusic().getMediaPlayer().play();
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getCurrentMusic());
 		}
@@ -43,7 +43,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void pause() throws Exception {
-		 getCurrentMusic().getMediaPlayer().pause();
+		getCurrentMusic().getMediaPlayer().pause();
 		for (PlayerListener listener : listeners) {
 			listener.onPause();
 		}
@@ -63,13 +63,13 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public Music getCurrentMusic() throws Exception {
-		if (currentMusicNum > -1 && !(currentMusicNum>musicList.size())) {
+		if (currentMusicNum > -1 && currentMusicNum < musicList.size()) {
 			return musicList.get(currentMusicNum);
 		} else {
 			throw new Exception("pas de music");
 
 		}
-		
+
 	}
 
 	public void init() throws Exception {
@@ -79,22 +79,26 @@ public class PlayerImpl implements Player {
 	}
 
 	public void destroy() throws Exception {
-		System.out.println("clean up");
+		System.out.println("destroy");
 		Platform.exit();
 	}
 
 	@Override
 	public void next() throws Exception {
 		this.stop();
-		currentMusicNum++;
-		this.play();
+		if (musicList.size() > currentMusicNum + 1) {
+			currentMusicNum++;
+			this.play();
+		}
 	}
 
 	@Override
 	public void previous() throws Exception {
 		this.stop();
-		currentMusicNum--;
-		this.play();
+		if (currentMusicNum > 0) {
+			currentMusicNum--;
+			this.play();
+		}
 	}
 
 	@Override
