@@ -10,7 +10,17 @@ app.factory('Player', [ '$resource', function($resource) {
 			method : 'POST', url:'/api/player/stop'
 		},
 		'add' : {
-			method : 'POST', url:'/api/player/add'
+			method : 'PUT', url:'/api/player/add'
 		},
+		'next' : {
+			method : 'POST', url:'/api/player/next'
+		},
+		'previous' : {
+			method : 'POST', url:'/api/player/previous'
+		},
+		'getCurrent' : {
+			method : 'GET', url:'/api/player/current'
+		},
+		
 	});
 } ]);

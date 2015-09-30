@@ -1,9 +1,9 @@
-app.service('PlayerService', [  '$timeout' ,function($timeout) {
+app.service('PlayerService', [ 'Player',  '$timeout' ,function(Player, $timeout) {
 	var _onReceiveData = _.noop;
 
 	
     var Service = {};
-    Service.currentMusic = {};
+    Service.currentMusic = Player.getCurrent();
     var ws = new WebSocket("ws://" + document.location.hostname + ":" + document.location.port
     		+ document.location.pathname + "api/websocket");
 	
@@ -27,6 +27,12 @@ app.service('PlayerService', [  '$timeout' ,function($timeout) {
     	  if(data.action === "PLAY"){
     		  _.assign(Service.currentMusic, data.music);
         	  console.log(Service.currentMusic);
+    	  }else if(data.action === "ADD"){
+    		  console.log("add");
+    		  if(typeof Service.currentMusic.title == "undefined"){
+    			  _.assign(Service.currentMusic, data.music);
+    			  console.log(Service.currentMusic);
+    		  }
     	  }else if(data.action === "STOP"){
     		  console.log("stop");
     		  delete  Service.currentMusic.title;

@@ -50,14 +50,14 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void addMusic(Music music) {
+	public void addMusic(Music music) throws Exception {
 		System.out.println("addMusic");
 		musicList.add(music);
 		if (currentMusicNum == -1) {
 			currentMusicNum++;
 		}
 		for (PlayerListener listener : listeners) {
-			listener.onAdd();
+			listener.onAdd(this.getCurrentMusic());
 		}
 	}
 
@@ -69,6 +69,7 @@ public class PlayerImpl implements Player {
 			throw new Exception("pas de music");
 
 		}
+		
 	}
 
 	public void init() throws Exception {

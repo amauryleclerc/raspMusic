@@ -21,8 +21,8 @@ public class PlayerListenerWS implements PlayerListener {
 	}
 
 	@Override
-	public void onAdd() {
-		WebSocketServer.broadcast(new Message("ADD"));
+	public void onAdd(Music music) {
+		WebSocketServer.broadcast(new Message("ADD", music));
 
 	}
 
