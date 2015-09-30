@@ -63,7 +63,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public Music getCurrentMusic() throws Exception {
-		if (currentMusicNum > -1) {
+		if (currentMusicNum > -1 && !(currentMusicNum>musicList.size())) {
 			return musicList.get(currentMusicNum);
 		} else {
 			throw new Exception("pas de music");

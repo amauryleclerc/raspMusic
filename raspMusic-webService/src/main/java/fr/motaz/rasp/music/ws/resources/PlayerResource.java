@@ -32,71 +32,50 @@ public class PlayerResource {
 	@POST
 	@Path("/play")
 	@Produces("application/json")
-	public Music play() {
-		Music result = null;
-		try {
-			player.play();
-			result =player.getCurrentMusic();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
+	public Music play() throws Exception {
+		player.play();
+		return player.getCurrentMusic();
 	}
 
 	@POST
 	@Path("/stop")
-	public Response stop()  {
-		try {
-			player.stop();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Response stop() throws Exception {
+
+		player.stop();
+
 		return Response.ok().build();
 	}
 
 	@POST
 	@Path("/pause")
-	public Response pause()  {
-		try {
-			player.pause();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Response pause() throws Exception {
+
+		player.pause();
+
 		return Response.ok().build();
 	}
+
 	@POST
 	@Path("/previous")
-	public Response previous()  {
-		try {
-			player.previous();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Response previous() throws Exception {
+
+		player.previous();
+
 		return Response.ok().build();
 	}
+
 	@POST
 	@Path("/next")
-	public Response next()  {
-		try {
-			player.next();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public Response next() throws Exception {
+
+		player.next();
+
 		return Response.ok().build();
 	}
+
 	@GET
 	@Path("/current")
-	public Music getCurrent() {
-		try {
-			return player.getCurrentMusic();
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return null;
-		}
+	public Music getCurrent() throws Exception {
+		return player.getCurrentMusic();
 	}
 }
