@@ -1,11 +1,10 @@
 
 <div>
-	<p ng-if="playerCtrl.music.title">
-		{{playerCtrl.music.title}} - {{playerCtrl.music.artist.name}}
-	</p>
+	<p ng-if="playerCtrl.music.title">{{playerCtrl.music.title}} -
+		{{playerCtrl.music.artist.name}}</p>
 </div>
 <div>
-<button class="btn" ng-click="playerCtrl.previous()">
+	<button class="btn" ng-click="playerCtrl.previous()">
 		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
 	</button>
 	<button class="btn" ng-click="playerCtrl.next()">
@@ -20,4 +19,15 @@
 	<button class="btn" ng-click="playerCtrl.stop()">
 		<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
 	</button>
+
+</div>
+<div>
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="music in playerCtrl.playlist">
+			
+			<h4 class="list-group-item-heading">{{music.artist.name}} -
+				{{music.title}}</h4>
+			<p class="list-group-item-text">{{music.album.name}}</p>
+		</li>
+	</ul>
 </div>

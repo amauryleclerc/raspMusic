@@ -2,21 +2,19 @@ package fr.motaz.rasp.music.impl.handler;
 
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.impl.PlayerImpl;
-import fr.motaz.rasp.music.model.Music;
 
-public class PlayingHandler implements Runnable {
+public class EndOfMediaHandler implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.println("end of media");
 		Player player = PlayerImpl.getInstance();
-		Music music = null;
 		try {
-			music = player.getPlaylist().getCurrent();
-			System.out.println("Lecture de " + music.getTitle()+ " - " + music.getArtist().getName());	
+			player.next();
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }

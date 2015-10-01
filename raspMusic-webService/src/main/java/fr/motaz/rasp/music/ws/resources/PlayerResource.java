@@ -1,18 +1,16 @@
 package fr.motaz.rasp.music.ws.resources;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.server.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.model.Music;
-import fr.motaz.rasp.music.ws.util.MapperUtil;
 
 @Path("/player")
 public class PlayerResource {
@@ -20,21 +18,14 @@ public class PlayerResource {
 	@Autowired
 	private Player player;
 
-	@PUT
-	@Path("/add")
-	@Consumes("application/json")
-	public Response addMusic(String musicStr) throws Exception {
-		Music music = MapperUtil.readAsObjectOf(Music.class, musicStr);
-		player.addMusic(music);
-		return Response.ok().build();
-	}
+
 
 	@POST
 	@Path("/play")
 	@Produces("application/json")
 	public Music play() throws Exception {
 		player.play();
-		return player.getCurrentMusic();
+		return player.getPlaylist().getCurrent();
 	}
 
 	@POST
@@ -73,9 +64,10 @@ public class PlayerResource {
 		return Response.ok().build();
 	}
 
-	@GET
-	@Path("/current")
-	public Music getCurrent() throws Exception {
-		return player.getCurrentMusic();
+	
+
+	@Path("/playlist")
+	public Resource getPlaylist() throws Exception {
+		return Resource.from(PlaylistResource.class);
 	}
 }

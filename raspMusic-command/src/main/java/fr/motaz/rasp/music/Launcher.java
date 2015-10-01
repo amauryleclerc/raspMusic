@@ -19,13 +19,13 @@ public class Launcher {
 //			File file2 = new File("D:\\musique\\musique_itunes\\Music\\Bonobo\\Late Night Tales (Mixed)\\05 Baltimore.mp3");
 			music.setPath("D:\\musique\\musique_itunes\\Music\\Bonobo\\Black Sands\\1-02 Kiara.mp3");
 			music2.setPath("D:\\musique\\musique_itunes\\Music\\Bonobo\\Late Night Tales (Mixed)\\05 Baltimore.mp3");
-			player.addMusic(music);
+			player.getPlaylist().add(music);
 			player.play();
 			Thread.sleep(2000);
 			player.pause();
 			Thread.sleep(2000);
 			player.play();
-			player.addMusic(music2);
+			player.getPlaylist().add(music2);
 			Thread.sleep(2000);
 			player.next();
 			Thread.sleep(2000);
