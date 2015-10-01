@@ -18,8 +18,6 @@ public class PlayerResource {
 	@Autowired
 	private Player player;
 
-
-
 	@POST
 	@Path("/play")
 	@Produces("application/json")
@@ -31,9 +29,7 @@ public class PlayerResource {
 	@POST
 	@Path("/stop")
 	public Response stop() throws Exception {
-
 		player.stop();
-
 		return Response.ok().build();
 	}
 
