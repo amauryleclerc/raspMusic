@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music.webSocket;
+package fr.motaz.rasp.music.ws.webSocket;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;

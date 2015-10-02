@@ -1,13 +1,13 @@
-package fr.motaz.rasp.music.impl;
+package fr.motaz.rasp.music.player.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.Marshaller.Listener;
 
-import fr.motaz.rasp.music.Player;
-import fr.motaz.rasp.music.PlayerListener;
-import fr.motaz.rasp.music.Playlist;
+import fr.motaz.rasp.music.player.Player;
+import fr.motaz.rasp.music.player.PlayerListener;
+import fr.motaz.rasp.music.player.Playlist;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 

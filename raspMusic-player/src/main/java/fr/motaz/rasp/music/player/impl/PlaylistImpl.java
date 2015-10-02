@@ -1,12 +1,12 @@
-package fr.motaz.rasp.music.impl;
+package fr.motaz.rasp.music.player.impl;
 
 import java.util.ArrayList;
 
-import fr.motaz.rasp.music.Player;
-import fr.motaz.rasp.music.PlayerListener;
-import fr.motaz.rasp.music.Playlist;
-import fr.motaz.rasp.music.impl.handler.EndOfMediaHandler;
 import fr.motaz.rasp.music.model.Music;
+import fr.motaz.rasp.music.player.Player;
+import fr.motaz.rasp.music.player.PlayerListener;
+import fr.motaz.rasp.music.player.Playlist;
+import fr.motaz.rasp.music.player.handler.EndOfMediaHandler;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 

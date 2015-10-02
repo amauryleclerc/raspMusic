@@ -1,7 +1,7 @@
-package fr.motaz.rasp.music.impl.handler;
+package fr.motaz.rasp.music.player.handler;
 
-import fr.motaz.rasp.music.Player;
-import fr.motaz.rasp.music.impl.PlayerImpl;
+import fr.motaz.rasp.music.player.Player;
+import fr.motaz.rasp.music.player.impl.PlayerImpl;
 
 public class EndOfMediaHandler implements Runnable {
 

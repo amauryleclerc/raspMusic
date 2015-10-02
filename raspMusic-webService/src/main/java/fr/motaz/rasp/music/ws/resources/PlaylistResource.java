@@ -8,9 +8,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.motaz.rasp.music.Player;
-import fr.motaz.rasp.music.Playlist;
 import fr.motaz.rasp.music.model.Music;
+import fr.motaz.rasp.music.player.Player;
+import fr.motaz.rasp.music.player.Playlist;
 import fr.motaz.rasp.music.ws.util.MapperUtil;
 
 public class PlaylistResource {

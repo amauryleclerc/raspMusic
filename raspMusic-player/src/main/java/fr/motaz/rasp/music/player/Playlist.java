@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music;
+package fr.motaz.rasp.music.player;
 
 import fr.motaz.rasp.music.model.Music;
 

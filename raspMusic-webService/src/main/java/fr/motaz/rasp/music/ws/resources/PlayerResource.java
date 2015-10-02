@@ -9,8 +9,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.motaz.rasp.music.Player;
 import fr.motaz.rasp.music.model.Music;
+import fr.motaz.rasp.music.player.Player;
 
 @Path("/player")
 public class PlayerResource {

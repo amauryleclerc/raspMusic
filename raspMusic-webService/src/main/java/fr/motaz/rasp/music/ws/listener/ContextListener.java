@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music.listener;
+package fr.motaz.rasp.music.ws.listener;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -6,7 +6,7 @@ import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import fr.motaz.rasp.music.Player;
+import fr.motaz.rasp.music.player.Player;
 
 @Configuration
 public class ContextListener {

@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music.impl.handler;
+package fr.motaz.rasp.music.player.handler;
 
 public class PausedHandler implements Runnable {
 

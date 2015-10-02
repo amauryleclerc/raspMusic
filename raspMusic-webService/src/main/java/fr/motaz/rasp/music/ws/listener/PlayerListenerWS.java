@@ -1,9 +1,9 @@
-package fr.motaz.rasp.music.listener;
+package fr.motaz.rasp.music.ws.listener;
 
-import fr.motaz.rasp.music.PlayerListener;
 import fr.motaz.rasp.music.model.Music;
-import fr.motaz.rasp.music.webSocket.Message;
-import fr.motaz.rasp.music.webSocket.WebSocketServer;
+import fr.motaz.rasp.music.player.PlayerListener;
+import fr.motaz.rasp.music.ws.webSocket.Message;
+import fr.motaz.rasp.music.ws.webSocket.WebSocketServer;
 
 public class PlayerListenerWS implements PlayerListener {
 
