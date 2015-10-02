@@ -7,6 +7,7 @@ import javax.xml.bind.Marshaller.Listener;
 
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerListener;
+import fr.motaz.rasp.music.player.PlayerListenerRegistry;
 import fr.motaz.rasp.music.player.Playlist;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -84,23 +85,22 @@ public class PlayerImpl implements Player {
 		}
 	}
 
-	@Override
-	public void addListener(PlayerListener listener) {
-		listeners.add(listener);
-	}
-
-	@Override
-	public void removeListener(PlayerListener listener) {
-		listeners.remove(listener);
-
-	}
+	
 
 	@Override
 	public Playlist getPlaylist() {
 		return this.playlist;
 	}
-	protected List<PlayerListener> getListeners(){
-		return this.listeners;
+
+	@Override
+	public void addPlayerListener(PlayerListener listener) {
+		listeners.add(listener);
+		
+	}
+	@Override
+	public void removePlayerListener(PlayerListener listener) {
+		listeners.remove(listener);
+		
 	}
 	
 

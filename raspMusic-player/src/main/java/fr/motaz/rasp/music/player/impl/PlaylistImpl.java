@@ -1,11 +1,13 @@
 package fr.motaz.rasp.music.player.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerListener;
 import fr.motaz.rasp.music.player.Playlist;
+import fr.motaz.rasp.music.player.PlaylistListener;
 import fr.motaz.rasp.music.player.handler.EndOfMediaHandler;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
@@ -15,7 +17,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	 */
 	private  int currentMusicNum = -1;
 	private static final long serialVersionUID = 6951635866659303171L;
-
+	private  List<PlaylistListener> listeners = new ArrayList<PlaylistListener>();
 	private transient static PlaylistImpl instance;
 
 	public static PlaylistImpl getInstance() {
@@ -36,14 +38,8 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 		if (currentMusicNum == -1) {
 			currentMusicNum++;
 		}
-		PlayerImpl player = PlayerImpl.getInstance();
-		for (PlayerListener listener : player.getListeners()) {
-			try {
-				listener.onAdd(this.getCurrent());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		for (PlaylistListener listener : listeners) {
+			listener.onAdd(music);
 		}
 		return true;
 
@@ -67,6 +63,19 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 
 	protected int getCurrentNum() {
 		return this.currentMusicNum;
+	}
+
+
+	@Override
+	public void addPlaylistListener(PlaylistListener listener) {
+		this.listeners.add(listener);
+		
+	}
+
+	@Override
+	public void removePlaylistListener(PlaylistListener listener) {
+		this.listeners.remove(listener);
+		
 	}
 
 }
