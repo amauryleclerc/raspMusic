@@ -15,7 +15,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	/**
 	 * 
 	 */
-	private  int currentMusicNum = -1;
+	private  int currentNum = -1;
 	private static final long serialVersionUID = 6951635866659303171L;
 	private  List<PlaylistListener> listeners = new ArrayList<PlaylistListener>();
 	private transient static PlaylistImpl instance;
@@ -35,8 +35,8 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 		System.out.println("addMusic");
 		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
 		super.add(music);
-		if (currentMusicNum == -1) {
-			currentMusicNum++;
+		if (currentNum == -1) {
+			currentNum++;
 		}
 		for (PlaylistListener listener : listeners) {
 			listener.onAdd(music);
@@ -46,8 +46,8 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	}
 
 	public Music getCurrent() throws Exception {
-		if (currentMusicNum > -1 && currentMusicNum < super.size()) {
-			return super.get(currentMusicNum);
+		if (currentNum > -1 && currentNum < super.size()) {
+			return super.get(currentNum);
 		} else {
 			throw new Exception("pas de music");
 		}
@@ -55,14 +55,14 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 
 	protected boolean setCurrentNum(Integer num) {
 		if (num >= 0 && num < super.size()) {
-			this.currentMusicNum = num;
+			this.currentNum = num;
 			return true;
 		}
 		return false;
 	}
 
-	protected int getCurrentNum() {
-		return this.currentMusicNum;
+	public int getCurrentNum() {
+		return this.currentNum;
 	}
 
 
