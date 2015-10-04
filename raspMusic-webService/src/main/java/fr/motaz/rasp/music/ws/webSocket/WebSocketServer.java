@@ -21,11 +21,10 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 	private static final Set<Session> sessions = new CopyOnWriteArraySet<Session>();
 	private Session session;
 
-    @Autowired
+	@Autowired
 	private Player player;
 
-
-    @Override
+	@Override
 	public void onOpen(Session session, EndpointConfig conf) {
 		this.session = session;
 		sessions.add(session);
@@ -34,26 +33,30 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		System.out.println("start");
 	}
 
-    @Override
-    public void onClose(Session session, CloseReason closeReason) {
+	@Override
+	public void onClose(Session session, CloseReason closeReason) {
 		sessions.remove(session);
+		player.removePlayerListener(this);
+		player.getPlaylist().removePlaylistListener(this);
 		System.out.println("end");
 	}
 
- 
-
-    @Override
-    public void onError(Session session, Throwable t) {
+	@Override
+	public void onError(Session session, Throwable t) {
 		System.out.println("error");
 		System.out.println(t.getMessage());
 		t.printStackTrace();
 	}
 
-
 	private void send(Message m) {
-		Gson gson = new Gson();
-		String json = gson.toJson(m);
-		this.session.getAsyncRemote().sendText(json);
+		synchronized (this) {
+			if (this.session.isOpen()) {
+				Gson gson = new Gson();
+				String json = gson.toJson(m);
+				this.session.getAsyncRemote().sendText(json);
+			}
+		}
+	
 	}
 
 	@Override
@@ -79,8 +82,5 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		this.send(new Message("STOP"));
 
 	}
-
-
-
 
 }

@@ -7,4 +7,5 @@ public interface Player extends PlayerListenerRegistry{
 	public void next() throws Exception;
 	public void previous() throws Exception;
 	public Playlist getPlaylist();
+	public PlayerState getState();
 }

@@ -17,7 +17,7 @@ public class Music {
 	private Album album;
 	private Artist artist;
 	private String path;
-	private transient MediaPlayer mediaPlayer;
+	private transient MediaPlayer mediaPlayer = null;
 
 	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
 		this.setFile(file);
@@ -39,7 +39,6 @@ public class Music {
 		this.setArtist(artist);
 		this.path = (file.getPath());
 	}
-	this.setMediaPlayer(this.createMediaPlayer(file));
 	}
 	
 	public Music() {
@@ -74,17 +73,13 @@ public class Music {
 
 	@JsonIgnore
 	public MediaPlayer getMediaPlayer() {
+		if(mediaPlayer==null){
+			mediaPlayer = new MediaPlayer(new Media(new File(this.path).toURI().toString()));
+		}
 		return mediaPlayer;
 	}
 
-	private void setMediaPlayer(MediaPlayer mediaPlayer) {
-		this.mediaPlayer = mediaPlayer;
-	}
-
-	private MediaPlayer createMediaPlayer(File file) {
-		MediaPlayer mediaPlayer = new MediaPlayer(new Media(file.toURI().toString()));
-		return mediaPlayer;
-	}
+	
 	public String getPath() {
 		return path;
 	}

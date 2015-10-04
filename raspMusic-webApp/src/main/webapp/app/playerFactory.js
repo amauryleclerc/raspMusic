@@ -21,6 +21,9 @@ app.factory('Player', [ '$resource', function($resource) {
 		'getCurrent' : {
 			method : 'GET', url:'/api/player/playlist/current'
 		},
+		'getState' : {
+			method : 'GET', url:'/api/player/state'
+		},
 		'getPlaylist' : {
 			method : 'GET', url:'/api/player/playlist' , isArray:true
 		},

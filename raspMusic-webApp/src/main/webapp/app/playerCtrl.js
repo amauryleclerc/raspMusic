@@ -2,7 +2,8 @@
 
 app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, PlayerService) {
 	this.music = PlayerService.currentMusic;
-	this.playlist = Player.getPlaylist();
+	this.playlist = PlayerService.playlist;
+	this.state  = PlayerService.state;
 
 	this.play = function() {
 		Player.play();

@@ -3,11 +3,9 @@ package fr.motaz.rasp.music.player.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.Marshaller.Listener;
-
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerListener;
-import fr.motaz.rasp.music.player.PlayerListenerRegistry;
+import fr.motaz.rasp.music.player.PlayerState;
 import fr.motaz.rasp.music.player.Playlist;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -17,6 +15,7 @@ public class PlayerImpl implements Player {
 
 	private  List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 	private PlaylistImpl playlist;
+	private PlayerState state =  PlayerState.STOP;
 	
 	private static PlayerImpl instance;
 
@@ -38,6 +37,7 @@ public class PlayerImpl implements Player {
 		for (PlayerListener listener : listeners) {
 			listener.onStop();
 		}
+		this.state = PlayerState.STOP;
 	}
 
 	@Override
@@ -46,6 +46,7 @@ public class PlayerImpl implements Player {
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getPlaylist().getCurrent());
 		}
+		this.state = PlayerState.PLAY;
 	}
 
 	@Override
@@ -54,6 +55,7 @@ public class PlayerImpl implements Player {
 		for (PlayerListener listener : listeners) {
 			listener.onPause();
 		}
+		this.state = PlayerState.PAUSE;
 	}
 
 
@@ -100,8 +102,12 @@ public class PlayerImpl implements Player {
 	@Override
 	public void removePlayerListener(PlayerListener listener) {
 		listeners.remove(listener);
-		
 	}
+	@Override
+	public PlayerState getState() {
+		return this.state;
+	}
+	
 	
 
 }

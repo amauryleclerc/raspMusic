@@ -1,24 +1,26 @@
 
 <div>
-	<p ng-if="playerCtrl.music.title">{{playerCtrl.music.title}} -
-		{{playerCtrl.music.artist.name}}</p>
+	<h2 ng-if="playerCtrl.music.title">{{playerCtrl.music.artist.name}} -
+		{{playerCtrl.music.title}}</h2>
+		<p class="list-group-item-text">{{playerCtrl.music.album.name}}</p>
 </div>
 <div>
 	<button class="btn" ng-click="playerCtrl.previous()">
 		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
 	</button>
-	<button class="btn" ng-click="playerCtrl.next()">
-		<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
-	</button>
-	<button class="btn" ng-click="playerCtrl.play()">
+
+	<button class="btn" ng-click="playerCtrl.play()" ng-if="playerCtrl.state.action !== 'PLAY'">
 		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
 	</button>
-	<button class="btn" ng-click="playerCtrl.pause()">
+	<button class="btn" ng-click="playerCtrl.pause()"  ng-if="playerCtrl.state.action === 'PLAY' ">
 		<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
 	</button>
-	<button class="btn" ng-click="playerCtrl.stop()">
-		<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+		<button class="btn" ng-click="playerCtrl.next()">
+		<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
 	</button>
+<!-- 	<button class="btn" ng-click="playerCtrl.stop()"> -->
+<!-- 		<span class="glyphicon glyphicon-stop" aria-hidden="true"></span> -->
+<!-- 	</button> -->
 
 </div>
 <div>
