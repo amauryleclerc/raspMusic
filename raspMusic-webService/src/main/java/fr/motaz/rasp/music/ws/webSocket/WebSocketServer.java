@@ -30,7 +30,7 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		sessions.add(session);
 		player.addPlayerListener(this);
 		player.getPlaylist().addPlaylistListener(this);
-		System.out.println("start");
+		System.out.println("websocket : open " + session.getRequestURI());
 	}
 
 	@Override
@@ -38,12 +38,12 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		sessions.remove(session);
 		player.removePlayerListener(this);
 		player.getPlaylist().removePlaylistListener(this);
-		System.out.println("end");
+		System.out.println("websocket : close");
 	}
 
 	@Override
 	public void onError(Session session, Throwable t) {
-		System.out.println("error");
+		System.out.println("websocket : error");
 		System.out.println(t.getMessage());
 		t.printStackTrace();
 	}

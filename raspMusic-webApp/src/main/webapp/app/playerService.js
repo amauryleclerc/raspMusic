@@ -11,15 +11,16 @@ app.service('PlayerService', [ 'Player',  '$timeout' ,function(Player, $timeout)
     		+ document.location.pathname + "api/websocket");
 	
     ws.onopen = function(){  
-        console.log("Connexion");  
+        console.log("WebSocket : open");  
     };
     ws.onclose = function(){  
-        console.log("close");  
+        console.log("WebSocket : close");  
     };
     ws.onerror = function(){  
-        console.log("error");  
+        console.log(" WebSocket : error");  
     };
     ws.onmessage = function(message) {
+    	  console.log(" WebSocket : message");  
         listener(JSON.parse(message.data));
     };
 
@@ -29,24 +30,16 @@ app.service('PlayerService', [ 'Player',  '$timeout' ,function(Player, $timeout)
       $timeout(function () {
     
     	  if(data.action === "PLAY"){
-    		  console.log("play")
     		  _.assign(Service.currentMusic, data.music);
     		  _.assign(Service.state , data);
-    		 
-        	  console.log(Service.currentMusic);
-        	  console.log(Service.state);
     	  }else if(data.action === "ADD"){
-    		  console.log("add");
     		  if(typeof Service.currentMusic.title == "undefined"){
     			  _.assign(Service.currentMusic, data.music);
-    			  console.log(Service.currentMusic);
     		  }
     		   Service.playlist.push(data.music);
     	  }else if(data.action === "STOP"){
-    		  console.log("stop");
        		  _.assign(Service.state , data);
     	  }else if(data.action === "PAUSE"){
-    		  console.log("pause");
     		  _.assign(Service.state , data);
     	  }
       });

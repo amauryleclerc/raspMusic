@@ -32,7 +32,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	}
 
 	public boolean add(Music music) {
-		System.out.println("addMusic");
+		System.out.println("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
 		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
 		super.add(music);
 		if (currentNum == -1) {

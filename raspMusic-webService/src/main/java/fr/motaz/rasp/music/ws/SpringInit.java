@@ -18,9 +18,10 @@ public class SpringInit implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
     	System.out.println("Initialisation du context");
-        ServletContext container = sce.getServletContext();
-
-        final ServerContainer serverContainer = (ServerContainer) container.getAttribute(SERVER_CONTAINER_ATTRIBUTE);
+        ServletContext context = sce.getServletContext();
+        context.setInitParameter("log4jConfiguration", "log4j.xml");
+        
+        final ServerContainer serverContainer = (ServerContainer) context.getAttribute(SERVER_CONTAINER_ATTRIBUTE);
         try {
             serverContainer.addEndpoint(new WebSocketConfig(WebSocketServer.class, "/websocket"));
         } catch (DeploymentException e) {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.storage.StorageService;
+	
 
 @Path("/musics")
 public class MusicsResource {

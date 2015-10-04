@@ -7,7 +7,7 @@ public class EndOfMediaHandler implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("end of media");
+		System.out.println("handler : end of media");
 		Player player = PlayerImpl.getInstance();
 		try {
 			player.next();

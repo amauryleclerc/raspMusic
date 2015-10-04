@@ -6,19 +6,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.server.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerState;
+import fr.motaz.rasp.music.storage.StorageService;
 import fr.motaz.rasp.music.ws.webSocket.Message;
 
 @Path("/player")
 public class PlayerResource {
-
+	
+	static final Logger logger = LogManager.getLogger(PlayerResource.class);
 	@Autowired
 	private Player player;
 
@@ -26,6 +30,7 @@ public class PlayerResource {
 	@Path("/play")
 	@Produces("application/json")
 	public Music play() throws Exception {
+		logger.trace("play");
 		player.play();
 		return player.getPlaylist().getCurrent();
 	}

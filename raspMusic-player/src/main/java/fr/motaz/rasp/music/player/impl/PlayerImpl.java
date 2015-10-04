@@ -3,6 +3,9 @@ package fr.motaz.rasp.music.player.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerListener;
 import fr.motaz.rasp.music.player.PlayerState;
@@ -16,7 +19,7 @@ public class PlayerImpl implements Player {
 	private  List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 	private PlaylistImpl playlist;
 	private PlayerState state =  PlayerState.STOP;
-	
+	static final Logger logger = LogManager.getLogger(PlayerImpl.class);
 	private static PlayerImpl instance;
 
 	public static PlayerImpl getInstance() {
@@ -42,6 +45,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void play() throws Exception {
+		logger.trace("play");
 		this.getPlaylist().getCurrent().getMediaPlayer().play();
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getPlaylist().getCurrent());
@@ -51,6 +55,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void pause() throws Exception {
+		logger.trace("pause");
 		this.getPlaylist().getCurrent().getMediaPlayer().pause();
 		for (PlayerListener listener : listeners) {
 			listener.onPause();
@@ -66,7 +71,7 @@ public class PlayerImpl implements Player {
 	}
 
 	public void destroy() throws Exception {
-		System.out.println("destroy");
+		System.out.println("destroy du player");
 		Platform.exit();
 	}
 
