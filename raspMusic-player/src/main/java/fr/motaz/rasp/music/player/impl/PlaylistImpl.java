@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Playlist;
 import fr.motaz.rasp.music.player.PlaylistListener;
+import fr.motaz.rasp.music.player.exception.PlayerException;
 import fr.motaz.rasp.music.player.handler.EndOfMediaHandler;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
@@ -49,7 +50,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 			return super.get(currentNum);
 		} else {
 			logger.error("getCurrent : pas de music");
-			throw new Exception("pas de music");
+			throw new PlayerException("pas de music");
 		}
 	}
 
