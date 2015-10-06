@@ -1,6 +1,6 @@
 package fr.motaz.rasp.music.model;
 
-public class Artist {
+public class Artist implements Comparable<Artist>{
 	private String name;
 
 	public String getName() {
@@ -9,6 +9,11 @@ public class Artist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public int compareTo(Artist artist) {
+		return this.name.compareTo(artist.getName());
 	}
 
 

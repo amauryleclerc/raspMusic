@@ -8,6 +8,8 @@ import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
@@ -18,6 +20,7 @@ import fr.motaz.rasp.music.player.PlayerListener;
 import fr.motaz.rasp.music.player.PlaylistListener;
 
 public class WebSocketServer extends Endpoint implements PlayerListener, PlaylistListener {
+	protected  static final Logger logger = LogManager.getLogger(WebSocketServer.class);
 	private static final Set<Session> sessions = new CopyOnWriteArraySet<Session>();
 	private Session session;
 
@@ -30,7 +33,7 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		sessions.add(session);
 		player.addPlayerListener(this);
 		player.getPlaylist().addPlaylistListener(this);
-		System.out.println("websocket : open " + session.getRequestURI());
+		logger.trace("websocket : open " + session.getRequestURI());
 	}
 
 	@Override
@@ -38,14 +41,12 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		sessions.remove(session);
 		player.removePlayerListener(this);
 		player.getPlaylist().removePlaylistListener(this);
-		System.out.println("websocket : close");
+		logger.trace("websocket : close");
 	}
 
 	@Override
 	public void onError(Session session, Throwable t) {
-		System.out.println("websocket : error");
-		System.out.println(t.getMessage());
-		t.printStackTrace();
+		logger.error("websocket : "+t.getMessage());
 	}
 
 	private void send(Message m) {
@@ -53,6 +54,7 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 			if (this.session.isOpen()) {
 				Gson gson = new Gson();
 				String json = gson.toJson(m);
+				logger.trace("send : "+json);
 				this.session.getAsyncRemote().sendText(json);
 			}
 		}

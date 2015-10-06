@@ -8,7 +8,6 @@ import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.Extension;
 import javax.websocket.server.ServerEndpointConfig;
-import javax.websocket.server.ServerEndpointConfig.Configurator;
 
 public class WebSocketConfig implements ServerEndpointConfig {
 

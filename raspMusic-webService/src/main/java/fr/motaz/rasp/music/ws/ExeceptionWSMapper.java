@@ -8,7 +8,6 @@ public class ExeceptionWSMapper implements  ExceptionMapper<Exception> {
 
 		@Override
 		public Response toResponse(Exception ex) {
-			System.out.println("exception : "+ex.getMessage());
 			 return Response.status(500).
 				      entity(ex.getMessage()).
 				      type("text/plain").

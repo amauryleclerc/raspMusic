@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Album {
+public class Album implements Comparable<Album>{
 	private String name;
 	private Artist artiste;
 	private transient List<Music> musicList= null ;
@@ -35,6 +35,10 @@ public class Album {
 			this.musicList = new ArrayList<Music>();
 		}
 		this.musicList.add(music);
+	}
+	@Override
+	public int compareTo(Album album) {
+		return this.name.compareTo(album.getName());
 	}
 	
 }

@@ -1,20 +1,25 @@
 package fr.motaz.rasp.music.player.handler;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.impl.PlayerImpl;
 
 public class EndOfMediaHandler implements Runnable {
+	protected static final Logger logger = LogManager.getLogger(EndOfMediaHandler.class);
 
 	@Override
 	public void run() {
-		System.out.println("handler : end of media");
+		logger.info("end of media");
 		Player player = PlayerImpl.getInstance();
+
 		try {
 			player.next();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
+
 	}
 
 }

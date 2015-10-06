@@ -3,20 +3,18 @@ package fr.motaz.rasp.music.player.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.motaz.rasp.music.model.Music;
-import fr.motaz.rasp.music.player.Player;
-import fr.motaz.rasp.music.player.PlayerListener;
 import fr.motaz.rasp.music.player.Playlist;
 import fr.motaz.rasp.music.player.PlaylistListener;
 import fr.motaz.rasp.music.player.handler.EndOfMediaHandler;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
-
-	/**
-	 * 
-	 */
-	private  int currentNum = -1;
 	private static final long serialVersionUID = 6951635866659303171L;
+	protected static final Logger logger = LogManager.getLogger(PlaylistImpl.class);
+	private  int currentNum = -1;
 	private  List<PlaylistListener> listeners = new ArrayList<PlaylistListener>();
 	private transient static PlaylistImpl instance;
 
@@ -32,7 +30,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	}
 
 	public boolean add(Music music) {
-		System.out.println("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
+		logger.trace("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
 		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
 		super.add(music);
 		if (currentNum == -1) {
@@ -46,14 +44,17 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	}
 
 	public Music getCurrent() throws Exception {
+		logger.trace("getCurrent");
 		if (currentNum > -1 && currentNum < super.size()) {
 			return super.get(currentNum);
 		} else {
+			logger.error("getCurrent : pas de music");
 			throw new Exception("pas de music");
 		}
 	}
 
 	protected boolean setCurrentNum(Integer num) {
+		logger.trace("setCurrentNum");
 		if (num >= 0 && num < super.size()) {
 			this.currentNum = num;
 			return true;

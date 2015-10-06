@@ -15,11 +15,10 @@ import javafx.embed.swing.JFXPanel;
 
 public class PlayerImpl implements Player {
 
-
+	protected static final Logger logger = LogManager.getLogger(PlayerImpl.class);
 	private  List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 	private PlaylistImpl playlist;
 	private PlayerState state =  PlayerState.STOP;
-	static final Logger logger = LogManager.getLogger(PlayerImpl.class);
 	private static PlayerImpl instance;
 
 	public static PlayerImpl getInstance() {
@@ -35,6 +34,7 @@ public class PlayerImpl implements Player {
 	
 	@Override
 	public void stop() throws Exception {
+		logger.trace("stop");
 		this.getPlaylist().getCurrent().getMediaPlayer().stop();
 
 		for (PlayerListener listener : listeners) {
@@ -65,18 +65,19 @@ public class PlayerImpl implements Player {
 
 
 	public void init() throws Exception {
-		System.out.println("Initialisation du player");
+		logger.info("Initialisation du player");
 		new JFXPanel();
 
 	}
 
 	public void destroy() throws Exception {
-		System.out.println("destroy du player");
+		logger.info("destroy du player");
 		Platform.exit();
 	}
 
 	@Override
 	public void next() throws Exception {
+		logger.trace("next");
 		this.stop();
 		if(this.playlist.setCurrentNum(this.playlist.getCurrentNum()+1)){
 			this.play();
@@ -86,6 +87,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void previous() throws Exception {
+		logger.trace("previous");
 		this.stop();
 		if(this.playlist.setCurrentNum(this.playlist.getCurrentNum()-1)){
 			this.play();
@@ -96,20 +98,24 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public Playlist getPlaylist() {
+		logger.trace("getPlaylist");
 		return this.playlist;
 	}
 
 	@Override
 	public void addPlayerListener(PlayerListener listener) {
+		logger.trace("addPlayerListener");
 		listeners.add(listener);
 		
 	}
 	@Override
 	public void removePlayerListener(PlayerListener listener) {
+		logger.trace("removePlayerListener");
 		listeners.remove(listener);
 	}
 	@Override
 	public PlayerState getState() {
+		logger.trace("getState");
 		return this.state;
 	}
 	

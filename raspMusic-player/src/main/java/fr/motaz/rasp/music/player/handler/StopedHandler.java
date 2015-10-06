@@ -1,10 +1,13 @@
 package fr.motaz.rasp.music.player.handler;
 
-public class StopedHandler implements Runnable {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+public class StopedHandler implements Runnable {
+	protected static final Logger logger = LogManager.getLogger(StopedHandler.class);
 	@Override
 	public void run() {
-		System.out.println("handler : stop");
+		logger.info("handler : stop");
 	}
 
 }
