@@ -2,8 +2,11 @@
 <div>
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="artist in artistsCtrl.artists">
-
-			<h4 class="list-group-item-heading">{{artist.name}} </h4>
+		<a href="#/artist/{{artist.name}}">
+		<span class="pull-right glyphicon glyphicon-menu-right"> </span>
+			<h4 class="list-group-item-heading">{{artist.name}}</h4>
+		</a>
+			
 		</li>
 	</ul>
 

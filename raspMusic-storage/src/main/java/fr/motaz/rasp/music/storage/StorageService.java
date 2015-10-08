@@ -50,6 +50,24 @@ public class StorageService {
 		Collections.sort(artists);
 		Collections.sort(musics);
 	}
+
+	public Artist getArtist(String name) {
+		for(Artist artist : artists){
+			if(artist.getName().equals(name)){
+				return artist;
+			}
+		}
+		return null;
+	}
+	public List<Music> getMusicsFromArtist(Artist artist) {
+		List<Music> resultat = new ArrayList<Music>();
+		for(Music music : musics){
+			if(music.getArtist().equals(artist)){
+				resultat.add(music);
+			}
+		}
+		return resultat;
+	}
 	
 	
 }

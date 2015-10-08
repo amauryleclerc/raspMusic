@@ -2,14 +2,17 @@
 <div>
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="music in musicsCtrl.musics">
-			<span class="pull-right">
-				<button class="btn " ng-click="musicsCtrl.add(music)">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-		</span>
-			<h4 class="list-group-item-heading">{{music.artist.name}} -
-				{{music.title}}</h4>
-			<p class="list-group-item-text">{{music.album.name}}</p>
+		<music-item music="music" add="musicsCtrl.add()">
+		
+		</music-item>
+<!-- 			<span class="pull-right"> -->
+<!-- 				<button class="btn " ng-click="musicsCtrl.add(music)"> -->
+<!-- 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+<!-- 				</button> -->
+<!-- 		</span> -->
+<!-- 			<h4 class="list-group-item-heading">{{music.artist.name}} - -->
+<!-- 				{{music.title}}</h4> -->
+<!-- 			<p class="list-group-item-text">{{music.album.name}}</p> -->
 		</li>
 	</ul>
 

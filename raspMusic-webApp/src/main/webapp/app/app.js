@@ -13,5 +13,9 @@ app.config(function($routeProvider) {
 		templateUrl : 'pages/artists.html',
 		controller : 'ArtistsCtrl as artistsCtrl'
 	})
+	.when('/artist/:artistName', {
+		templateUrl : 'pages/artist.html',
+		controller : 'ArtistCtrl as artistCtrl'
+	})
 
 });
