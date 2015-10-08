@@ -3,7 +3,7 @@
 app.directive('musicItem', function() {
 
 	return {
-		restrict : 'E',
+		restrict : 'EA',
 		transclude : false,
 		// replace : true,
 		scope : {

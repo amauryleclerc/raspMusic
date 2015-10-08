@@ -1,11 +1,10 @@
 
 <div>
 	<h3>{{artistCtrl.artist}}</h3>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="music in artistCtrl.musics">
-				<span class="pull-right glyphicon glyphicon-menu-right"> </span>
-				<h4 class="list-group-item-heading">{{music.title}}</h4>
-			</li>
-		</ul>
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="music in artistCtrl.musics">
+			<music-item music="music" add="artistCtrl.add(music)"> </music-item>
+		</li>
+	</ul>
 
 </div>
