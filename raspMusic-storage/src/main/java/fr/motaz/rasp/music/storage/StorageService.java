@@ -1,34 +1,55 @@
 package fr.motaz.rasp.music.storage;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import fr.motaz.rasp.music.model.Artist;
 import fr.motaz.rasp.music.model.Music;
 
 public class StorageService {
 	protected  static final Logger logger = LogManager.getLogger(StorageService.class);
+	private List<Music> musics; 
+	private List<Artist> artists;
+	
+	public StorageService() throws IOException{
+		musics = new ArrayList<Music>();
+		artists =   new ArrayList<Artist>();
+		this.searchMusic();
+	}
 	
 	public List<Music> getMusicList() throws Exception {
 		logger.trace("getMusicList");
-		List<Music> musics = new ArrayList<Music>();
+		return musics;
+	}
+	public List<Artist> getArtistList() throws Exception {
+		logger.trace("getMusicList");
+		return artists;
+	}
+	private void searchMusic() throws IOException{
+		logger.trace("searchMusic");
 		Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
 			if (Files.isRegularFile(filePath)) {
 				try {
-					musics.add(new Music(new File(filePath.toUri())));
+					Music music = new Music(new File(filePath.toUri()));
+					musics.add(music);
+					artists.add(music.getArtist());
 					logger.info("add : "+filePath.toUri());
 				} catch (Exception e) {
 					logger.debug("exception : "+filePath.toUri());
 				}
 			}
 		});
-		return musics;
-
+		Collections.sort(artists);
+		Collections.sort(musics);
 	}
-
+	
+	
 }

@@ -10,22 +10,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.motaz.rasp.music.model.Music;
+import fr.motaz.rasp.music.model.Artist;
 import fr.motaz.rasp.music.storage.StorageService;
 	
 
-@Path("/musics")
-public class MusicsResource {
-	protected  static final Logger logger = LogManager.getLogger(MusicsResource.class);
+@Path("/artists")
+public class ArtistsResource {
+	protected  static final Logger logger = LogManager.getLogger(ArtistsResource.class);
 
 	@Autowired
 	private StorageService storageService;
 
 	@GET
 	@Produces("application/json")
-	public List<Music> getMusics() throws Exception{
-		logger.trace("getMusics");
-		return  storageService.getMusicList();
+	public List<Artist> getArtists() throws Exception{
+		logger.trace("getArtists");
+		return  storageService.getArtistList();
 	}
 	
 

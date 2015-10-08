@@ -75,11 +75,12 @@ public class PlayerResource {
 	@Produces("application/json")
 	public Message getState() throws Exception {
 		logger.trace("getState");
-		if(player.getState().equals(PlayerState.PAUSE)){
+		PlayerState state = player.getState();
+		if(state.equals(PlayerState.PAUSE)){
 			return new Message("PAUSE");
-		}else if(player.getState().equals(PlayerState.PLAY)){
+		}else if(state.equals(PlayerState.PLAY)){
 			return new Message("PLAY");
-		}else if(player.getState().equals(PlayerState.STOP)){
+		}else if(state.equals(PlayerState.STOP)){
 			return new Message("STOP");
 		}
 		return null;

@@ -29,19 +29,19 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 
 	@Override
 	public void onOpen(Session session, EndpointConfig conf) {
+		logger.trace("websocket : open " + session.getRequestURI());
 		this.session = session;
 		sessions.add(session);
 		player.addPlayerListener(this);
 		player.getPlaylist().addPlaylistListener(this);
-		logger.trace("websocket : open " + session.getRequestURI());
 	}
 
 	@Override
 	public void onClose(Session session, CloseReason closeReason) {
+		logger.trace("websocket : close");
 		sessions.remove(session);
 		player.removePlayerListener(this);
 		player.getPlaylist().removePlaylistListener(this);
-		logger.trace("websocket : close");
 	}
 
 	@Override
