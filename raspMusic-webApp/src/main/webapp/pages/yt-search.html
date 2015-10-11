@@ -1,0 +1,22 @@
+
+<div>
+	<h3>YouTube search</h3>
+
+	<input type="text" ng-model="ytSearchCtrl.query" />
+	<button class="btn" ng-click="ytSearchCtrl.search()">Search</button>
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="video in ytSearchCtrl.videos">
+			<span class="pull-right">
+				<button class="btn ">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+		</span>
+			<h4 class="list-group-item-heading">{{video.snippet.title}}</h4>
+
+			<p class="list-group-item-text">{{video.snippet.channelTitle}}</p>
+
+		</li>
+	</ul>
+
+
+</div>

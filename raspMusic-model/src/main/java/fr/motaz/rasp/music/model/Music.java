@@ -52,7 +52,11 @@ public class Music implements Comparable<Music> {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		if(title !=null){
+			this.title = title;
+		}else{
+			this.title = "";
+		}
 	}
 
 	public Album getAlbum() {
