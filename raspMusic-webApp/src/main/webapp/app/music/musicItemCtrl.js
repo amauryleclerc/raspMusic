@@ -8,7 +8,10 @@ app.directive('musicItem', function() {
 		// replace : true,
 		scope : {
 			music : '=',
-			add : '&'
+			isPlaylist: '=',
+			add : '&',
+			remove : '&'
+				
 		},
 		controller : function($scope) {
 		},

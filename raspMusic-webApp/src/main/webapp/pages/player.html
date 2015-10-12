@@ -1,9 +1,9 @@
 
-<div>
-	<h2 ng-if="playerCtrl.music.title">{{playerCtrl.music.artist.name}} -
-		{{playerCtrl.music.title}}</h2>
-		<p class="list-group-item-text">{{playerCtrl.music.album.name}}</p>
-</div>
+<!-- <div> -->
+<!-- 	<h2 ng-if="playerCtrl.music.title">{{playerCtrl.music.artist.name}} - -->
+<!-- 		{{playerCtrl.music.title}}</h2> -->
+<!-- 		<p class="list-group-item-text">{{playerCtrl.music.album.name}}</p> -->
+<!-- </div> -->
 <div>
 	<button class="btn" ng-click="playerCtrl.previous()">
 		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
@@ -25,11 +25,13 @@
 </div>
 <div>
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="music in playerCtrl.playlist">
-			
-			<h4 class="list-group-item-heading">{{music.artist.name}} -
-				{{music.title}}</h4>
-			<p class="list-group-item-text">{{music.album.name}}</p>
+		<li class="list-group-item" ng-class="playerCtrl.checkActive(music)" ng-repeat="music in playerCtrl.playlist">
+			<music-item music="music" remove="playerCtrl.remove(music)" is-Playlist="true">
+		
+			</music-item>
+<!-- 			<h4 class="list-group-item-heading">{{music.artist.name}} - -->
+<!-- 				{{music.title}}</h4> -->
+<!-- 			<p class="list-group-item-text">{{music.album.name}}</p> -->
 		</li>
 	</ul>
 </div>

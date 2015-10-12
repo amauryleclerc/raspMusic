@@ -1,7 +1,10 @@
 
 <span class="pull-right">
-	<button class="btn " ng-click="add(music)">
+	<button class="btn " ng-click="add(music)" ng-if="!isPlaylist">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</button>
+	<button class="btn " ng-click="remove(music)" ng-if="isPlaylist">
+		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 	</button>
 </span>
 <h4 class="list-group-item-heading">{{music.artist.name}} -

@@ -18,6 +18,7 @@ public class Music implements Comparable<Music> {
 	private Artist artist;
 	private String path;
 	private String id;
+	private Integer position;
 	private transient MediaPlayer mediaPlayer = null;
 
 	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
@@ -103,6 +104,14 @@ public class Music implements Comparable<Music> {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Integer getPosition() {
+		return position;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
 	}
 
 }

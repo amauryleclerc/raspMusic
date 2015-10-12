@@ -16,9 +16,10 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	private static final long serialVersionUID = 6951635866659303171L;
 	protected static final Logger logger = LogManager.getLogger(PlaylistImpl.class);
 	private  int currentNum = -1;
+	private  int nbMusic = 0;
 	private  List<PlaylistListener> listeners = new ArrayList<PlaylistListener>();
 	private transient static PlaylistImpl instance;
-
+	
 	public static PlaylistImpl getInstance() {
 		if (instance == null) {
 			instance = new PlaylistImpl();
@@ -39,7 +40,10 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 //			return false;
 //		}
 		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
+		music.setPosition(nbMusic);
+		nbMusic++;
 		super.add(music);
+
 		if (currentNum == -1) {
 			currentNum++;
 		}
@@ -83,6 +87,20 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	@Override
 	public void removePlaylistListener(PlaylistListener listener) {
 		this.listeners.remove(listener);
+		
+	}
+
+	@Override
+	public void remove(Music musicRemove) {
+		for(Music music : this){
+			if(music.getPosition().equals(musicRemove.getPosition())){
+				super.remove(music);
+				for (PlaylistListener listener : listeners) {
+					listener.onRemove(music);
+				}
+				break;
+			}
+		}
 		
 	}
 

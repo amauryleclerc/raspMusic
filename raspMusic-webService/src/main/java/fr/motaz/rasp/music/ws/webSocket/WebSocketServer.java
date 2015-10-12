@@ -85,4 +85,10 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 
 	}
 
+	@Override
+	public void onRemove(Music music) {
+		this.send(new Message("REMOVE", music));
+		
+	}
+
 }

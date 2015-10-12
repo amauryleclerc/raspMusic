@@ -12,6 +12,9 @@ app.factory('Player', [ '$resource', function($resource) {
 		'add' : {
 			method : 'PUT', url:'/api/player/playlist/add'
 		},
+		'remove' : {
+			method : 'PUT', url:'/api/player/playlist/remove'
+		},
 		'next' : {
 			method : 'POST', url:'/api/player/next'
 		},

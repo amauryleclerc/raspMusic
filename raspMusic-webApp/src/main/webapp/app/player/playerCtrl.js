@@ -20,7 +20,13 @@ app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, Playe
 	this.previous = function() {
 		Player.previous();
 	}
-	
-
+	this.remove = function(music) {
+		Player.remove(music);
+	}
+	this.checkActive = function(music) {
+		if(music.position===this.music.position){
+			return "active";
+		}
+	}
 		
 } ]);
