@@ -1,14 +1,23 @@
 'use strict';
 
-app.controller('YtSearchCtrl', [ '$scope', 'gapi', function($scope, gapi) {
+app.controller('YtSearchCtrl', [ '$scope', 'gapi', 'Player', function($scope, gapi, Player) {
 	this.query = "";
 	this.videos = [];
 
 	this.search = function() {
 		console.log("search");
-		
 		gapi.login().then(callbackCreator(this.query, this.videos));
 	}
+	this.add = function(video){
+		console.log("add");
+		var music = {id:video.id.videoId, title:video.snippet.title, artist:{name:video.snippet.channelTitle}};
+		Player.add(music);
+	}
+	
+	
+	
+	
+	
 	function callbackCreator(query, videos) {
 		return function() {
 			console.log("query" + query)

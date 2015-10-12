@@ -15,7 +15,7 @@
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="video in ytSearchCtrl.videos">
 			<span class="pull-right">
-				<button class="btn ">
+				<button class="btn" ng-click="ytSearchCtrl.add(video)">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</button>
 		</span>

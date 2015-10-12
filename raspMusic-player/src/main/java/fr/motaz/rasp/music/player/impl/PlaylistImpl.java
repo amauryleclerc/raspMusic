@@ -32,6 +32,12 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 
 	public boolean add(Music music) {
 		logger.trace("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
+//		if(music.getId() != null){
+//			logger.trace("playlist : add YOUTUBE");
+//			StorageS
+//			
+//			return false;
+//		}
 		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
 		super.add(music);
 		if (currentNum == -1) {

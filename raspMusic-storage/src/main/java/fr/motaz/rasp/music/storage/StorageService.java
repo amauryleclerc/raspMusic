@@ -2,6 +2,7 @@ package fr.motaz.rasp.music.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.github.axet.vget.VGet;
+import com.github.axet.vget.info.VideoInfo;
 
 import fr.motaz.rasp.music.model.Artist;
 import fr.motaz.rasp.music.model.Music;
@@ -68,6 +72,12 @@ public class StorageService {
 		}
 		return resultat;
 	}
-	
+	public void addYoutubeVideo(Music music) throws IOException{
+		logger.trace("addYoutubeVideo");
+		URL url = new  URL("http://www.youtube.com/watch?v="+music.getId());
+		File file = new File(RaspConf.getPropValue("music.folder.temp.path")+"/"+music.getId()+".mp4");
+		 VGet v = new VGet(url, file);
+         v.download();
+	}
 	
 }

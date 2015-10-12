@@ -13,13 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.Playlist;
+import fr.motaz.rasp.music.storage.StorageService;
 import fr.motaz.rasp.music.ws.util.MapperUtil;
 
 public class PlaylistResource {
 	protected  static final Logger logger = LogManager.getLogger(PlaylistResource.class);
 	@Autowired
 	private Player player;
-
+	@Autowired
+	private StorageService storageService;
 	@GET
 	public Playlist getPlaylist(){
 		return player.getPlaylist();
@@ -37,7 +39,12 @@ public class PlaylistResource {
 	public Response addMusic(String musicStr) throws Exception {
 		logger.trace("addMusic "+musicStr);
 		Music music = MapperUtil.readAsObjectOf(Music.class, musicStr);
-		player.getPlaylist().add(music);
+		if(music.getId() == null){
+			player.getPlaylist().add(music);
+		}else{
+			storageService.addYoutubeVideo(music);
+		}
+		
 		return Response.ok().build();
 	}
 }
