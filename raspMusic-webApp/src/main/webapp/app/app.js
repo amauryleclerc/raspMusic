@@ -26,6 +26,9 @@ app.config(['gapiProvider', '$routeProvider', function(gapiProvider, $routeProvi
         .clientId('786976564501-i1dgcl989k9qug6brteok2drjl23msud.apps.googleusercontent.com'); // you can obtain them in gogle dev console
        // scopes is space delimited string
 }]);
+
+
+
 //angular.module('ngm.NgGapi')
 //.provider('OauthService', NgGapi.Config)
 //.config(function (OauthServiceProvider) {

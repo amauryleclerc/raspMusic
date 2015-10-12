@@ -1,9 +1,17 @@
 
 <div>
-	<h3>YouTube search</h3>
 
-	<input type="text" ng-model="ytSearchCtrl.query" />
-	<button class="btn" ng-click="ytSearchCtrl.search()">Search</button>
+	<div class="input-group stylish-input-group">
+		<input type="text" class="form-control"
+			placeholder="Recherche Youtube" ng-model="ytSearchCtrl.query"
+			ng-change="ytSearchCtrl.search()"> <span
+			class="input-group-addon">
+			<button type="submit" ng-click="ytSearchCtrl.search()">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button>
+		</span>
+	</div>
+	<br>
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="video in ytSearchCtrl.videos">
 			<span class="pull-right">
@@ -11,9 +19,18 @@
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</button>
 		</span>
-			<h4 class="list-group-item-heading">{{video.snippet.title}}</h4>
 
-			<p class="list-group-item-text">{{video.snippet.channelTitle}}</p>
+			<div>
+				<img class="image" alt="{{video.snippet.title}}"
+					src="{{video.snippet.thumbnails.default.url}}" />
+			</div>
+
+			<div class="title">
+				<h4>{{video.snippet.title}}</h4>
+				<p class="list-group-item-text">{{video.snippet.channelTitle}}</p>
+				<p>&nbsp</p>
+			</div>
+
 
 		</li>
 	</ul>

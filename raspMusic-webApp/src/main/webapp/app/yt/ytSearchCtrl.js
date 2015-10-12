@@ -3,8 +3,10 @@
 app.controller('YtSearchCtrl', [ '$scope', 'gapi', function($scope, gapi) {
 	this.query = "";
 	this.videos = [];
-	this.search = function() {
 
+	this.search = function() {
+		console.log("search");
+		
 		gapi.login().then(callbackCreator(this.query, this.videos));
 	}
 	function callbackCreator(query, videos) {
@@ -20,7 +22,7 @@ app.controller('YtSearchCtrl', [ '$scope', 'gapi', function($scope, gapi) {
 	function callbackCreatorVideo(videos) {
 		return function(response) {
 			console.log(response);
-
+			videos.length = 0;
 			for (var i = 0, len = response.items.length; i < len; ++i) {
 				videos.push(response.items[i]);
 			}
