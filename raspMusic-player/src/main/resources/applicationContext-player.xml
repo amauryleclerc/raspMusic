@@ -11,6 +11,9 @@
 	<bean id="player" class="fr.motaz.rasp.music.player.impl.PlayerImpl" factory-method="getInstance"
 		scope="singleton" init-method="init">
 	</bean>
+		<bean id="playlist" class="fr.motaz.rasp.music.player.impl.PlaylistImpl" factory-method="getInstance"
+		scope="singleton" >
+	</bean>
 </beans>
                 
             

@@ -21,6 +21,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	private transient static PlaylistImpl instance;
 	
 	public static PlaylistImpl getInstance() {
+		logger.trace("playlist : getInstance ");
 		if (instance == null) {
 			instance = new PlaylistImpl();
 		}
