@@ -9,8 +9,7 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 
 public class Music implements Comparable<Music> {
 	private String title;
@@ -19,8 +18,7 @@ public class Music implements Comparable<Music> {
 	private String path;
 	private String id;
 	private Integer position;
-	private transient MediaPlayer mediaPlayer = null;
-
+	private transient DirectMediaPlayer mediaPlayer = null;
 	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
 		this.setFile(file);
 	}
@@ -78,11 +76,15 @@ public class Music implements Comparable<Music> {
 	}
 
 	@JsonIgnore
-	public MediaPlayer getMediaPlayer() {
-		if (mediaPlayer == null) {
-			mediaPlayer = new MediaPlayer(new Media(new File(this.path).toURI().toString()));
+	public DirectMediaPlayer getMediaPlayer() {
+		if (this.mediaPlayer == null) {
+			if(this.id == null){
+				this.mediaPlayer = MediaPlayerFactory.getLocalMediaPlayer(path);
+			}else{
+				this.mediaPlayer = MediaPlayerFactory.getYTMediaPlayer(id);
+			}
 		}
-		return mediaPlayer;
+		return this.mediaPlayer;
 	}
 
 	public String getPath() {

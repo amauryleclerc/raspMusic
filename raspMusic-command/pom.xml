@@ -19,7 +19,7 @@
 				</includes>
 			</resource>
 		</resources>
-	
+
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
@@ -62,9 +62,18 @@
 			<artifactId>spring-context</artifactId>
 			<version>3.2.14.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>uk.co.caprica</groupId>
+			<artifactId>vlcj</artifactId>
+			<version>3.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
 
 	</dependencies>
 
-	
+
 </project>

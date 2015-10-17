@@ -1,6 +1,5 @@
 package fr.motaz.rasp.music.player.impl;
 
-import java.awt.Panel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +11,6 @@ import fr.motaz.rasp.music.player.Player;
 import fr.motaz.rasp.music.player.PlayerListener;
 import fr.motaz.rasp.music.player.PlayerState;
 import fr.motaz.rasp.music.player.Playlist;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 
 public class PlayerImpl implements Player {
 
@@ -21,22 +18,23 @@ public class PlayerImpl implements Player {
 
 	@Autowired
 	private PlaylistImpl playlist;
-	private  List<PlayerListener> listeners = new ArrayList<PlayerListener>();
-	private PlayerState state =  PlayerState.STOP;
+	private List<PlayerListener> listeners = new ArrayList<PlayerListener>();
+	private PlayerState state = PlayerState.STOP;
 	private static PlayerImpl instance;
 
 	public static PlayerImpl getInstance() {
 		logger.trace("player : getInstance");
 		if (instance == null) {
 			instance = new PlayerImpl();
-			
+
 		}
 		return instance;
 	}
-	private PlayerImpl(){
-	
+
+	private PlayerImpl() {
+
 	}
-	
+
 	@Override
 	public void stop() throws Exception {
 		logger.trace("stop");
@@ -50,7 +48,9 @@ public class PlayerImpl implements Player {
 	@Override
 	public void play() throws Exception {
 		logger.trace("play");
+
 		this.getPlaylist().getCurrent().getMediaPlayer().play();
+
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getPlaylist().getCurrent());
 		}
@@ -60,45 +60,44 @@ public class PlayerImpl implements Player {
 	@Override
 	public void pause() throws Exception {
 		logger.trace("pause");
-		this.getPlaylist().getCurrent().getMediaPlayer().pause();
+
+			this.getPlaylist().getCurrent().getMediaPlayer().pause();
+	
 		for (PlayerListener listener : listeners) {
 			listener.onPause();
 		}
 		this.state = PlayerState.PAUSE;
 	}
 
-
 	public void init() throws Exception {
 		logger.info("Initialisation du player");
-		new JFXPanel();
+		// new JFXPanel();
 
 	}
 
 	public void destroy() throws Exception {
 		logger.info("destroy du player");
-		Platform.exit();
+		// Platform.exit();
 	}
 
 	@Override
 	public void next() throws Exception {
 		logger.trace("next");
 		this.stop();
-		if(this.playlist.setCurrentNum(this.playlist.getCurrentNum()+1)){
+		if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() + 1)) {
 			this.play();
 		}
-	
+
 	}
 
 	@Override
 	public void previous() throws Exception {
 		logger.trace("previous");
 		this.stop();
-		if(this.playlist.setCurrentNum(this.playlist.getCurrentNum()-1)){
+		if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() - 1)) {
 			this.play();
 		}
 	}
-
-	
 
 	@Override
 	public Playlist getPlaylist() {
@@ -110,19 +109,19 @@ public class PlayerImpl implements Player {
 	public void addPlayerListener(PlayerListener listener) {
 		logger.trace("addPlayerListener");
 		listeners.add(listener);
-		
+
 	}
+
 	@Override
 	public void removePlayerListener(PlayerListener listener) {
 		logger.trace("removePlayerListener");
 		listeners.remove(listener);
 	}
+
 	@Override
 	public PlayerState getState() {
 		logger.trace("getState");
 		return this.state;
 	}
-	
-	
 
 }

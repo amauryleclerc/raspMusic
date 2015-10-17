@@ -10,7 +10,6 @@ import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Playlist;
 import fr.motaz.rasp.music.player.PlaylistListener;
 import fr.motaz.rasp.music.player.exception.PlayerException;
-import fr.motaz.rasp.music.player.handler.EndOfMediaHandler;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	private static final long serialVersionUID = 6951635866659303171L;
@@ -34,13 +33,6 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 
 	public boolean add(Music music) {
 		logger.trace("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
-//		if(music.getId() != null){
-//			logger.trace("playlist : add YOUTUBE");
-//			StorageS
-//			
-//			return false;
-//		}
-		music.getMediaPlayer().setOnEndOfMedia(new EndOfMediaHandler());
 		music.setPosition(nbMusic);
 		nbMusic++;
 		super.add(music);
@@ -69,6 +61,13 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 		logger.trace("setCurrentNum");
 		if (num >= 0 && num < super.size()) {
 			this.currentNum = num;
+			if(this.currentNum > 4){
+				Music music = super.remove(0);
+				this.currentNum--;
+				for (PlaylistListener listener : listeners) {
+					listener.onRemove(music);
+				}
+			}
 			return true;
 		}
 		return false;
