@@ -10,7 +10,7 @@ app.controller('YtSearchCtrl', [ '$scope', 'gapi', 'Player', function($scope, ga
 	}
 	this.add = function(video){
 		console.log("add");
-		var music = {id:video.id.videoId, title:video.snippet.title, album:{name:video.snippet.channelTitle}};
+		var music = {id:video.id.videoId, title:video.snippet.title, album:{name:video.snippet.channelTitle}, artist:{name:''}};
 		Player.add(music);
 	}
 	

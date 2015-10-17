@@ -35,9 +35,9 @@ public class Music implements Comparable<Music> {
 			Artist albumArtist = new Artist();
 			albumArtist.setName(id3v2Tag.getAlbumArtist());
 			Album album = new Album();
-			album.addMusic(this);
+//			album.addMusic(this);
 			album.setName(id3v2Tag.getAlbum());
-			album.setArtiste(albumArtist);
+//			album.setArtiste(albumArtist);
 			this.setAlbum(album);
 			this.setArtist(artist);
 		}

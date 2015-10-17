@@ -7,6 +7,5 @@
 		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 	</button>
 </span>
-<h4 class="list-group-item-heading">{{music.artist.name}} -
-	{{music.title}}</h4>
+<h4 class="list-group-item-heading">{{music.artist.name}}<span ng-if="music.artist.name != ''"> - </span>{{music.title}}</h4>
 <p class="list-group-item-text">{{music.album.name}}</p>
