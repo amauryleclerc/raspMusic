@@ -1,5 +1,7 @@
 package fr.motaz.rasp.music.model;
 
+import com.sun.jna.NativeLibrary;
+
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
@@ -7,6 +9,7 @@ import uk.co.caprica.vlcj.player.direct.BufferFormat;
 import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class MediaPlayerFactory {
 
@@ -16,6 +19,9 @@ public class MediaPlayerFactory {
 
 		boolean found = new NativeDiscovery().discover();
 		System.out.println(found);
+		if (!found) {
+			NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "Y:/vlcdll");
+		}
 		System.out.println(LibVlc.INSTANCE.libvlc_get_version());
 
 		INIT = true;
