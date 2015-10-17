@@ -48,8 +48,8 @@ public class StorageService {
 				}
 			}
 		});
-		Collections.sort(artists);
-		Collections.sort(musics);
+//		Collections.sort(artists);
+//		Collections.sort(musics);
 	}
 
 	public Artist getArtist(String name) {
