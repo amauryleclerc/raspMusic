@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-	
+
 		<jersey.version>2.22</jersey.version>
 
 	</properties>
@@ -105,9 +105,21 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-
-	
+		
 
 	</dependencies>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://192.168.1.250:80/manager/text</url>
+					<path>/api</path>
+					<update>true</update>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

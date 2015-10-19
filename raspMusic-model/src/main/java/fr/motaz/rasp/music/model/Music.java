@@ -27,7 +27,7 @@ public class Music implements Comparable<Music> {
 		this.path = (file.getPath());
 		Mp3File mp3file = null;
 		mp3file = new Mp3File(file);
-		if (mp3file.hasId3v2Tag()) {
+		if (mp3file.hasId3v2Tag() && mp3file.getId3v2Tag().getTitle() != null) {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
 			this.setTitle(id3v2Tag.getTitle());
 			Artist artist = new Artist();
@@ -40,6 +40,8 @@ public class Music implements Comparable<Music> {
 //			album.setArtiste(albumArtist);
 			this.setAlbum(album);
 			this.setArtist(artist);
+		}else{
+			this.title = file.getName();
 		}
 	}
 

@@ -11,12 +11,17 @@ app
 							Service.currentMusic = Player.getCurrent();
 							Service.playlist = Player.getPlaylist();
 							Service.state = Player.getState();
-
-							var ws = new WebSocket("ws://"
-									+ document.location.hostname + ":"
-									+ document.location.port
-									+ document.location.pathname
-									+ "api/websocket");
+							var port =80;
+							if(document.location.port){
+								port = document.location.port;
+							}
+							var url = "ws://"
+								+ document.location.hostname + ":"
+								+ port
+								+ "/api/websocket";
+//							document.location.pathname
+							console.log(url);
+							var ws = new WebSocket(url);
 
 							ws.onopen = function() {
 								console.log("WebSocket : open");

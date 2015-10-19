@@ -1,19 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>fr.motaz.raspMusic</groupId>
-    <artifactId>raspMusic-parent</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>raspMusic-webApp</artifactId>
-  <packaging>war</packaging>
-  
-  <dependencies>
-  	<dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>fr.motaz.raspMusic</groupId>
+		<artifactId>raspMusic-parent</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>raspMusic-webApp</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-  </dependencies>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				  
+				<configuration>
+					<url>http://192.168.1.250:80/manager/text</url>
+					<path>/raspmusic</path>
+					<update>true</update>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
