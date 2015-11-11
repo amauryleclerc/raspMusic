@@ -10,6 +10,7 @@ import fr.motaz.rasp.music.model.Music;
 import fr.motaz.rasp.music.player.Playlist;
 import fr.motaz.rasp.music.player.PlaylistListener;
 import fr.motaz.rasp.music.player.exception.PlayerException;
+import fr.motaz.rasp.music.player.factory.MusicFactory;
 
 public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	private static final long serialVersionUID = 6951635866659303171L;
@@ -32,6 +33,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	}
 
 	public boolean add(Music music) {
+		music = MusicFactory.getInstance(music);
 		logger.trace("playlist : add "+ music.getArtist().getName()+" - "+music.getTitle());
 		music.setPosition(nbMusic);
 		nbMusic++;

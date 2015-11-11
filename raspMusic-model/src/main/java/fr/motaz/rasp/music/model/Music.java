@@ -3,22 +3,18 @@ package fr.motaz.rasp.music.model;
 import java.io.File;
 import java.io.IOException;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
-import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
-
-public class Music implements Comparable<Music> {
+public  class Music implements Comparable<Music> {
 	private String title;
 	private Album album;
 	private Artist artist;
 	private String path;
 	private String id;
 	private Integer position;
-	private transient DirectMediaPlayer mediaPlayer = null;
 	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
 		this.setFile(file);
 	}
@@ -77,17 +73,7 @@ public class Music implements Comparable<Music> {
 		this.artist = artist;
 	}
 
-	@JsonIgnore
-	public DirectMediaPlayer getMediaPlayer() {
-		if (this.mediaPlayer == null) {
-			if(this.id == null){
-				this.mediaPlayer = MediaPlayerFactory.getLocalMediaPlayer(path);
-			}else{
-				this.mediaPlayer = MediaPlayerFactory.getYTMediaPlayer(id);
-			}
-		}
-		return this.mediaPlayer;
-	}
+
 
 	public String getPath() {
 		return path;

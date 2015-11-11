@@ -38,7 +38,7 @@ public class PlayerImpl implements Player {
 	@Override
 	public void stop() throws Exception {
 		logger.trace("stop");
-		this.getPlaylist().getCurrent().getMediaPlayer().stop();
+		((MusicImpl) this.getPlaylist().getCurrent()).getMediaPlayer().stop();
 		for (PlayerListener listener : listeners) {
 			listener.onStop();
 		}
@@ -49,7 +49,7 @@ public class PlayerImpl implements Player {
 	public void play() throws Exception {
 		logger.trace("play");
 
-		this.getPlaylist().getCurrent().getMediaPlayer().play();
+		((MusicImpl) this.getPlaylist().getCurrent()).getMediaPlayer().play();
 
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getPlaylist().getCurrent());
@@ -61,7 +61,7 @@ public class PlayerImpl implements Player {
 	public void pause() throws Exception {
 		logger.trace("pause");
 
-			this.getPlaylist().getCurrent().getMediaPlayer().pause();
+			((MusicImpl) this.getPlaylist().getCurrent()).getMediaPlayer().pause();
 	
 		for (PlayerListener listener : listeners) {
 			listener.onPause();

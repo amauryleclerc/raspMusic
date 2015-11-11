@@ -1,15 +1,12 @@
-package fr.motaz.rasp.music.model;
+package fr.motaz.rasp.music.player.factory;
 
-import com.sun.jna.NativeLibrary;
-
-import uk.co.caprica.vlcj.binding.LibVlc;
+import fr.motaz.rasp.music.player.listener.PlayerEventListener;
 import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.direct.BufferFormat;
 import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class MediaPlayerFactory {
 
@@ -48,6 +45,7 @@ public class MediaPlayerFactory {
 		});
 		mediaPlayerComponent.getMediaPlayer().setPlaySubItems(true);
 		mediaPlayerComponent.getMediaPlayer().prepareMedia(path);
+		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new PlayerEventListener());
 		return mediaPlayerComponent.getMediaPlayer();
 	}
 }

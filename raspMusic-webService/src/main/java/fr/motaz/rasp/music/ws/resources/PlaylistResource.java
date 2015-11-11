@@ -40,7 +40,6 @@ public class PlaylistResource {
 	public Response addMusic(String musicStr) throws Exception {
 		logger.trace("addMusic " + musicStr);
 		Music music = MapperUtil.readAsObjectOf(Music.class, musicStr);
-		System.out.println(music.getId());
 		player.getPlaylist().add(music);
 		return Response.ok().build();
 	}
