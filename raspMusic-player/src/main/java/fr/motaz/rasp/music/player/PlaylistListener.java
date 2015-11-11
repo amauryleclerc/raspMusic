@@ -6,4 +6,5 @@ public interface PlaylistListener {
 
 	public void onAdd(Music music);
 	public void onRemove(Music music);
+	public void onChangeCurrent(Music music);
 }

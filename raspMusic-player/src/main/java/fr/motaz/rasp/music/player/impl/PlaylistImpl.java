@@ -70,6 +70,14 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 					listener.onRemove(music);
 				}
 			}
+
+				try {
+					for (PlaylistListener listener : listeners) {
+						listener.onChangeCurrent(this.getCurrent());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+			}
 			return true;
 		}
 		return false;
@@ -95,7 +103,7 @@ public class PlaylistImpl extends ArrayList<Music>implements Playlist {
 	@Override
 	public void remove(Music musicRemove) {
 		for(Music music : this){
-			if(music.getPosition().equals(musicRemove.getPosition())){
+			if(music.getPosition().equals(musicRemove.getPosition())&& music.getPosition()!=currentNum){
 				super.remove(music);
 				for (PlaylistListener listener : listeners) {
 					listener.onRemove(music);

@@ -9,6 +9,7 @@ app.directive('musicItem', function() {
 		scope : {
 			music : '=',
 			isPlaylist: '=',
+			isCurrent: '=',
 			add : '&',
 			remove : '&'
 				

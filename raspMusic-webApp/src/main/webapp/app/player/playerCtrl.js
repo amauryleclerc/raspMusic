@@ -24,9 +24,7 @@ app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, Playe
 		Player.remove(music);
 	}
 	this.checkActive = function(music) {
-		if(music.position===this.music.position){
-			return "active";
-		}
+		return music.position===this.music.position;
 	}
 		
 } ]);

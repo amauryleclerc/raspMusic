@@ -91,4 +91,9 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		
 	}
 
+	@Override
+	public void onChangeCurrent(Music music) {
+		this.send(new Message("CHANGE", music));
+	}
+
 }

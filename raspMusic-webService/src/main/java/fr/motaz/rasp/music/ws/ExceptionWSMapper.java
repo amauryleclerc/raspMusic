@@ -3,7 +3,7 @@ package fr.motaz.rasp.music.ws;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
-public class ExeceptionWSMapper implements  ExceptionMapper<Exception> {
+public class ExceptionWSMapper implements  ExceptionMapper<Exception> {
 	 
 
 		@Override

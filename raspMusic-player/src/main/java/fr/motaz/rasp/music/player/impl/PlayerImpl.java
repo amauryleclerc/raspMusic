@@ -83,9 +83,13 @@ public class PlayerImpl implements Player {
 	@Override
 	public void next() throws Exception {
 		logger.trace("next");
-		this.stop();
-		if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() + 1)) {
-			this.play();
+		if(this.getPlaylist().getCurrent() != null && ((MusicImpl)this.getPlaylist().getCurrent()).getMediaPlayer().isPlaying()){
+			this.stop();
+			if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() + 1)) {
+				this.play();
+			}
+		}else{
+			this.playlist.setCurrentNum(this.playlist.getCurrentNum() + 1);
 		}
 
 	}
@@ -93,10 +97,15 @@ public class PlayerImpl implements Player {
 	@Override
 	public void previous() throws Exception {
 		logger.trace("previous");
-		this.stop();
-		if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() - 1)) {
-			this.play();
+		if(this.getPlaylist().getCurrent() != null && ((MusicImpl)this.getPlaylist().getCurrent()).getMediaPlayer().isPlaying()){
+			this.stop();
+			if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() - 1)) {
+				this.play();
+			}
+		}else{
+			this.playlist.setCurrentNum(this.playlist.getCurrentNum() - 1);
 		}
+	
 	}
 
 	@Override

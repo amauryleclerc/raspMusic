@@ -2,11 +2,9 @@ package fr.motaz.rasp.music.storage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,34 +18,39 @@ public class StorageService {
 	private List<Music> musics; 
 	private List<Artist> artists;
 	
-	public StorageService() throws IOException{
+	public StorageService() throws StorageException{
 		musics = new ArrayList<Music>();
 		artists =   new ArrayList<Artist>();
 		this.searchMusic();
 	}
 	
-	public List<Music> getMusicList() throws Exception {
+	public List<Music> getMusicList() throws StorageException {
 		logger.trace("getMusicList");
 		return musics;
 	}
-	public List<Artist> getArtistList() throws Exception {
+	public List<Artist> getArtistList() throws StorageException {
 		logger.trace("getMusicList");
 		return artists;
 	}
-	private void searchMusic() throws IOException{
+	private void searchMusic() throws StorageException{
 		logger.trace("searchMusic");
-		Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
-			if (Files.isRegularFile(filePath)) {
-				try {
-					Music music = new Music(new File(filePath.toUri()));
-					musics.add(music);
-					artists.add(music.getArtist());
-					logger.info("add : "+filePath.toUri());
-				} catch (Exception e) {
-					logger.debug("exception : "+filePath.toUri());
+		try {
+			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
+				if (Files.isRegularFile(filePath)) {
+					try {
+						Music music = new Music(new File(filePath.toUri()));
+						musics.add(music);
+						artists.add(music.getArtist());
+						logger.info("add : "+filePath.toUri());
+					} catch (Exception e) {
+						logger.debug("exception : "+filePath.toUri());
+						
+					}
 				}
-			}
-		});
+			});
+		} catch (IOException e) {
+			new StorageException(e);
+		}
 //		Collections.sort(artists);
 //		Collections.sort(musics);
 	}

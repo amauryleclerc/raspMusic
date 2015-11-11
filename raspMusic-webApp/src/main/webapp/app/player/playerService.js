@@ -43,7 +43,13 @@ app
 									if (data.action === "PLAY") {
 										_.assign(Service.currentMusic,
 												data.music);
+									
 										_.assign(Service.state, data);
+									}
+										else if (data.action === "CHANGE") {
+											_.assign(Service.currentMusic,
+													data.music);
+										
 									} else if (data.action === "ADD") {
 										if (typeof Service.currentMusic.title == "undefined") {
 											_.assign(Service.currentMusic,

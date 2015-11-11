@@ -1,5 +1,9 @@
 package fr.motaz.rasp.music.player.factory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import fr.motaz.rasp.music.player.impl.PlayerImpl;
 import fr.motaz.rasp.music.player.listener.PlayerEventListener;
 import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
@@ -8,14 +12,15 @@ import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
-public class MediaPlayerFactory {
 
+public class MediaPlayerFactory {
+	protected static final Logger logger = LogManager.getLogger(PlayerImpl.class);
 	private static boolean INIT = false;
 
 	public static  void init() {
 
 		boolean found = new NativeDiscovery().discover();
-		System.out.println(found);
+		logger.debug("discover found : "+ found);
 		INIT = true;
 	}
 

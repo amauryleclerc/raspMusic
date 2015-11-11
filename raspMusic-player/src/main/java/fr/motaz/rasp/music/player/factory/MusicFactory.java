@@ -13,7 +13,6 @@ public class MusicFactory {
 		return new MusicImpl();		
 	}
 	public static Music getInstance(Music music){
-		System.out.println("test");
 		Music musicImpl = new MusicImpl();
 		musicImpl.setAlbum(music.getAlbum());
 		musicImpl.setArtist(music.getArtist());

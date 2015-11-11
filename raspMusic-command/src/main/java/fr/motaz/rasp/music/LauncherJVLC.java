@@ -11,8 +11,7 @@ public class LauncherJVLC {
 
 	public static void main(String[] args) throws Exception {
 		boolean found = new NativeDiscovery().discover();
-		System.out.println(found);
-		System.out.println(LibVlc.INSTANCE.libvlc_get_version());
+		
 		DirectMediaPlayerComponent mediaPlayerComponent;
 
 
