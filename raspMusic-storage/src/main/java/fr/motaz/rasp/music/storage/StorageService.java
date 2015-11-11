@@ -38,7 +38,8 @@ public class StorageService {
 			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
 					try {
-						Music music = new Music(new File(filePath.toUri()));
+						Music music = MusicFactory.getIntance(new File(filePath.toUri()));
+//						new Music(new File(filePath.toUri()));
 						musics.add(music);
 						artists.add(music.getArtist());
 						logger.info("add : "+filePath.toUri());
@@ -63,6 +64,18 @@ public class StorageService {
 		}
 		return null;
 	}
+	public Artist createOrGetArtist(String name) {
+		for(Artist artist : artists){
+			if(artist.getName().equals(name)){
+				return artist;
+			}
+		}
+		Artist artist = new Artist();
+		artist.setName(name);
+		this.artists.add(artist);
+		return artist;
+	}
+	
 	public List<Music> getMusicsFromArtist(Artist artist) {
 		List<Music> resultat = new ArrayList<Music>();
 		for(Music music : musics){

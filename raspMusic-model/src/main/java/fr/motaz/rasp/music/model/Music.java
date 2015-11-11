@@ -1,45 +1,12 @@
 package fr.motaz.rasp.music.model;
 
-import java.io.File;
-import java.io.IOException;
-
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
-
-public  class Music implements Comparable<Music> {
+public class Music implements Comparable<Music> {
 	private String title;
 	private Album album;
 	private Artist artist;
 	private String path;
 	private String id;
 	private Integer position;
-	public Music(File file) throws UnsupportedTagException, InvalidDataException, IOException {
-		this.setFile(file);
-	}
-
-	private void setFile(File file) throws UnsupportedTagException, InvalidDataException, IOException {
-		this.path = (file.getPath());
-		Mp3File mp3file = null;
-		mp3file = new Mp3File(file);
-		if (mp3file.hasId3v2Tag() && mp3file.getId3v2Tag().getTitle() != null) {
-			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-			this.setTitle(id3v2Tag.getTitle());
-			Artist artist = new Artist();
-			artist.setName(id3v2Tag.getArtist());
-			Artist albumArtist = new Artist();
-			albumArtist.setName(id3v2Tag.getAlbumArtist());
-			Album album = new Album();
-//			album.addMusic(this);
-			album.setName(id3v2Tag.getAlbum());
-//			album.setArtiste(albumArtist);
-			this.setAlbum(album);
-			this.setArtist(artist);
-		}else{
-			this.title = file.getName();
-		}
-	}
 
 	public Music() {
 
@@ -50,9 +17,9 @@ public  class Music implements Comparable<Music> {
 	}
 
 	public void setTitle(String title) {
-		if(title !=null){
+		if (title != null) {
 			this.title = title;
-		}else{
+		} else {
 			this.title = "";
 		}
 	}
@@ -73,14 +40,12 @@ public  class Music implements Comparable<Music> {
 		this.artist = artist;
 	}
 
-
-
 	public String getPath() {
 		return path;
 	}
 
-	public void setPath(String path) throws UnsupportedTagException, InvalidDataException, IOException {
-		this.setFile(new File(path));
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	@Override
