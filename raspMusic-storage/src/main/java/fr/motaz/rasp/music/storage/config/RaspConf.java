@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music.storage;
+package fr.motaz.rasp.music.storage.config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

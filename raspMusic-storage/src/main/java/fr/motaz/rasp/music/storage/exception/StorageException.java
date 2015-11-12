@@ -1,4 +1,4 @@
-package fr.motaz.rasp.music.storage;
+package fr.motaz.rasp.music.storage.exception;
 
 import java.io.IOException;
 

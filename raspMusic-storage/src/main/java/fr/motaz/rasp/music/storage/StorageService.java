@@ -1,51 +1,66 @@
 package fr.motaz.rasp.music.storage;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import fr.motaz.rasp.music.model.Artist;
 import fr.motaz.rasp.music.model.Music;
+import fr.motaz.rasp.music.storage.artist.ArtistStorage;
+import fr.motaz.rasp.music.storage.config.RaspConf;
+import fr.motaz.rasp.music.storage.exception.StorageException;
+import fr.motaz.rasp.music.storage.music.MusicFactory;
+import fr.motaz.rasp.music.storage.music.MusicStorage;
 
+@Service
 public class StorageService {
 	protected  static final Logger logger = LogManager.getLogger(StorageService.class);
-	private List<Music> musics; 
-	private List<Artist> artists;
+	@Autowired
+	private ArtistStorage artistStorage;
+	@Autowired
+	private MusicStorage musicStorage;
+	@Autowired
+	private MusicFactory musicFactory;
 	
-	public StorageService() throws StorageException{
-		musics = new ArrayList<Music>();
-		artists =   new ArrayList<Artist>();
-		this.searchMusic();
-	}
+
 	
+	@Deprecated
 	public List<Music> getMusicList() throws StorageException {
 		logger.trace("getMusicList");
-		return musics;
+		return musicStorage.getAll();
 	}
+	@Deprecated
 	public List<Artist> getArtistList() throws StorageException {
 		logger.trace("getMusicList");
-		return artists;
+		return artistStorage.getAll();
 	}
+	
+	@PostConstruct
 	private void searchMusic() throws StorageException{
-		logger.trace("searchMusic");
+		logger.trace("searchMusic"+musicFactory);
 		try {
 			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path"))).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
 					try {
-						Music music = MusicFactory.getIntance(new File(filePath.toUri()));
+						Music music = musicFactory.getIntance(new File(filePath.toUri()));
 //						new Music(new File(filePath.toUri()));
-						musics.add(music);
-						artists.add(music.getArtist());
+						musicStorage.add(music);
 						logger.info("add : "+filePath.toUri());
 					} catch (Exception e) {
 						logger.debug("exception : "+filePath.toUri());
-						
+						e.printStackTrace();
 					}
 				}
 			});
@@ -56,29 +71,20 @@ public class StorageService {
 //		Collections.sort(musics);
 	}
 
+	@Deprecated
 	public Artist getArtist(String name) {
-		for(Artist artist : artists){
+		for(Artist artist : artistStorage.getAll()){
 			if(artist.getName().equals(name)){
 				return artist;
 			}
 		}
 		return null;
 	}
-	public Artist createOrGetArtist(String name) {
-		for(Artist artist : artists){
-			if(artist.getName().equals(name)){
-				return artist;
-			}
-		}
-		Artist artist = new Artist();
-		artist.setName(name);
-		this.artists.add(artist);
-		return artist;
-	}
 	
+	@Deprecated
 	public List<Music> getMusicsFromArtist(Artist artist) {
 		List<Music> resultat = new ArrayList<Music>();
-		for(Music music : musics){
+		for(Music music : musicStorage.getAll()){
 			if(music.getArtist().equals(artist)){
 				resultat.add(music);
 			}
