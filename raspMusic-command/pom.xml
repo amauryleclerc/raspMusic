@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>fr.motaz.raspMusic</groupId>
+		<groupId>fr.aleclerc.raspMusic</groupId>
 		<artifactId>raspMusic-parent</artifactId>
 		<version>0.0.1</version>
 	</parent>
@@ -43,12 +43,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>fr.motaz.raspMusic</groupId>
+			<groupId>fr.aleclerc.raspMusic</groupId>
 			<artifactId>raspMusic-player</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>fr.motaz.raspMusic</groupId>
+			<groupId>fr.aleclerc.raspMusic</groupId>
 			<artifactId>raspMusic-storage</artifactId>
 			<version>0.0.1</version>
 		</dependency>
