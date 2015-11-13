@@ -14,11 +14,7 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.5.4</version>
 		</dependency>
-		<dependency>
-			<groupId>com.mpatric</groupId>
-			<artifactId>mp3agic</artifactId>
-			<version>0.8.3</version>
-		</dependency>
+	
 		<!-- <dependency> -->
 		<!-- <groupId>com.googlecode.gstreamer-java</groupId> -->
 		<!-- <artifactId>gstreamer-java</artifactId> -->

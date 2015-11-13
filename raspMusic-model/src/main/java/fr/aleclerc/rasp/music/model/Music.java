@@ -7,7 +7,9 @@ public class Music implements Comparable<Music> {
 	private String path;
 	private String id;
 	private Integer position;
-
+	private String cover;
+	private Long length;
+	private String duration;
 	public Music() {
 
 	}
@@ -68,5 +70,30 @@ public class Music implements Comparable<Music> {
 	public void setPosition(Integer position) {
 		this.position = position;
 	}
+	
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+
+	public Long getLength() {
+		return length;
+	}
+
+	public void setLength(Long length) {
+		this.length = length;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
 
 }

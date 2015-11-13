@@ -55,6 +55,7 @@ app
 											_.assign(Service.currentMusic,
 													data.music);
 										}
+										console.log(data.music);
 										Service.playlist.push(data.music);
 									} else if (data.action === "STOP") {
 										_.assign(Service.state, data);

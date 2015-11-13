@@ -30,3 +30,7 @@
 .image{
 	float :left;
 }
+.cover-little{
+	width: 80px;
+	height: 80px;
+}

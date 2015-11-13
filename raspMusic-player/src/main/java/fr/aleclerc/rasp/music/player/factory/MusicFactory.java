@@ -16,6 +16,10 @@ public class MusicFactory {
 		musicImpl.setPath(music.getPath());
 		musicImpl.setPosition(music.getPosition());
 		musicImpl.setTitle(music.getTitle());
+		
+		musicImpl.setDuration(music.getDuration());
+		musicImpl.setLength(music.getLength());
+		musicImpl.setCover(music.getCover());
 		return musicImpl;
 	}
 }

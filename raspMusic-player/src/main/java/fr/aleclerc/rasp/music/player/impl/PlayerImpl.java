@@ -12,6 +12,7 @@ import fr.aleclerc.rasp.music.player.PlayerListener;
 import fr.aleclerc.rasp.music.player.PlayerState;
 import fr.aleclerc.rasp.music.player.Playlist;
 
+
 public class PlayerImpl implements Player {
 
 	protected static final Logger logger = LogManager.getLogger(PlayerImpl.class);
