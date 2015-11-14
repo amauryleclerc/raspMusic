@@ -4,38 +4,45 @@ app
 				[
 						'Player',
 						'$timeout',
-						function(Player, $timeout) {
+						'$websocket',
+						function(Player, $timeout, $websocket) {
 							var _onReceiveData = _.noop;
-
+							var port = 80;
+							if (document.location.port) {
+								port = document.location.port;
+							}
+							var url = "ws://" + document.location.hostname
+									+ ":" + port + "/api/websocket";
+							console.log(url);
+							var ws = $websocket.$new({
+								url : url,
+								reconnect : true
+							});
 							var Service = {};
 							Service.currentMusic = Player.getCurrent();
 							Service.playlist = Player.getPlaylist();
 							Service.state = Player.getState();
-							var port =80;
-							if(document.location.port){
-								port = document.location.port;
-							}
-							var url = "ws://"
-								+ document.location.hostname + ":"
-								+ port
-								+ "/api/websocket";
-//							document.location.pathname
-							console.log(url);
-							var ws = new WebSocket(url);
+						
 
-							ws.onopen = function() {
+							// document.location.pathname
+						
+//							var ws = new WebSocket(url);
+						
+						    ws.$on('$open', function () {
 								console.log("WebSocket : open");
-							};
-							ws.onclose = function() {
+							});
+						    ws.$on('$close', function () {
 								console.log("WebSocket : close");
-							};
-							ws.onerror = function() {
-								console.log(" WebSocket : error");
-							};
-							ws.onmessage = function(message) {
+							});
+						    ws.$on('$error', function () {
+								console.log("WebSocket : error");
+							});
+						
+							ws.$on('$message', function (message) {
 								console.log(" WebSocket : message");
-								listener(JSON.parse(message.data));
-							};
+								console.log(message);
+								listener(message);
+							});
 
 							function listener(data) {
 								$timeout(function() {
@@ -43,13 +50,12 @@ app
 									if (data.action === "PLAY") {
 										_.assign(Service.currentMusic,
 												data.music);
-									
+
 										_.assign(Service.state, data);
-									}
-										else if (data.action === "CHANGE") {
-											_.assign(Service.currentMusic,
-													data.music);
-										
+									} else if (data.action === "CHANGE") {
+										_.assign(Service.currentMusic,
+												data.music);
+
 									} else if (data.action === "ADD") {
 										if (typeof Service.currentMusic.title == "undefined") {
 											_.assign(Service.currentMusic,

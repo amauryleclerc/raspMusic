@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('raspMusicApp', [ 'ngRoute', 'ngResource', 'gapi' ]);
+var app = angular.module('raspMusicApp', [ 'ngRoute', 'ngResource', 'gapi', 'ngWebsocket' ]);
 app.constant('_', _);
 app.config(function($routeProvider) {
 	$routeProvider.when('/', {
