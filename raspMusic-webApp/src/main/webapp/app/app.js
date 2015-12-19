@@ -4,20 +4,30 @@ var app = angular.module('raspMusicApp', [ 'ngRoute', 'ngResource', 'gapi', 'ngW
 app.constant('_', _);
 app.config(function($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl : 'pages/player.html',
-		controller : 'PlayerCtrl as playerCtrl'
+		templateUrl : 'app/playlist/playlist.html',
+		controller : 'PlaylistCtrl',
+		controllerAs :'playlistCtrl'
+	}).when('/player', {
+		templateUrl : 'app/player/player.html',
+		controller : 'PlayerCtrl',
+		controllerAs :'playerCtrl'
 	}).when('/musics', {
-		templateUrl : 'pages/musics.html',
-		controller : 'MusicsCtrl as musicsCtrl'
+		templateUrl : 'app/music/musics.html',
+		controller : 'MusicsCtrl',
+		controllerAs :'musicsCtrl'
 	}).when('/artists', {
-		templateUrl : 'pages/artists.html',
-		controller : 'ArtistsCtrl as artistsCtrl'
+		templateUrl : 'app/artist/artists.html',
+		controller : 'ArtistsCtrl',
+		controllerAs :'artistsCtrl'
 	}).when('/artist/:artistName', {
-		templateUrl : 'pages/artist.html',
-		controller : 'ArtistCtrl as artistCtrl'
+		templateUrl : 'app/artist/artist.html',
+		controller : 'ArtistCtrl',
+		controllerAs :'artistCtrl'
 	}).when('/yt', {
-		templateUrl : 'pages/yt-search.html',
-		controller : 'YtSearchCtrl as ytSearchCtrl'
+		templateUrl : 'app/yt/yt-search.html',
+		controller : 'YtSearchCtrl',
+		controllerAs :'ytSearchCtrl'
+			
 	})
 
 });

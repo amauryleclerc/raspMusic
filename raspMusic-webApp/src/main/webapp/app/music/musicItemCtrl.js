@@ -16,6 +16,6 @@ app.directive('musicItem', function() {
 		},
 		controller : function($scope) {
 		},
-		templateUrl : 'pages/music-item.html'
+		templateUrl : 'app/music/music-item.html'
 	};
 });

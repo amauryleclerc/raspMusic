@@ -1,0 +1,23 @@
+
+
+PLAYER
+<!-- <div> -->
+<!-- 	<h2 ng-if="playlistCtrl.music.title">{{playlistCtrl.music.artist.name}} - -->
+<!-- 		{{playlistCtrl.music.title}}</h2> -->
+<!-- 		<p class="list-group-item-text">{{playlistCtrl.music.album.name}}</p> -->
+<!-- </div> -->
+<div>
+	<button class="btn" ng-click="playlistCtrl.previous()">
+		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+	</button>
+
+	<button class="btn" ng-click="playlistCtrl.play()" ng-if="playlistCtrl.state.action !== 'PLAY'">
+		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	</button>
+	<button class="btn" ng-click="playlistCtrl.pause()"  ng-if="playlistCtrl.state.action === 'PLAY' ">
+		<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+	</button>
+		<button class="btn" ng-click="playlistCtrl.next()">
+		<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+	</button>
+</div>

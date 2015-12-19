@@ -36,6 +36,23 @@
 
 		</nav>
 	</header>
+	<div  class="container" ng-controller="PlayerCtrl as playerCtrl">
+
+	<button class="btn" ng-click="playlistCtrl.previous()">
+		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+	</button>
+
+	<button class="btn" ng-click="playlistCtrl.play()" ng-if="playlistCtrl.state.action !== 'PLAY'">
+		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	</button>
+	<button class="btn" ng-click="playlistCtrl.pause()"  ng-if="playlistCtrl.state.action === 'PLAY' ">
+		<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+	</button>
+		<button class="btn" ng-click="playlistCtrl.next()">
+		<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+	</button>
+
+	</div>
 	<div class="container" ng-view></div>
 
 	<script type="text/javascript"
@@ -54,6 +71,8 @@
 	<script src="./lib/gapi.min.js"></script>
 	<!-- 		app -->
 	<script src="./app/app.js"></script>
+	<!-- 	playlist -->
+	<script src="./app/playlist/playlistCtrl.js"></script>
 	<!-- 	player -->
 	<script src="./app/player/playerFactory.js"></script>
 	<script src="./app/player/playerCtrl.js"></script>
