@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	href="./bower_components/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="style/style.css">
 <title>raspMusic</title>
 </head>
@@ -26,41 +26,25 @@
 				<div class="collapse navbar-collapse" id="navigationbar">
 
 					<ul class="nav navbar-nav">
-						<li><a href="#/">Player</a></li>
-						<li><a href="#/musics"> Musiques</a></li>
-						<li><a href="#/artists"> Artistes</a></li>
-						<li><a href="#/yt"> YouTube</a></li>
+						<li><a ui-sref="playlist">Playlist</a></li>
+						<li><a ui-sref="musics"> Musiques</a></li>
+						<li><a ui-sref="artists"> Artistes</a></li>
+						<li><a ui-sref="yt"> YouTube</a></li>
 					</ul>
 				</div>
 			</div>
 
 		</nav>
 	</header>
-	<div  class="container" ng-controller="PlayerCtrl as playerCtrl">
-
-	<button class="btn" ng-click="playlistCtrl.previous()">
-		<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
-	</button>
-
-	<button class="btn" ng-click="playlistCtrl.play()" ng-if="playlistCtrl.state.action !== 'PLAY'">
-		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-	</button>
-	<button class="btn" ng-click="playlistCtrl.pause()"  ng-if="playlistCtrl.state.action === 'PLAY' ">
-		<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-	</button>
-		<button class="btn" ng-click="playlistCtrl.next()">
-		<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
-	</button>
-
+	<div  class="container">
+		<player-item />
 	</div>
-	<div class="container" ng-view></div>
+	<div class="container" ui-view></div>
 
 	<script type="text/javascript"
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+		src="./bower_components/angular/angular.js"></script>
 	<script type="text/javascript"
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
-	<script type="text/javascript"
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-resource.min.js"></script>
+		src="./bower_components/angular-resource/angular-resource.js"></script>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 	<script type="text/javascript"
@@ -68,6 +52,8 @@
 	<script type="text/javascript"
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="./lib/ng-websocket.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 	<script src="./lib/gapi.min.js"></script>
 	<!-- 		app -->
 	<script src="./app/app.js"></script>
@@ -76,6 +62,7 @@
 	<!-- 	player -->
 	<script src="./app/player/playerFactory.js"></script>
 	<script src="./app/player/playerCtrl.js"></script>
+	<script src="./app/player/playerItemCtrl.js"></script>
 	<script src="./app/player/playerService.js"></script>
 	<!-- 	music -->
 	<script src="./app/music/musicsFactory.js"></script>
