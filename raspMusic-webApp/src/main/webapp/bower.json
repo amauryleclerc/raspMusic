@@ -1,0 +1,28 @@
+{
+  "name": "raspmusic",
+  "description": "share the control of the sound",
+  "main": "index.js",
+  "authors": [
+    "Amaury <amauryleclerc@hotmail.fr>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/amauryleclerc/raspMusic",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-resource": "~1.4.8",
+    "angular": "1.5.0-rc.0",
+    "ng-websocket": "~0.2.1"
+  },
+  "resolutions": {
+    "angular-resource": "1.5.0-rc.0",
+    "angular": "1.5.0-rc.0"
+  }
+}
