@@ -30,6 +30,9 @@ app.factory('Player', [ '$resource', function($resource) {
 		'getPlaylist' : {
 			method : 'GET', url:'/api/player/playlist' , isArray:true
 		},
+		'changeTime' : {
+			method : 'POST', url:'/api/player/changeTime' 
+		},
 		
 	});
 } ]);

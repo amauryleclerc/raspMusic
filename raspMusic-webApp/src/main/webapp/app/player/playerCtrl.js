@@ -5,6 +5,7 @@ app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, Playe
 	this.playlist = PlayerService.playlist;
 	this.state  = PlayerService.state;
 
+	
 	this.play = function() {
 		Player.play();
 	}
@@ -26,5 +27,7 @@ app.controller('PlayerCtrl', [ 'Player', 'PlayerService', function(Player, Playe
 	this.checkActive = function(music) {
 		return music.position===this.music.position;
 	}
-		
+	this.changeTime = function() {
+		Player.changeTime(this.music.percentage * 10 * this.music.length);
+	}
 } ]);

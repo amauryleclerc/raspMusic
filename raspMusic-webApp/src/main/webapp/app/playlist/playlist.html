@@ -2,7 +2,7 @@
 <div>
 	<ul class="list-group">
 		<li class="list-group-item" ng-class="{active : playlistCtrl.checkActive(music)}" ng-repeat="music in playlistCtrl.playlist">
-			<music-item music="music" remove="playerlistCtrl.remove(music)" is-playlist="true" is-current="playlistCtrl.checkActive(music)">
+			<music-item music="music" remove="playlistCtrl.remove(music)" is-playlist="true" is-current="playlistCtrl.checkActive(music)">
 		
 			</music-item>
 		</li>

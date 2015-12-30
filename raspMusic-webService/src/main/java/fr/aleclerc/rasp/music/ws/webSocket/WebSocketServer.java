@@ -96,4 +96,10 @@ public class WebSocketServer extends Endpoint implements PlayerListener, Playlis
 		this.send(new Message("CHANGE", music));
 	}
 
+	@Override
+	public void ontimeChanged(Long currentTime) {
+		this.send(new Message("TIMECHANGE", currentTime));
+		
+	}
+
 }

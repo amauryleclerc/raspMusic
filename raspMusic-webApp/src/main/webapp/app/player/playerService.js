@@ -75,6 +75,12 @@ app
 										}
 
 									}
+								 else if (data.action === "TIMECHANGE") {
+									 Service.currentMusic.currentTime = data.currentTime;
+									 Service.currentMusic.percentage =  (data.currentTime/ Service.currentMusic.length)/10 ;
+									
+								}
+
 
 								});
 							}

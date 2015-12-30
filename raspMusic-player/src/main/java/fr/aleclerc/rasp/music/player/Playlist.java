@@ -7,4 +7,5 @@ public interface Playlist extends PlaylistListenerRegistry {
 	public Music getCurrent() throws Exception;
 	public int getCurrentNum();
 	public void remove(Music music);
+	public void updateTime(long newTime);
 }

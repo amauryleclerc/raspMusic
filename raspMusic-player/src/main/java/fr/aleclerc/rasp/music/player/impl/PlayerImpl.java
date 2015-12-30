@@ -35,7 +35,7 @@ public class PlayerImpl implements Player {
 	private PlayerImpl() {
 
 	}
-
+	
 	@Override
 	public void stop() throws Exception {
 		logger.trace("stop");
@@ -94,6 +94,17 @@ public class PlayerImpl implements Player {
 		}
 
 	}
+	@Override
+	public void next(boolean forcePlay) throws Exception {
+		logger.trace("next");
+		if(this.getPlaylist().getCurrent() != null && ((MusicImpl)this.getPlaylist().getCurrent()).getMediaPlayer().isPlaying()){
+			this.stop();
+		}
+		if (this.playlist.setCurrentNum(this.playlist.getCurrentNum() + 1) && forcePlay) {
+			this.play();
+		}
+	}
+
 
 	@Override
 	public void previous() throws Exception {
@@ -132,6 +143,12 @@ public class PlayerImpl implements Player {
 	public PlayerState getState() {
 		logger.trace("getState");
 		return this.state;
+	}
+
+	@Override
+	public void changeTime(Long time) throws Exception {
+		((MusicImpl)this.getPlaylist().getCurrent()).getMediaPlayer().setTime(time);
+		
 	}
 
 }

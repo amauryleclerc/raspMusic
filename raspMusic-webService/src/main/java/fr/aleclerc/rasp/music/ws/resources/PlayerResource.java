@@ -1,5 +1,6 @@
 package fr.aleclerc.rasp.music.ws.resources;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -18,8 +19,8 @@ import fr.aleclerc.rasp.music.ws.webSocket.Message;
 
 @Path("/player")
 public class PlayerResource {
-	
-	protected  static final Logger logger = LogManager.getLogger(PlayerResource.class);
+
+	protected static final Logger logger = LogManager.getLogger(PlayerResource.class);
 	@Autowired
 	private Player player;
 
@@ -64,23 +65,34 @@ public class PlayerResource {
 		return Response.ok().build();
 	}
 
+	@POST
+	@Path("/changeTime")
+	@Consumes("application/json")
+	public Response changeTime(Long time) throws Exception {
+		logger.trace("changeTime " + time);
+		if (time != null) {
+			player.changeTime(time);
+		}
+		return Response.ok().build();
+	}
+
 	@Path("/playlist")
 	public Resource getPlaylist() throws Exception {
 		logger.trace("getPlaylist");
 		return Resource.from(PlaylistResource.class);
 	}
-	
+
 	@GET
 	@Path("/state")
 	@Produces("application/json")
 	public Message getState() throws Exception {
 		logger.trace("getState");
 		PlayerState state = player.getState();
-		if(state.equals(PlayerState.PAUSE)){
+		if (state.equals(PlayerState.PAUSE)) {
 			return new Message("PAUSE");
-		}else if(state.equals(PlayerState.PLAY)){
+		} else if (state.equals(PlayerState.PLAY)) {
 			return new Message("PLAY");
-		}else if(state.equals(PlayerState.STOP)){
+		} else if (state.equals(PlayerState.STOP)) {
 			return new Message("STOP");
 		}
 		return null;

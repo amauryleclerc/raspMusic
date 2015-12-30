@@ -10,6 +10,7 @@ public class Music implements Comparable<Music> {
 	private String cover;
 	private Long length;
 	private String duration;
+	private Long currentTime;
 	public Music() {
 
 	}
@@ -93,6 +94,14 @@ public class Music implements Comparable<Music> {
 
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+
+	public Long getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(Long currentTime) {
+		this.currentTime = currentTime;
 	}
 
 

@@ -8,4 +8,6 @@ public interface Player extends PlayerListenerRegistry{
 	public void previous() throws Exception;
 	public Playlist getPlaylist();
 	public PlayerState getState();
+	public void changeTime(Long time) throws Exception;
+	public void next(boolean b) throws Exception;
 }
