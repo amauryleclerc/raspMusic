@@ -20,6 +20,11 @@ import fr.aleclerc.rasp.music.ws.webSocket.Message;
 @Path("/player")
 public class PlayerResource {
 
+	
+//	@Context
+//	private Context context;
+//	
+	
 	protected static final Logger logger = LogManager.getLogger(PlayerResource.class);
 	@Autowired
 	private Player player;

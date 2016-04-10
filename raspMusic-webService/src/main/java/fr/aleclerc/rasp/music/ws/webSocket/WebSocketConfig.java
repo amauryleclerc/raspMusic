@@ -1,62 +1,57 @@
 package fr.aleclerc.rasp.music.ws.webSocket;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.websocket.Decoder;
-import javax.websocket.Encoder;
-import javax.websocket.Extension;
-import javax.websocket.server.ServerEndpointConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.converter.DefaultContentTypeResolver;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.converter.MessageConverter;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.util.MimeTypeUtils;
+import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
-public class WebSocketConfig implements ServerEndpointConfig {
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-	private final String path;
-	private final Class<?> endpointClass;
-	
-	public WebSocketConfig(Class<?> endpointClass, String path) {
-		this.endpointClass = endpointClass;
-		this.path = path;
-	}
-	
-	@Override
-	public List<Class<? extends Encoder>> getEncoders() {
-		return Collections.emptyList();
-	}
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+	public static final String TOPIC_PREFIX = "/player";
+	public static final String CLIENT_SUBSCRIBE_PREFIX = TOPIC_PREFIX;
+	public static final String SERVER_PUBLISH_PREFIX = TOPIC_PREFIX;
+	public static final String SERVER_MAPPING_PREFIX = "";
+	public static final String CLIENT_SEND_PREFIX = TOPIC_PREFIX;
+	public static final String ENDPOINT_PREFIX = "/websocket";
 
-	@Override
-	public List<Class<? extends Decoder>> getDecoders() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	public Map<String, Object> getUserProperties() {
-		return Collections.emptyMap();
-	}
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@Override
-	public Configurator getConfigurator() {
-		return new SpringConfigurator();
+	public void configureMessageBroker(MessageBrokerRegistry config) {
+		config.enableSimpleBroker(TOPIC_PREFIX);
+		config.setApplicationDestinationPrefixes(CLIENT_SEND_PREFIX);
 	}
 
 	@Override
-	public Class<?> getEndpointClass() {
-		return endpointClass;
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		registry.addEndpoint(ENDPOINT_PREFIX).setAllowedOrigins("*").withSockJS();
 	}
 
+	/*
+	 * This should be done automatically by Spring Boot but there is a currently
+	 * a bug on it: https://github.com/spring-projects/spring-boot/issues/2445
+	 */
 	@Override
-	public List<Extension> getExtensions() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	public String getPath() {
-		return path;
-	}
-
-	@Override
-	public List<String> getSubprotocols() {
-		return Collections.emptyList();
+	public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
+		DefaultContentTypeResolver resolver = new DefaultContentTypeResolver();
+		resolver.setDefaultMimeType(MimeTypeUtils.APPLICATION_JSON);
+		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+		converter.setObjectMapper(objectMapper);
+		converter.setContentTypeResolver(resolver);
+		messageConverters.add(converter);
+		return false;
 	}
 
 }

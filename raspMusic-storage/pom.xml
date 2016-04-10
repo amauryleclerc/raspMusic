@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>fr.aleclerc.raspMusic</groupId>
 		<artifactId>raspMusic-parent</artifactId>
-		<version>0.0.1</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>raspMusic-storage</artifactId>
 
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>fr.aleclerc.raspMusic</groupId>
 			<artifactId>raspMusic-model</artifactId>
-			<version>0.0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mpatric</groupId>
@@ -22,7 +22,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.media.jai</groupId>
