@@ -114,7 +114,10 @@ public class PlaylistImpl extends ArrayList<Music> implements Playlist {
 		try {
 		Music music = 	this.getCurrent();
 		music.setCurrentTime(newTime);
-		percentageLocal = (newTime / music.getLength())/10;
+		Long length = music.getLength();
+		if(length != null){
+			percentageLocal = (newTime / length)/10;
+		}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -40,6 +40,7 @@ public class MediaPlayerFactory {
 		});
 		mediaPlayerComponent.getMediaPlayer().setPlaySubItems(true);
 		mediaPlayerComponent.getMediaPlayer().prepareMedia("https://www.youtube.com/watch?v=" + id);
+		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(playerEventListener);
 		return mediaPlayerComponent.getMediaPlayer();
 	}
 	public  DirectMediaPlayer getLocalMediaPlayer(String path) {
