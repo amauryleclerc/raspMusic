@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import fr.aleclerc.rasp.music.model.Music;
 import fr.aleclerc.rasp.music.player.impl.MusicImpl;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 
 @Component
@@ -17,7 +18,7 @@ public class MusicImplFactory {
 	}
 
 	public Music getInstance(Music music) {
-		DirectMediaPlayer mediaPlayer = null;
+		MediaPlayer mediaPlayer = null;
 		if (music.getId() == null) {
 			mediaPlayer = mediaPlayerFactory.getLocalMediaPlayer(music.getPath());
 		} else {
@@ -31,7 +32,11 @@ public class MusicImplFactory {
 		musicImpl.setPosition(music.getPosition());
 		musicImpl.setTitle(music.getTitle());
 		musicImpl.setDuration(music.getDuration());
-		musicImpl.setLength(music.getLength());
+		if(mediaPlayer.getLength() != -1){
+			musicImpl.setLength(mediaPlayer.getLength());
+		}else{
+			musicImpl.setLength(music.getLength());
+		}
 		musicImpl.setCover(music.getCover());
 		musicImpl.setCurrentTime((long) 0);
 		return musicImpl;

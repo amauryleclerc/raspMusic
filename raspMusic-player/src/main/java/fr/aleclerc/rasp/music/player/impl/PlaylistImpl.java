@@ -110,22 +110,23 @@ public class PlaylistImpl extends ArrayList<Music> implements Playlist {
 	@Override
 	public void updateTime(final long  newTime) {
 		logger.trace("updateTime "+ newTime);
-		Long percentageLocal = (long) 0;
+		long percentageLocal = (long) 0;
+		long lengthLocal = (long) 0;
 		try {
 		Music music = 	this.getCurrent();
 		music.setCurrentTime(newTime);
-		Long length = music.getLength();
-		if(length != null){
-			percentageLocal = (newTime / length)/10;
-		}
+		 lengthLocal = ((MusicImpl) music).getMediaPlayer().getLength();
+		music.setLength(lengthLocal);
+		percentageLocal = 100 * newTime / lengthLocal;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(percentageLocal != lastPercentage){
 			lastPercentage = percentageLocal;
-			final Long percentage = percentageLocal;
-			listeners.stream().forEach(listener -> listener.ontimeChanged(newTime, percentage));
+			final long percentage = percentageLocal;
+			final long length = lengthLocal;
+			listeners.stream().forEach(listener -> listener.ontimeChanged(newTime, percentage, length));
 		}
 
 	}

@@ -1,21 +1,19 @@
 package fr.aleclerc.rasp.music.player.impl;
 
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import fr.aleclerc.rasp.music.model.Music;
-import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 
 public class MusicImpl extends Music {
 	@JsonIgnore
-	private transient DirectMediaPlayer mediaPlayer = null;
+	private transient MediaPlayer mediaPlayer = null;
 
-	public MusicImpl(DirectMediaPlayer mediaPlayer){
-		this.mediaPlayer = mediaPlayer;
+	public MusicImpl(MediaPlayer mediaPlayer2){
+		this.mediaPlayer = mediaPlayer2;
 	}
 	@JsonIgnore
-	public DirectMediaPlayer getMediaPlayer() {
+	public MediaPlayer getMediaPlayer() {
 		return this.mediaPlayer;
 	
 	}

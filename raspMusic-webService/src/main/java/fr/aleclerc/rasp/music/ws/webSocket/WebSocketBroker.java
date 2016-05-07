@@ -55,9 +55,12 @@ public class WebSocketBroker  implements PlayerListener, PlaylistListener {
 		template.convertAndSend("/player/change", music);
 	}
 
+	
+
 	@Override
-	public void ontimeChanged(Long currentTime, Long percentage) {
-		template.convertAndSend("/player/timechange", new Message("timechange", currentTime, percentage));
+	public void ontimeChanged(Long currentTime, Long percentage, Long length) {
+		template.convertAndSend("/player/timechange", new Message("timechange", currentTime, percentage, length));
+		
 	}
 
 }
