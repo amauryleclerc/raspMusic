@@ -1,18 +1,17 @@
 package fr.aleclerc.rasp.music.player.listener;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import fr.aleclerc.rasp.music.player.Player;
-import fr.aleclerc.rasp.music.player.impl.PlayerImpl;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
-
-
+@Component
 public class PlayerEventListener extends MediaPlayerEventAdapter {
-	
 
+	@Autowired
 	private Player player;
-	public PlayerEventListener(){
-		player = PlayerImpl.getInstance();
-	}
+
 	@Override
 	public void finished(MediaPlayer mediaPlayer) {
 		try {
@@ -25,15 +24,7 @@ public class PlayerEventListener extends MediaPlayerEventAdapter {
 
 	@Override
 	public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
-
-//		System.out.println(newTime);
-		if (player == null) {
-			System.out.println("player null");
-		}
-		System.out.println(player.getPlaylist());
 		player.getPlaylist().updateTime(newTime);
-
-		
 
 	}
 

@@ -6,13 +6,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import fr.aleclerc.rasp.music.player.Player;
 import fr.aleclerc.rasp.music.player.PlayerListener;
 import fr.aleclerc.rasp.music.player.PlayerState;
 import fr.aleclerc.rasp.music.player.Playlist;
 
-
+@Component
+@Scope("singleton")
 public class PlayerImpl implements Player {
 
 	protected static final Logger logger = LogManager.getLogger(PlayerImpl.class);
@@ -21,20 +24,9 @@ public class PlayerImpl implements Player {
 	private PlaylistImpl playlist;
 	private List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 	private PlayerState state = PlayerState.STOP;
-	private static PlayerImpl instance;
+	
 
-	public static PlayerImpl getInstance() {
-		logger.trace("player : getInstance");
-		if (instance == null) {
-			instance = new PlayerImpl();
 
-		}
-		return instance;
-	}
-
-	private PlayerImpl() {
-
-	}
 	
 	@Override
 	public void stop() throws Exception {
@@ -70,16 +62,6 @@ public class PlayerImpl implements Player {
 		this.state = PlayerState.PAUSE;
 	}
 
-	public void init() throws Exception {
-		logger.info("Initialisation du player");
-		// new JFXPanel();
-
-	}
-
-	public void destroy() throws Exception {
-		logger.info("destroy du player");
-		// Platform.exit();
-	}
 
 	@Override
 	public void next() throws Exception {

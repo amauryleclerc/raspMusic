@@ -34,6 +34,7 @@ public class PlayerResource {
 	@Produces("application/json")
 	public Music play() throws Exception {
 		logger.trace("play");
+		
 		player.play();
 		return player.getPlaylist().getCurrent();
 	}

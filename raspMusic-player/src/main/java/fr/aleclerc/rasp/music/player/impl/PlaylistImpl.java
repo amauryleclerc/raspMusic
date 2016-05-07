@@ -5,37 +5,29 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import fr.aleclerc.rasp.music.model.Music;
 import fr.aleclerc.rasp.music.player.Playlist;
 import fr.aleclerc.rasp.music.player.PlaylistListener;
 import fr.aleclerc.rasp.music.player.exception.PlayerException;
-import fr.aleclerc.rasp.music.player.factory.MusicFactory;
-
+import fr.aleclerc.rasp.music.player.factory.MusicImplFactory;
+@Component
+@Scope("singleton")
 public class PlaylistImpl extends ArrayList<Music> implements Playlist {
 	private static final long serialVersionUID = 6951635866659303171L;
 	protected static final Logger logger = LogManager.getLogger(PlaylistImpl.class);
 	private int currentNum = -1;
 	private int nbMusic = 0;
+	private long lastPercentage = 0;
 	private List<PlaylistListener> listeners = new ArrayList<PlaylistListener>();
-	private transient static PlaylistImpl instance;
-
-	public static PlaylistImpl getInstance() {
-		logger.trace("playlist : getInstance ");
-		if (instance == null) {
-			instance = new PlaylistImpl();
-		}
-		return instance;
-	}
-
-	private PlaylistImpl() {
-
-	}
-
-	
+	@Autowired
+	private MusicImplFactory musicFactory;
 
 	public boolean add(Music music) {
-		music = MusicFactory.getInstance(music);
+		music = musicFactory.getInstance(music);
 		logger.trace("playlist : add " + music.getArtist().getName() + " - " + music.getTitle());
 		music.setPosition(nbMusic);
 		nbMusic++;
@@ -116,11 +108,23 @@ public class PlaylistImpl extends ArrayList<Music> implements Playlist {
 	}
 
 	@Override
-	public void updateTime(long newTime) {
+	public void updateTime(final long  newTime) {
 		logger.trace("updateTime "+ newTime);
-		for (PlaylistListener listener : listeners) {
-			listener.ontimeChanged(newTime);
+		Long percentageLocal = (long) 0;
+		try {
+		Music music = 	this.getCurrent();
+		music.setCurrentTime(newTime);
+		percentageLocal = (newTime / music.getLength())/10;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		if(percentageLocal != lastPercentage){
+			lastPercentage = percentageLocal;
+			final Long percentage = percentageLocal;
+			listeners.stream().forEach(listener -> listener.ontimeChanged(newTime, percentage));
+		}
+
 	}
 
 }

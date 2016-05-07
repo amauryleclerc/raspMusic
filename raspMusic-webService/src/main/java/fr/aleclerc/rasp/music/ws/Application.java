@@ -3,11 +3,12 @@ package fr.aleclerc.rasp.music.ws;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 
 @SpringBootApplication
-@ImportResource("applicationContext-web.xml")
+@ComponentScan("fr.aleclerc.rasp.music")
 public class Application extends SpringBootServletInitializer {
 
 	@Override

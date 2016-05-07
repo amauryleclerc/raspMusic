@@ -1,6 +1,6 @@
 package fr.aleclerc.rasp.music.model;
 
-public class Music implements Comparable<Music> {
+public  class Music implements Comparable<Music> {
 	private String title;
 	private Album album;
 	private Artist artist;
@@ -11,9 +11,7 @@ public class Music implements Comparable<Music> {
 	private Long length;
 	private String duration;
 	private Long currentTime;
-	public Music() {
-
-	}
+	
 
 	public String getTitle() {
 		return title;
