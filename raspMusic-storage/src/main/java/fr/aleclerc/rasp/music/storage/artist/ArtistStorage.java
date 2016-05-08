@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.model.Artist;
+import fr.aleclerc.rasp.music.api.pojo.Artist;
 import fr.aleclerc.rasp.music.storage.Storage;
 
 @Component

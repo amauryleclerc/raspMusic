@@ -11,12 +11,10 @@
 		<version>1.3.3.RELEASE</version>
 	</parent>
 	<modules>
+		<module>raspMusic-api</module>
 		<module>raspMusic-player</module>
-		<module>raspMusic-command</module>
-		<module>raspMusic-webService</module>
-		<module>raspMusic-model</module>
-		<module>raspMusic-webApp</module>
 		<module>raspMusic-storage</module>
+		<module>raspMusic-webService</module>
 	</modules>
 
 	<properties>

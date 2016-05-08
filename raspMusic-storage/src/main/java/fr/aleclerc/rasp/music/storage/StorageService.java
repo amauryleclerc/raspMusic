@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
-import fr.aleclerc.rasp.music.model.Artist;
-import fr.aleclerc.rasp.music.model.Music;
+import fr.aleclerc.rasp.music.api.pojo.Artist;
+import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.storage.artist.ArtistStorage;
 import fr.aleclerc.rasp.music.storage.config.RaspConf;
 import fr.aleclerc.rasp.music.storage.exception.StorageException;

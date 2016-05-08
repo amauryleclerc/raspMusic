@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.aleclerc.rasp.music.model.Music;
+import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.storage.StorageService;
 	
 

@@ -3,7 +3,7 @@ package fr.aleclerc.rasp.music.storage.artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.model.Artist;
+import fr.aleclerc.rasp.music.api.pojo.Artist;
 
 @Component
 public class ArtistFactory {

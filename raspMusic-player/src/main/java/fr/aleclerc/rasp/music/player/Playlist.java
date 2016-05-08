@@ -1,11 +1,12 @@
 package fr.aleclerc.rasp.music.player;
 
-import fr.aleclerc.rasp.music.model.Music;
+import java.util.ArrayList;
 
-public interface Playlist extends PlaylistListenerRegistry {
-	public boolean add(Music music);
-	public Music getCurrent() throws Exception;
-	public int getCurrentNum();
-	public void remove(Music music);
-	public void updateTime(long newTime);
+public class Playlist extends ArrayList<Media>  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4522439104257216472L;
+
 }

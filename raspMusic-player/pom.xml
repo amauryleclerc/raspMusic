@@ -5,12 +5,13 @@
 		<groupId>fr.aleclerc.raspMusic</groupId>
 		<artifactId>raspMusic-parent</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>raspMusic-player</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>fr.aleclerc.raspMusic</groupId>
-			<artifactId>raspMusic-model</artifactId>
+			<artifactId>raspMusic-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

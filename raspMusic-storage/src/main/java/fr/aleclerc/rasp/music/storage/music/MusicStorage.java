@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.model.Music;
+import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.storage.Storage;
 
 @Component

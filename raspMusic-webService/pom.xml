@@ -5,6 +5,7 @@
 		<groupId>fr.aleclerc.raspMusic</groupId>
 		<artifactId>raspMusic-parent</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>raspMusic-webService</artifactId>
 	<packaging>war</packaging>
@@ -33,8 +34,8 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.aleclerc.raspMusic</groupId>
-			<artifactId>raspMusic-model</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<artifactId>raspMusic-api</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mpatric</groupId>

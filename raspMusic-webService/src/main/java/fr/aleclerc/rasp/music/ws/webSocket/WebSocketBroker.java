@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import fr.aleclerc.rasp.music.model.Music;
-import fr.aleclerc.rasp.music.player.PlayerListener;
-import fr.aleclerc.rasp.music.player.PlaylistListener;
+import fr.aleclerc.rasp.music.api.PlayerListener;
+import fr.aleclerc.rasp.music.api.pojo.Music;
 
 
 @Controller
-public class WebSocketBroker  implements PlayerListener, PlaylistListener {
+public class WebSocketBroker  implements PlayerListener {
 
 	@Autowired
 	SimpMessagingTemplate template;

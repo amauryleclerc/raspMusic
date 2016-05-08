@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.player.Player;
+import fr.aleclerc.rasp.music.api.Player;
 
 @Configuration
 @Component
@@ -23,7 +23,6 @@ public class ListenersConfiguration {
 	public void init() {
 	
 		player.addPlayerListener(webSocketBroker);
-		player.getPlaylist().addPlaylistListener(webSocketBroker);
 	}
 
 }

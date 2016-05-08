@@ -14,9 +14,10 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
-import fr.aleclerc.rasp.music.model.Album;
-import fr.aleclerc.rasp.music.model.Artist;
-import fr.aleclerc.rasp.music.model.Music;
+import fr.aleclerc.rasp.music.api.pojo.Album;
+import fr.aleclerc.rasp.music.api.pojo.Artist;
+import fr.aleclerc.rasp.music.api.pojo.Music;
+import fr.aleclerc.rasp.music.api.pojo.MusicLocal;
 import fr.aleclerc.rasp.music.storage.artist.ArtistFactory;
 import fr.aleclerc.rasp.music.storage.exception.StorageException;
 import fr.aleclerc.rasp.music.storage.utils.ImageUtils;
@@ -28,7 +29,7 @@ public class MusicFactory {
 	public ArtistFactory artistFactory;
 
 	public Music getIntance(File file) throws UnsupportedTagException, InvalidDataException, IOException, StorageException {
-		Music music = new Music();
+		MusicLocal music = new MusicLocal();
 		music.setPath(file.getPath());
 		Mp3File mp3file = new Mp3File(file);
 
@@ -41,8 +42,7 @@ public class MusicFactory {
 				String mimeType = id3v2Tag.getAlbumImageMimeType();
 				music.setCover("data:"+mimeType+";base64,"+cover);
 			}
-			music.setLength(mp3file.getLengthInSeconds());
-			music.setDuration(LocalTime.MIN.plusSeconds(music.getLength()).toString());
+			music.setDuration(LocalTime.MIN.plusSeconds(mp3file.getLengthInSeconds()).toString());
 			
 			music.setTitle(id3v2Tag.getTitle());
 			Artist artist = artistFactory.getIntance(id3v2Tag.getArtist());
