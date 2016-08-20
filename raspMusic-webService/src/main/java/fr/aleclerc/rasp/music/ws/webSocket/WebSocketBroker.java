@@ -1,7 +1,5 @@
 package fr.aleclerc.rasp.music.ws.webSocket;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -17,12 +15,13 @@ public class WebSocketBroker  implements PlayerListener {
 	SimpMessagingTemplate template;
 	
 	
-	protected  static final Logger logger = LogManager.getLogger(WebSocketBroker.class);
 
 
 
 	@Override
 	public void onAdd(Music music) {
+		System.out.println("music");
+		System.out.println(music);
 		template.convertAndSend("/player/add", music);
 
 	}

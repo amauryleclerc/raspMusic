@@ -6,11 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import fr.aleclerc.rasp.music.api.Player;
 import fr.aleclerc.rasp.music.api.PlayerListener;
@@ -19,11 +16,10 @@ import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.player.factory.MusicImplFactory;
 
-@Component
-@Scope("singleton")
+@Service
 public class PlayerImpl implements Player {
 
-	protected static final Logger logger = LogManager.getLogger(PlayerImpl.class);
+
 
 	private List<PlayerListener> listeners = new ArrayList<PlayerListener>();
 	private PlayerState state = PlayerState.STOP;
@@ -39,7 +35,6 @@ public class PlayerImpl implements Player {
 	
 	@Override
 	public void stop() throws PlayerException {
-		logger.trace("stop");
 		this.getCurrentMedia().getMediaPlayer().stop();
 		for (PlayerListener listener : listeners) {
 			listener.onStop();
@@ -49,7 +44,6 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void play() throws PlayerException {
-		logger.trace("play");
 		this.getCurrentMedia().getMediaPlayer().play();
 		for (PlayerListener listener : listeners) {
 			listener.onPlay(this.getCurrentMedia().getMusic());
@@ -59,7 +53,6 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void pause() throws PlayerException  {
-		logger.trace("pause");
 
 		this.getCurrentMedia().getMediaPlayer().pause();
 
@@ -71,7 +64,6 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void next() throws PlayerException  {
-		logger.trace("next");
 		if (this.getCurrentMedia() != null
 				&& this.getCurrentMedia().getMediaPlayer().isPlaying()) {
 			this.stop();
@@ -86,7 +78,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void next(boolean forcePlay) throws PlayerException {
-		logger.trace("next");
+
 		if (this.getCurrentMedia() != null
 				&&  this.getCurrentMedia().getMediaPlayer().isPlaying()) {
 			this.stop();
@@ -98,7 +90,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void previous() throws PlayerException {
-		logger.trace("previous");
+
 		if (this.getCurrent() != null
 				&&  this.getCurrentMedia().getMediaPlayer().isPlaying()) {
 			this.stop();
@@ -114,20 +106,20 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void addPlayerListener(PlayerListener listener) {
-		logger.trace("addPlayerListener");
+	
 		listeners.add(listener);
 
 	}
 
 	@Override
 	public void removePlayerListener(PlayerListener listener) {
-		logger.trace("removePlayerListener");
+	
 		listeners.remove(listener);
 	}
 
 	@Override
 	public PlayerState getState() {
-		logger.trace("getState");
+		
 		return this.state;
 	}
 
@@ -158,17 +150,17 @@ public class PlayerImpl implements Player {
 	}
 
 	private Media getCurrentMedia() throws PlayerException {
-		logger.trace("getCurrent");
+	
 		if (currentNum > -1 && currentNum < playlist.size()) {
 			return playlist.get(currentNum);
 		} else {
-			logger.error("getCurrent : pas de music");
+		
 			throw new PlayerException("pas de music");
 		}
 	}
 
 	private boolean setCurrentNum(Integer num) {
-		logger.trace("setCurrentNum");
+	
 		if (num >= 0 && num < playlist.size()) {
 			this.currentNum = num;
 			if (this.currentNum > 4) {
@@ -210,7 +202,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void updateTime(final long newTime) {
-		logger.trace("updateTime " + newTime);
+	
 		long percentageLocal = (long) 0;
 		long lengthLocal = (long) 0;
 		try {

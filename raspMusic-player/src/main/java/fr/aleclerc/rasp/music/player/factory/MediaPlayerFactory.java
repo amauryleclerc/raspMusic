@@ -2,8 +2,6 @@ package fr.aleclerc.rasp.music.player.factory;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,7 +14,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 @Component
 @Scope("singleton")
 public class MediaPlayerFactory {
-	protected static final Logger logger = LogManager.getLogger(MediaPlayerFactory.class);
+
 	@Autowired
 	private PlayerEventListener playerEventListener;
 
@@ -24,7 +22,6 @@ public class MediaPlayerFactory {
 	public void init() {
 
 		boolean found = new NativeDiscovery().discover();
-		logger.debug("discover found : " + found);
 	}
 
 	public MediaPlayer getYTMediaPlayer(String id) {

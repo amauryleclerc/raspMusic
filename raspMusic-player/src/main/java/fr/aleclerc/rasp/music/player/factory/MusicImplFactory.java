@@ -26,12 +26,14 @@ public class MusicImplFactory {
 	public Media getInstance(MusicLocal music){
 		MediaPlayer mediaPlayer = mediaPlayerFactory.getLocalMediaPlayer(music.getPath());
 		Media  musicImpl = new Media (mediaPlayer);
+		musicImpl.setMusic(music);
 		return musicImpl;
 		
 	}
 	public Media getInstance(MusicYT music){
-		MediaPlayer mediaPlayer = mediaPlayerFactory.getYTMediaPlayer(music.getYtId());
+		MediaPlayer mediaPlayer = mediaPlayerFactory.getYTMediaPlayer(music.getId());
 		Media  musicImpl = new Media(mediaPlayer);
+		musicImpl.setMusic(music);
 		return musicImpl;
 		
 	}

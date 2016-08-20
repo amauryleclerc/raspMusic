@@ -6,8 +6,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.aleclerc.rasp.music.api.pojo.Artist;
@@ -16,7 +14,7 @@ import fr.aleclerc.rasp.music.storage.StorageService;
 
 @Path("/artists")
 public class ArtistsResource {
-	protected  static final Logger logger = LogManager.getLogger(ArtistsResource.class);
+
 
 	@Autowired
 	private StorageService storageService;
@@ -24,7 +22,7 @@ public class ArtistsResource {
 	@GET
 	@Produces("application/json")
 	public List<Artist> getArtists() throws Exception{
-		logger.trace("getArtists");
+
 		return  storageService.getArtistList();
 	}
 	

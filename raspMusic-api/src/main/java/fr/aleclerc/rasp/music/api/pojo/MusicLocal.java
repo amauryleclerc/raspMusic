@@ -10,4 +10,12 @@ public class MusicLocal extends Music {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	@Override
+	public String toString() {
+		return "MusicLocal [path=" + path + ", toString()=" + super.toString() + "]";
+	}
+
+	
+	
 }

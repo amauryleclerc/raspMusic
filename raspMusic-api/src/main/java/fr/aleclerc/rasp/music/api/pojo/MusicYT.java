@@ -1,15 +1,17 @@
 package fr.aleclerc.rasp.music.api.pojo;
 
 public class MusicYT extends Music {
-	private String ytId;
+	private String id;
 	private String coverURL;
+
 	
-	public String getYtId() {
-		return ytId;
+	
+	public String getId() {
+		return id;
 	}
 
-	public void setYtId(String ytId) {
-		this.ytId = ytId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCoverURL() {
@@ -20,4 +22,3 @@ public class MusicYT extends Music {
 		this.coverURL = coverURL;
 	}
 }
-

@@ -1,6 +1,6 @@
 package fr.aleclerc.rasp.music.api.pojo;
 
-public abstract class Music implements Comparable<Music> {
+public class Music implements Comparable<Music> {
 	private String title;
 	private Album album;
 	private Artist artist;
@@ -65,6 +65,12 @@ public abstract class Music implements Comparable<Music> {
 
 	public void setCurrentTime(Long currentTime) {
 		this.currentTime = currentTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Music [title=" + title + ", album=" + album + ", artist=" + artist + ", cover=" + cover + ", duration="
+				+ duration + ", currentTime=" + currentTime + "]";
 	}
 
 
