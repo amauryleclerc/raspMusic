@@ -1876,3 +1876,147 @@ Caused by: java.lang.NullPointerException: null
 2016-08-27 15:18:31.479  INFO 3404 --- [http-nio-8080-exec-8] u.co.caprica.vlcj.binding.LibVlcFactory  : vlc: 2.2.4 Weatherwax, changeset 2.2.4-0-g888b7e89
 2016-08-27 15:18:31.479  INFO 3404 --- [http-nio-8080-exec-8] u.co.caprica.vlcj.binding.LibVlcFactory  : libvlc: C:\Program Files\VideoLAN\VLC\libvlc.dll
 2016-08-27 15:18:47.075  INFO 3404 --- [MessageBroker-2] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 24], outboundChannelpool size = 8, active threads = 0, queued tasks = 0, completed tasks = 24], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 2, completed tasks = 6]
+2016-08-27 15:34:15.930  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2016-08-27 15:34:15.930  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3943a2be: startup date [Sat Aug 27 15:17:43 CEST 2016]; root of context hierarchy
+2016-08-27 15:34:15.934  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2016-08-27 15:34:15.937  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2016-08-27 15:34:15.937  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2016-08-27 15:34:15.937  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2016-08-27 15:34:15.938  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2016-08-27 15:34:15.938  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2016-08-27 15:34:15.939  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2016-08-27 15:34:15.939  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2016-08-27 15:34:15.939  INFO 3404 --- [RMI TCP Connection(24)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2016-08-27 15:34:33.791  INFO 14856 --- [main] fr.aleclerc.rasp.music.ws.Application    : Starting Application on Amaury-PC with PID 14856 (H:\rasp-music\raspMusic\raspMusic-webService\target\classes started by Amaury in H:\rasp-music\raspMusic\raspMusic-webService)
+2016-08-27 15:34:33.795  INFO 14856 --- [main] fr.aleclerc.rasp.music.ws.Application    : No active profile set, falling back to default profiles: default
+2016-08-27 15:34:33.849  INFO 14856 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3943a2be: startup date [Sat Aug 27 15:34:33 CEST 2016]; root of context hierarchy
+2016-08-27 15:34:34.495  INFO 14856 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'requestContextFilter' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/jersey/JerseyAutoConfiguration.class]] with [Root bean: class [org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-08-27 15:34:34.734  INFO 14856 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-08-27 15:34:35.073  WARN 14856 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is java.lang.NoClassDefFoundError: org/apache/juli/logging/LogFactory
+2016-08-27 15:34:35.087 ERROR 14856 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is java.lang.NoClassDefFoundError: org/apache/juli/logging/LogFactory
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:137) ~[spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:535) ~[spring-context-4.3.2.RELEASE.jar:4.3.2.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759) [spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:369) [spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:313) [spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1185) [spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1174) [spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at fr.aleclerc.rasp.music.ws.Application.main(Application.java:13) [classes/:na]
+Caused by: java.lang.NoClassDefFoundError: org/apache/juli/logging/LogFactory
+	at org.apache.catalina.util.LifecycleBase.<clinit>(LifecycleBase.java:37) ~[tomcat-embed-core-8.0.32.jar:8.0.32]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.getEmbeddedServletContainer(TomcatEmbeddedServletContainerFactory.java:166) ~[spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.createEmbeddedServletContainer(EmbeddedWebApplicationContext.java:164) ~[spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:134) ~[spring-boot-1.4.0.RELEASE.jar:1.4.0.RELEASE]
+	... 8 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.apache.juli.logging.LogFactory
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381) ~[na:1.8.0_101]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[na:1.8.0_101]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331) ~[na:1.8.0_101]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0_101]
+	... 12 common frames omitted
+
+2016-08-27 15:36:05.976  INFO 9360 --- [main] fr.aleclerc.rasp.music.ws.Application    : Starting Application on Amaury-PC with PID 9360 (H:\rasp-music\raspMusic\raspMusic-webService\target\classes started by Amaury in H:\rasp-music\raspMusic\raspMusic-webService)
+2016-08-27 15:36:05.981  INFO 9360 --- [main] fr.aleclerc.rasp.music.ws.Application    : No active profile set, falling back to default profiles: default
+2016-08-27 15:36:06.029  INFO 9360 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@157853da: startup date [Sat Aug 27 15:36:06 CEST 2016]; root of context hierarchy
+2016-08-27 15:36:06.842  INFO 9360 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'requestContextFilter' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/jersey/JerseyAutoConfiguration.class]] with [Root bean: class [org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-08-27 15:36:07.052  INFO 9360 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-08-27 15:36:07.476  INFO 9360 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-08-27 15:36:07.488  INFO 9360 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-08-27 15:36:07.490  INFO 9360 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.32
+2016-08-27 15:36:07.592  INFO 9360 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-08-27 15:36:07.592  INFO 9360 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1566 ms
+2016-08-27 15:36:07.935  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'fr.aleclerc.rasp.music.ws.WebServiceConfig' to [/api/*]
+2016-08-27 15:36:07.936  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-27 15:36:07.939  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-27 15:36:07.940  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-27 15:36:07.940  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-27 15:36:07.940  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-27 15:36:07.940  INFO 9360 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'corsFilter' to: [/*]
+2016-08-27 15:36:08.022  INFO 9360 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'clientInboundChannelExecutor'
+2016-08-27 15:36:08.029  INFO 9360 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'clientOutboundChannelExecutor'
+2016-08-27 15:36:08.061  INFO 9360 --- [main] uk.co.caprica.vlcj.Info                  : vlcj: 3.10.1
+2016-08-27 15:36:08.062  INFO 9360 --- [main] uk.co.caprica.vlcj.Info                  : java: 1.8.0_101 Oracle Corporation
+2016-08-27 15:36:08.062  INFO 9360 --- [main] uk.co.caprica.vlcj.Info                  : java home: C:\Program Files\Java\jdk1.8.0_101\jre
+2016-08-27 15:36:08.062  INFO 9360 --- [main] uk.co.caprica.vlcj.Info                  : os: Windows 10 10.0 amd64
+2016-08-27 15:36:08.134  INFO 9360 --- [main] u.c.c.vlcj.discovery.NativeDiscovery     : Discovery found libvlc at 'C:\Program Files\VideoLAN\VLC'
+2016-08-27 15:36:09.025  INFO 9360 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService  'messageBrokerTaskScheduler'
+2016-08-27 15:36:09.069  INFO 9360 --- [main] o.s.w.s.s.s.WebSocketHandlerMapping      : Mapped URL path [/websocket/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+2016-08-27 15:36:09.081  INFO 9360 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'brokerChannelExecutor'
+2016-08-27 15:36:09.355  INFO 9360 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@157853da: startup date [Sat Aug 27 15:36:06 CEST 2016]; root of context hierarchy
+2016-08-27 15:36:09.417  INFO 9360 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-27 15:36:09.418  INFO 9360 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-27 15:36:09.446  INFO 9360 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:09.446  INFO 9360 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:09.483  INFO 9360 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:09.661  INFO 9360 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-08-27 15:36:09.668  INFO 9360 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2016-08-27 15:36:09.669  INFO 9360 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2016-08-27 15:36:09.669  INFO 9360 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2016-08-27 15:36:09.670  INFO 9360 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2016-08-27 15:36:09.727  INFO 9360 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-08-27 15:36:09.731  INFO 9360 --- [main] fr.aleclerc.rasp.music.ws.Application    : Started Application in 4.219 seconds (JVM running for 4.771)
+2016-08-27 15:36:41.017  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2016-08-27 15:36:41.017  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@157853da: startup date [Sat Aug 27 15:36:06 CEST 2016]; root of context hierarchy
+2016-08-27 15:36:41.019  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2016-08-27 15:36:41.020  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2016-08-27 15:36:41.020  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2016-08-27 15:36:41.020  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2016-08-27 15:36:41.021  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2016-08-27 15:36:41.021  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2016-08-27 15:36:41.021  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2016-08-27 15:36:41.022  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2016-08-27 15:36:41.022  INFO 9360 --- [RMI TCP Connection(7)-192.168.1.38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2016-08-27 15:36:45.159  INFO 15484 --- [main] fr.aleclerc.rasp.music.ws.Application    : Starting Application on Amaury-PC with PID 15484 (H:\rasp-music\raspMusic\raspMusic-webService\target\classes started by Amaury in H:\rasp-music\raspMusic\raspMusic-webService)
+2016-08-27 15:36:45.163  INFO 15484 --- [main] fr.aleclerc.rasp.music.ws.Application    : No active profile set, falling back to default profiles: default
+2016-08-27 15:36:45.209  INFO 15484 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@157853da: startup date [Sat Aug 27 15:36:45 CEST 2016]; root of context hierarchy
+2016-08-27 15:36:45.917  INFO 15484 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'requestContextFilter' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/jersey/JerseyAutoConfiguration.class]] with [Root bean: class [org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=requestContextFilter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-08-27 15:36:46.134  INFO 15484 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-08-27 15:36:46.542  INFO 15484 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-08-27 15:36:46.554  INFO 15484 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-08-27 15:36:46.555  INFO 15484 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.32
+2016-08-27 15:36:46.660  INFO 15484 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-08-27 15:36:46.661  INFO 15484 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1454 ms
+2016-08-27 15:36:47.021  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'fr.aleclerc.rasp.music.ws.WebServiceConfig' to [/api/*]
+2016-08-27 15:36:47.024  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-27 15:36:47.027  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-27 15:36:47.028  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-27 15:36:47.028  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-27 15:36:47.029  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-27 15:36:47.029  INFO 15484 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'corsFilter' to: [/*]
+2016-08-27 15:36:47.109  INFO 15484 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'clientInboundChannelExecutor'
+2016-08-27 15:36:47.117  INFO 15484 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'clientOutboundChannelExecutor'
+2016-08-27 15:36:47.150  INFO 15484 --- [main] uk.co.caprica.vlcj.Info                  : vlcj: 3.10.1
+2016-08-27 15:36:47.151  INFO 15484 --- [main] uk.co.caprica.vlcj.Info                  : java: 1.8.0_101 Oracle Corporation
+2016-08-27 15:36:47.152  INFO 15484 --- [main] uk.co.caprica.vlcj.Info                  : java home: C:\Program Files\Java\jdk1.8.0_101\jre
+2016-08-27 15:36:47.152  INFO 15484 --- [main] uk.co.caprica.vlcj.Info                  : os: Windows 10 10.0 amd64
+2016-08-27 15:36:47.215  INFO 15484 --- [main] u.c.c.vlcj.discovery.NativeDiscovery     : Discovery found libvlc at 'C:\Program Files\VideoLAN\VLC'
+2016-08-27 15:36:47.269  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\04 Castle In the Snow.mp3 
+2016-08-27 15:36:47.422  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-01 Petricor.MP3 
+2016-08-27 15:36:47.516  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-02 Night.MP3 
+2016-08-27 15:36:47.598  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-03 Drop.MP3 
+2016-08-27 15:36:47.677  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-04 Four Dimensions.MP3 
+2016-08-27 15:36:47.764  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-05 Elements.MP3 
+2016-08-27 15:36:47.843  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\1-06 Whirling Winds.MP3 
+2016-08-27 15:36:47.922  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\11 Ten Tigers.mp3 
+2016-08-27 15:36:47.989  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\12 Red & Black Light.mp3 
+2016-08-27 15:36:47.996  INFO 15484 --- [main] f.a.r.music.storage.music.MusicStorage   : Music find : H:\music\12 Ueno.mp3 
+2016-08-27 15:36:48.049  INFO 15484 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService  'messageBrokerTaskScheduler'
+2016-08-27 15:36:48.104  INFO 15484 --- [main] o.s.w.s.s.s.WebSocketHandlerMapping      : Mapped URL path [/websocket/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+2016-08-27 15:36:48.114  INFO 15484 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'brokerChannelExecutor'
+2016-08-27 15:36:48.370  INFO 15484 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@157853da: startup date [Sat Aug 27 15:36:45 CEST 2016]; root of context hierarchy
+2016-08-27 15:36:48.428  INFO 15484 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-27 15:36:48.429  INFO 15484 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-27 15:36:48.461  INFO 15484 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:48.462  INFO 15484 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:48.495  INFO 15484 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-27 15:36:48.691  INFO 15484 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-08-27 15:36:48.696  INFO 15484 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2016-08-27 15:36:48.697  INFO 15484 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2016-08-27 15:36:48.697  INFO 15484 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2016-08-27 15:36:48.698  INFO 15484 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2016-08-27 15:36:48.752  INFO 15484 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-08-27 15:36:48.755  INFO 15484 --- [main] fr.aleclerc.rasp.music.ws.Application    : Started Application in 4.093 seconds (JVM running for 4.646)
+2016-08-27 15:37:48.113  INFO 15484 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]

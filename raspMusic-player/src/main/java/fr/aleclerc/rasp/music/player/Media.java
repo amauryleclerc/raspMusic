@@ -7,6 +7,8 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 
 public class Media  {
 	
+	
+	
 	private Music music;
 	private Integer position;
 	@JsonIgnore

@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.Base64;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,19 +26,21 @@ import fr.aleclerc.rasp.music.storage.utils.ImageUtils;
 
 @Component
 public class MusicFactory {
+	
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	public ArtistFactory artistFactory;
 
 	public Optional<Music> getIntance(File file) {
-		System.out.println(file);
+		LOGGER.debug("getIntance : {}",file.getName());
 		MusicLocal music = new MusicLocal();
 		music.setPath(file.getPath());
 		Mp3File mp3file = null;
 		try {
 			mp3file = new Mp3File(file);
 		} catch (UnsupportedTagException | InvalidDataException | IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Création Mp3 impossible : {}",e.getMessage());
 			return Optional.empty();
 
 		}
@@ -51,15 +55,14 @@ public class MusicFactory {
 					String mimeType = id3v2Tag.getAlbumImageMimeType();
 					music.setCover("data:" + mimeType + ";base64," + cover);
 				} catch (StorageException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.error("Création cover Mp3 impossible : {}",e.getMessage());
 				}
 			}
 			music.setDuration(LocalTime.MIN.plusSeconds(mp3file.getLengthInSeconds()).toString());
 
 			music.setTitle(id3v2Tag.getTitle());
 			Artist artist = artistFactory.getIntance(id3v2Tag.getArtist());
-
+			//TODO Album
 			// Artist albumArtist =
 			// ArtistFactory.getIntance(id3v2Tag.getAlbumArtist());
 			Album album = new Album();

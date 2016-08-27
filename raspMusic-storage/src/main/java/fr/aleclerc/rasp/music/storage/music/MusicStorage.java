@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,8 @@ import fr.aleclerc.rasp.music.storage.exception.StorageException;
 @Component
 public class MusicStorage implements IStorage<Music> {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private MusicFactory musicFactory;
 	
@@ -53,12 +57,14 @@ public class MusicStorage implements IStorage<Music> {
 
 	@PostConstruct
 	private void searchMusic() throws StorageException{
-
+		LOGGER.trace("Search music");
 		try {
 			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path")))//
 			.filter(filePath -> Files.isRegularFile(filePath))//
+			.peek(filePath -> LOGGER.info("Music find : {} ",filePath))
 			.map(filePath -> new File(filePath.toUri()))
 			.map(uri ->  musicFactory.getIntance(uri))//
+			.filter(music -> music.isPresent())//
 			.forEach(music -> this.add(music.get()));
 		} catch (IOException e) {
 			new StorageException(e);
