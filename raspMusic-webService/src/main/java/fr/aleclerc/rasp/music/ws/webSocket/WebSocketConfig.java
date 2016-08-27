@@ -39,10 +39,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		registry.addEndpoint(ENDPOINT_PREFIX).setAllowedOrigins("*").withSockJS();
 	}
 
-	/*
-	 * This should be done automatically by Spring Boot but there is a currently
-	 * a bug on it: https://github.com/spring-projects/spring-boot/issues/2445
-	 */
 	@Override
 	public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
 		DefaultContentTypeResolver resolver = new DefaultContentTypeResolver();

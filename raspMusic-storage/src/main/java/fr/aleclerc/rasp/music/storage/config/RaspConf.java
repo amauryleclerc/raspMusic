@@ -34,7 +34,7 @@ public class RaspConf {
 		
 
 		} catch (Exception e) {
-			System.out.println("Exception: " + e);
+			LOGGER.error("getPropValue : {}",e.getMessage());
 		} finally {
 			inputStream.close();
 		}
