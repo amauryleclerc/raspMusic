@@ -37,6 +37,16 @@ public class MediaPlayerEventListener extends MediaPlayerEventAdapter {
 			LOGGER.error("timeChanged error : {}",e.getMessage() );
 		}
 
+	}	
+	@Override
+	public void error(MediaPlayer mediaPlayer) {
+		LOGGER.error("Erreur de lecture");
+		try {
+			player.next(true);
+		} catch (Exception e) {
+			LOGGER.error("error : {}",e.getMessage() );
+		}
 	}
+
 
 }
