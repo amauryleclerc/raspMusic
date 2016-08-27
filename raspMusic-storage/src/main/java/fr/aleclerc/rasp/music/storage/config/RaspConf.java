@@ -5,11 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class RaspConf {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class RaspConf {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RaspConf.class.getClass());
+	
 	private static String propFileName = "storage.properties";
  
 	public static String getPropValue(String key) throws IOException {
+		LOGGER.debug("getPropValue : {} ",key);
 		String result = null;
 		InputStream inputStream = null;
 		try {
@@ -28,7 +34,7 @@ public class RaspConf {
 		
 
 		} catch (Exception e) {
-			System.out.println("Exception: " + e);
+			LOGGER.error("getPropValue : {}",e.getMessage());
 		} finally {
 			inputStream.close();
 		}

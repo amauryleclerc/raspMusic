@@ -1,35 +1,40 @@
 package fr.aleclerc.rasp.music.player.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.api.Player;
+import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 @Component
-public class PlayerEventListener extends MediaPlayerEventAdapter {
+public class MediaPlayerEventListener extends MediaPlayerEventAdapter {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	
+	
 	@Autowired
-	private Player player;
+	private IPlayer player;
 
 	@Override
 	public void finished(MediaPlayer mediaPlayer) {
+		LOGGER.debug("finished");
 		try {
 			player.next(true);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("finished error : {}",e.getMessage() );
 		}
 	}
 
 	@Override
 	public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
+		LOGGER.debug("timeChanged");
 		try {
 			player.updateTime(newTime);
 		} catch (PlayerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("timeChanged error : {}",e.getMessage() );
 		}
 
 	}

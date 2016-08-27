@@ -1,23 +1,19 @@
 package fr.aleclerc.rasp.music.ws;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
-
 
 @SpringBootApplication
 @ComponentScan("fr.aleclerc.rasp.music")
-public class Application extends SpringBootServletInitializer {
+public class Application {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Application.class);
-	}
-
+	private final static Logger LOGGER = LoggerFactory.getLogger(Application.class.getClass());
 
 	public static void main(String[] args) throws Exception {
-		new Application().configure(new SpringApplicationBuilder(Application.class)).run(args);
+		LOGGER.debug("Start");
+		SpringApplication.run(Application.class, args);
 	}
 }

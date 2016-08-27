@@ -2,7 +2,7 @@ package fr.aleclerc.rasp.music.api;
 
 import fr.aleclerc.rasp.music.api.pojo.Music;
 
-public interface PlayerListener {
+public interface IPlayerListener {
 	public void onPlay(Music musicImpl);
 	public void onPause();
 	public void onStop();

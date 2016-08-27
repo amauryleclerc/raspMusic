@@ -16,4 +16,8 @@ public class StorageException extends Exception{
 	public StorageException(IOException e) {
 		super(e);
 	}
+
+	public StorageException(Exception e) {
+		super(e);
+	}
 }
