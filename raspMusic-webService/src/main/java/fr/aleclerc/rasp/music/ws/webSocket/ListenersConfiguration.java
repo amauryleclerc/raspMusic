@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.api.Player;
+import fr.aleclerc.rasp.music.api.IPlayer;
 
 @Configuration
 @Component
@@ -16,7 +16,7 @@ public class ListenersConfiguration {
 	WebSocketBroker webSocketBroker;
 
 	@Autowired
-	private Player player;
+	private IPlayer player;
 
 	
 	@PostConstruct

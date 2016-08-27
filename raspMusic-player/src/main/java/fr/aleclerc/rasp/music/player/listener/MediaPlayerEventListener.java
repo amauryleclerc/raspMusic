@@ -3,15 +3,15 @@ package fr.aleclerc.rasp.music.player.listener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.aleclerc.rasp.music.api.Player;
+import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 @Component
-public class PlayerEventListener extends MediaPlayerEventAdapter {
+public class MediaPlayerEventListener extends MediaPlayerEventAdapter {
 
 	@Autowired
-	private Player player;
+	private IPlayer player;
 
 	@Override
 	public void finished(MediaPlayer mediaPlayer) {

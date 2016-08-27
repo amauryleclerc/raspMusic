@@ -2,21 +2,22 @@ package fr.aleclerc.rasp.music.storage.artist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import fr.aleclerc.rasp.music.api.pojo.Artist;
-import fr.aleclerc.rasp.music.storage.Storage;
+import fr.aleclerc.rasp.music.storage.IStorage;
 
 @Component
-@Scope("singleton")
-public class ArtistStorage implements Storage<Artist>{
+public class ArtistStorage implements IStorage<Artist>{
 
-	private List<Artist> artists = null;
+	private static List<Artist> artists = null;
 	
 	public  ArtistStorage() {
-		artists = new ArrayList<Artist>();
+		if(artists == null){
+			artists = new ArrayList<Artist>();
+		}
 	}
 	@Override
 	public List<Artist> getAll() {
@@ -27,14 +28,9 @@ public class ArtistStorage implements Storage<Artist>{
 	public void add(Artist artist) {
 		artists.add(artist);
 	}
-	public Artist getArtist(String name){
-		for(Artist artist : artists){
-			if(artist.getName().equals(name)){
-				return artist;
-			}
-		}
-		return null;
-		
+	public Optional<Artist> getArtist(String name){
+		return artists.stream().filter(a -> a.getName().equals(name)).findFirst();
+			
 	}
 
 }

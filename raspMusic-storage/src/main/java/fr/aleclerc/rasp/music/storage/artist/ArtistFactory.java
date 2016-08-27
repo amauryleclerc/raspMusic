@@ -1,5 +1,7 @@
 package fr.aleclerc.rasp.music.storage.artist;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +13,16 @@ public class ArtistFactory {
 	private  ArtistStorage artistStorage;
 	
 	public  Artist getIntance(String name) {
-
-		Artist artist = artistStorage.getArtist(name);
-		if(artist == null){
+		Artist artist;
+		Optional<Artist> a = artistStorage.getArtist(name);
+		if(!a.isPresent()){
 			artist = new Artist();
 			artist.setName(name);
 			artistStorage.add(artist);
+		}else{
+			artist = a.get();
 		}
+		
 		
 		return artist;
 	}

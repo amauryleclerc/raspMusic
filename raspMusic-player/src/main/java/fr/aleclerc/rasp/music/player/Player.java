@@ -9,20 +9,20 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.aleclerc.rasp.music.api.Player;
-import fr.aleclerc.rasp.music.api.PlayerListener;
-import fr.aleclerc.rasp.music.api.PlayerState;
+import fr.aleclerc.rasp.music.api.IPlayer;
+import fr.aleclerc.rasp.music.api.IPlayerListener;
+import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
-import fr.aleclerc.rasp.music.player.factory.MusicImplFactory;
+import fr.aleclerc.rasp.music.player.factory.MediaFactory;
 
 @Service
-public class PlayerImpl implements Player {
+public class Player implements IPlayer {
 
 
 
-	private List<PlayerListener> listeners = new ArrayList<PlayerListener>();
-	private PlayerState state = PlayerState.STOP;
+	private List<IPlayerListener> listeners = new ArrayList<IPlayerListener>();
+	private EPlayerState state = EPlayerState.STOP;
 	private int currentNum = -1;
 	private int nbMusic = 0;
 	private long lastPercentage = 0;
@@ -36,19 +36,19 @@ public class PlayerImpl implements Player {
 	@Override
 	public void stop() throws PlayerException {
 		this.getCurrentMedia().getMediaPlayer().stop();
-		for (PlayerListener listener : listeners) {
+		for (IPlayerListener listener : listeners) {
 			listener.onStop();
 		}
-		this.state = PlayerState.STOP;
+		this.state = EPlayerState.STOP;
 	}
 
 	@Override
 	public void play() throws PlayerException {
 		this.getCurrentMedia().getMediaPlayer().play();
-		for (PlayerListener listener : listeners) {
+		for (IPlayerListener listener : listeners) {
 			listener.onPlay(this.getCurrentMedia().getMusic());
 		}
-		this.state = PlayerState.PLAY;
+		this.state = EPlayerState.PLAY;
 	}
 
 	@Override
@@ -56,10 +56,10 @@ public class PlayerImpl implements Player {
 
 		this.getCurrentMedia().getMediaPlayer().pause();
 
-		for (PlayerListener listener : listeners) {
+		for (IPlayerListener listener : listeners) {
 			listener.onPause();
 		}
-		this.state = PlayerState.PAUSE;
+		this.state = EPlayerState.PAUSE;
 	}
 
 	@Override
@@ -105,20 +105,20 @@ public class PlayerImpl implements Player {
 
 
 	@Override
-	public void addPlayerListener(PlayerListener listener) {
+	public void addPlayerListener(IPlayerListener listener) {
 	
 		listeners.add(listener);
 
 	}
 
 	@Override
-	public void removePlayerListener(PlayerListener listener) {
+	public void removePlayerListener(IPlayerListener listener) {
 	
 		listeners.remove(listener);
 	}
 
 	@Override
-	public PlayerState getState() {
+	public EPlayerState getState() {
 		
 		return this.state;
 	}
@@ -131,7 +131,7 @@ public class PlayerImpl implements Player {
 
 
 	@Autowired
-	private MusicImplFactory musicFactory;
+	private MediaFactory musicFactory;
 
 	public boolean add(Music newmusic) {
 		Media music = musicFactory.getInstance(newmusic);
@@ -142,7 +142,7 @@ public class PlayerImpl implements Player {
 		if (currentNum == -1) {
 			currentNum++;
 		}
-		for (PlayerListener listener : listeners) {
+		for (IPlayerListener listener : listeners) {
 			listener.onAdd(music.getMusic());
 		}
 		return true;
@@ -166,13 +166,13 @@ public class PlayerImpl implements Player {
 			if (this.currentNum > 4) {
 				Media media = playlist.remove(0);
 				this.currentNum--;
-				for (PlayerListener listener : listeners) {
+				for (IPlayerListener listener : listeners) {
 					listener.onRemove(media.getMusic());
 				}
 			}
 
 			try {
-				for (PlayerListener listener : listeners) {
+				for (IPlayerListener listener : listeners) {
 					listener.onChangeCurrent(this.getCurrentMedia().getMusic());
 				}
 			} catch (Exception e) {

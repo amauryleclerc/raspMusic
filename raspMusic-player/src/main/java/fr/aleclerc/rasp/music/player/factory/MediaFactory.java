@@ -10,7 +10,7 @@ import fr.aleclerc.rasp.music.player.Media;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 
 @Component
-public class MusicImplFactory {
+public class MediaFactory {
 	@Autowired
 	private MediaPlayerFactory mediaPlayerFactory;
 
