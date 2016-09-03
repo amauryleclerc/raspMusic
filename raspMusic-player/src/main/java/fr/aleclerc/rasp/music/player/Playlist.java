@@ -2,7 +2,7 @@ package fr.aleclerc.rasp.music.player;
 
 import java.util.ArrayList;
 
-public class Playlist extends ArrayList<Media>  {
+public class Playlist extends ArrayList<Media> {
 
 	/**
 	 * 

@@ -16,7 +16,9 @@ public interface IPlayer extends IPlayerListenerRegistry{
 	public void next(boolean b) throws PlayerException;
 	public boolean add(Music music)  throws PlayerException;
 	public Music getCurrent() throws PlayerException;
+	public AMedia getCurrentMedia()  throws RuntimeException;
 	public void remove(Music music)  throws PlayerException;
 	public void updateTime(long newTime)  throws PlayerException;
 	public List<Music> getPlaylist();
+	public List<AMedia> getMediaPlaylist();
 }

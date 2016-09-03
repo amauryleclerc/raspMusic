@@ -11,9 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.aleclerc.rasp.music.api.AMedia;
+import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.IPlayerListener;
-import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.player.factory.MediaFactory;
@@ -52,9 +53,7 @@ public class Player implements IPlayer {
 	public void play() throws PlayerException {
 		LOGGER.trace("play");
 		this.getCurrentMedia().getMediaPlayer().play();
-		for (IPlayerListener listener : listeners) {
-			listener.onPlay(this.getCurrentMedia().getMusic());
-		}
+		listeners.stream().forEach(l -> l.onPlay(this.getCurrentMedia()));
 		this.state = EPlayerState.PLAY;
 	}
 
@@ -134,28 +133,26 @@ public class Player implements IPlayer {
 
 	public boolean add(Music newmusic) {
 		LOGGER.trace("add");
-		Media music = musicFactory.getInstance(newmusic);
-		music.setPosition(nbMusic);
+		Media media = musicFactory.getInstance(newmusic);
+		media.setPosition(nbMusic);
 		nbMusic++;
-		playlist.add(music);
+		playlist.add(media);
 
 		if (currentNum == -1) {
 			currentNum++;
 		}
-		for (IPlayerListener listener : listeners) {
-			listener.onAdd(music.getMusic());
-		}
+		listeners.stream().forEach(l -> l.onAdd(media));
 		return true;
 
 	}
 
-	private Media getCurrentMedia() throws PlayerException {
+	public Media getCurrentMedia() throws RuntimeException {
 		LOGGER.trace("getCurrentMedia");
 		if (currentNum > -1 && currentNum < playlist.size()) {
 			return playlist.get(currentNum);
 		} else {
 
-			throw new PlayerException("pas de music");
+			throw new RuntimeException("pas de music");
 		}
 	}
 
@@ -163,21 +160,14 @@ public class Player implements IPlayer {
 		LOGGER.trace("setCurrentNum");
 		if (num >= 0 && num < playlist.size()) {
 			this.currentNum = num;
-			if (this.currentNum > 4) {
+		/*	if (this.currentNum > 4) {
 				Media media = playlist.remove(0);
 				this.currentNum--;
-				for (IPlayerListener listener : listeners) {
-					listener.onRemove(media.getMusic());
-				}
-			}
+				listeners.stream().forEach(l -> l.onRemove(media));
+			}*/
 
-			try {
-				for (IPlayerListener listener : listeners) {
-					listener.onChangeCurrent(this.getCurrentMedia().getMusic());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			listeners.stream().forEach(l -> l.onChangeCurrent(this.getCurrentMedia()));
+
 			return true;
 		}
 		return false;
@@ -234,6 +224,12 @@ public class Player implements IPlayer {
 	public List<Music> getPlaylist() {
 		LOGGER.trace("getPlaylist");
 		return this.playlist.stream().map(media -> media.getMusic()).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<AMedia> getMediaPlaylist() {
+		LOGGER.trace("getPlaylist");
+		return this.playlist.stream().map(media -> (AMedia) media).collect(Collectors.toList());
 	}
 
 }

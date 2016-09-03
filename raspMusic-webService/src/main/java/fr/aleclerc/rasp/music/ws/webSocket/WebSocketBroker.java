@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import fr.aleclerc.rasp.music.api.AMedia;
 import fr.aleclerc.rasp.music.api.IPlayerListener;
-import fr.aleclerc.rasp.music.api.pojo.Music;
 
 
 @Controller
@@ -20,14 +20,14 @@ public class WebSocketBroker  implements IPlayerListener {
 	
 
 	@Override
-	public void onAdd(Music music) {
+	public void onAdd(AMedia music) {
 		LOGGER.debug("Send onAdd : {}",music);
 		template.convertAndSend("/player/add", music);
 
 	}
 
 	@Override
-	public void onPlay(Music music) {
+	public void onPlay(AMedia music) {
 		LOGGER.debug("Send onPlay : {}",music);
 		template.convertAndSend("/player/play", music);
 	}
@@ -47,13 +47,13 @@ public class WebSocketBroker  implements IPlayerListener {
 	}
 
 	@Override
-	public void onRemove(Music music) {
+	public void onRemove(AMedia music) {
 		LOGGER.debug("Send onRemove : {}",music);
 		template.convertAndSend("/player/remove", music);
 	}
 
 	@Override
-	public void onChangeCurrent(Music music) {
+	public void onChangeCurrent(AMedia music) {
 		LOGGER.debug("Send onChangeCurrent : {}",music);
 		template.convertAndSend("/player/change", music);
 	}

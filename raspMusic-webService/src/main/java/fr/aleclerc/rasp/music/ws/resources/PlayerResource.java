@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.aleclerc.rasp.music.api.AMedia;
 import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
@@ -111,16 +112,16 @@ public class PlayerResource {
 
 	@GET
 	@Path("/playlist")
-	public List<Music> getPlaylist() {
+	public List<AMedia> getPlaylist() {
 		LOGGER.debug("getPlaylist");
-		return player.getPlaylist();
+		return player.getMediaPlaylist();
 	}
 
 	@GET
 	@Path("/current")
-	public Music getCurrent() throws Exception {
+	public AMedia getCurrent() throws Exception {
 		LOGGER.debug("getCurrent");
-		return player.getCurrent();
+		return player.getCurrentMedia();
 	}
 
 	@PUT
