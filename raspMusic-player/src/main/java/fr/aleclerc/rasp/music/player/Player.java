@@ -86,9 +86,7 @@ public class Player implements IPlayer {
 	@Override
 	public void next(boolean forcePlay) throws PlayerException {
 		LOGGER.trace("next");
-		if (this.getCurrentMedia() != null && this.getCurrentMedia().getMediaPlayer().isPlaying()) {
-			this.stop();
-		}
+		this.stop();
 		if (this.setCurrentNum(this.getCurrentNum() + 1) && forcePlay) {
 			this.play();
 		}

@@ -39,15 +39,13 @@ public class PlayerResource {
 		LOGGER.debug("Play");
 		try {
 			player.play();
-		} catch (PlayerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (PlayerException e) {
+			LOGGER.error(e.getMessage());
 		}
 		try {
 			return player.getCurrent();
 		} catch (PlayerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
 		}
 		return null;
 	}

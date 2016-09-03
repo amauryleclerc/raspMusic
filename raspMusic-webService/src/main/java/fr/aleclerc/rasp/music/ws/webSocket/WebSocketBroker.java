@@ -13,7 +13,7 @@ import fr.aleclerc.rasp.music.api.pojo.Music;
 @Controller
 public class WebSocketBroker  implements IPlayerListener {
 	
-	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private final Logger LOGGER = LoggerFactory.getLogger(WebSocketBroker.class.getClass());
 	
 	@Autowired
 	SimpMessagingTemplate template;

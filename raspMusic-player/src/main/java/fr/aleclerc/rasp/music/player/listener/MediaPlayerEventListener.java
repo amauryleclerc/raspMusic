@@ -12,7 +12,7 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 @Component
 public class MediaPlayerEventListener extends MediaPlayerEventAdapter {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private final Logger LOGGER = LoggerFactory.getLogger(MediaPlayerEventListener.class);
 	
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class MediaPlayerEventListener extends MediaPlayerEventAdapter {
 
 	@Override
 	public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
-		LOGGER.debug("timeChanged");
+		LOGGER.trace("timeChanged");
 		try {
 			player.updateTime(newTime);
 		} catch (PlayerException e) {
