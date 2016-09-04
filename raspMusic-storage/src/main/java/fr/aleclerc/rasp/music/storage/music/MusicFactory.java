@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -48,7 +49,6 @@ public class MusicFactory {
 
 		if (mp3file.hasId3v2Tag() && mp3file.getId3v2Tag().getTitle() != null) {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-
 			byte[] albumImageData = id3v2Tag.getAlbumImage();
 
 			String cover = null;
@@ -57,22 +57,23 @@ public class MusicFactory {
 				try {
 					cover = Base64.getEncoder().encodeToString(util.scale(albumImageData, 80, 80));
 					mimeType = id3v2Tag.getAlbumImageMimeType();
-				
+
 				} catch (StorageException e) {
 					LOGGER.error("Création cover Mp3 impossible : {}", e.getMessage());
 				}
-			} 
-			if(cover == null){
-					try {
-						cover = Base64.getEncoder().encodeToString(util.getNoCover());
-						mimeType = "image/jpeg";
-					} catch (StorageException e) {
-						LOGGER.error("Création NoCover impossible : {}", e.getMessage());
-					}
-					
+			}
+			if (cover == null) {
+				LOGGER.warn("No cover found for {}", id3v2Tag.getTitle());
+				try {
+					cover = Base64.getEncoder().encodeToString(util.getNoCover());
+					mimeType = "image/jpeg";
+				} catch (StorageException e) {
+					LOGGER.error("Création NoCover impossible : {}", e.getMessage());
+				}
+
 			}
 			music.setCover("data:" + mimeType + ";base64," + cover);
-		
+
 			music.setDuration(LocalTime.MIN.plusSeconds(mp3file.getLengthInSeconds()).toString());
 
 			music.setTitle(id3v2Tag.getTitle());
