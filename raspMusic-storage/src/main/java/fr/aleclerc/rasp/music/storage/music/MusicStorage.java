@@ -3,6 +3,7 @@ package fr.aleclerc.rasp.music.storage.music;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +21,17 @@ import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.storage.IStorage;
 import fr.aleclerc.rasp.music.storage.config.RaspConf;
 import fr.aleclerc.rasp.music.storage.exception.StorageException;
+import rx.Observable;
+import rx.schedulers.Schedulers;
 
 @Component
 public class MusicStorage implements IStorage<Music> {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private MusicFactory musicFactory;
-	
+
 	private static List<Music> musics = null;
 
 	public MusicStorage() throws StorageException {
@@ -47,25 +50,41 @@ public class MusicStorage implements IStorage<Music> {
 	public void add(Music music) {
 		musics.add(music);
 	}
-	
+
 	public List<Music> getMusicsFromArtist(Artist artist) {
-		
+
 		return this.getAll().stream().filter(music -> music.getArtist().equals(artist)).collect(Collectors.toList());
-		
-	
+
 	}
 
-	@PostConstruct
-	private void searchMusic() throws StorageException{
+	private void searchMusic() throws StorageException {
 		LOGGER.trace("Search music");
 		try {
 			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path")))//
-			.filter(filePath -> Files.isRegularFile(filePath))//
-			.peek(filePath -> LOGGER.info("Music find : {} ",filePath))
-			.map(filePath -> new File(filePath.toUri()))
-			.map(uri ->  musicFactory.getIntance(uri))//
-			.filter(music -> music.isPresent())//
-			.forEach(music -> this.add(music.get()));
+					.filter(filePath -> Files.isRegularFile(filePath))//
+					.peek(filePath -> LOGGER.info("Music find : {} ", filePath))
+					.map(filePath -> new File(filePath.toUri())).map(uri -> musicFactory.getIntance(uri))//
+					.filter(music -> music.isPresent())//
+					.forEach(music -> this.add(music.get()));
+		} catch (IOException e) {
+			new StorageException(e);
+		}
+	}
+
+	@PostConstruct
+	private void searchMusicASync() throws StorageException {
+		LOGGER.trace("Search music Async");
+		try {
+			Observable.from(Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path")))::iterator)//
+					.subscribeOn(Schedulers.newThread())//
+					.observeOn(Schedulers.trampoline())//
+					.filter(filePath -> Files.isRegularFile(filePath))//
+					.doOnNext(filePath -> LOGGER.info("Music find : {} ", filePath))//
+					.map(filePath -> new File(filePath.toUri()))//
+					.map(uri -> musicFactory.getIntance(uri))//
+					.filter(music -> music.isPresent())//
+					.subscribe(music -> this.add(music.get()));
+
 		} catch (IOException e) {
 			new StorageException(e);
 		}
