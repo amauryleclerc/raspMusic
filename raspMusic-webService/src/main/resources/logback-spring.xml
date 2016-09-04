@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<configuration>
+<configuration debug="true">
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	
+
+
 
 	<logger name="ROOT" level="ERROR" />
 	<logger name="fr.aleclerc" level="DEBUG" />
+
 
 
 </configuration>

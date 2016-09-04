@@ -26,21 +26,22 @@ import fr.aleclerc.rasp.music.storage.utils.ImageUtils;
 
 @Component
 public class MusicFactory {
-	
+
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	public ArtistFactory artistFactory;
 
 	public Optional<Music> getIntance(File file) {
-		LOGGER.debug("getIntance : {}",file.getName());
+		ImageUtils util = new ImageUtils();
+		LOGGER.debug("getIntance : {}", file.getName());
 		MusicLocal music = new MusicLocal();
 		music.setPath(file.getPath());
 		Mp3File mp3file = null;
 		try {
 			mp3file = new Mp3File(file);
 		} catch (UnsupportedTagException | InvalidDataException | IOException e) {
-			LOGGER.error("Création Mp3 impossible : {}",e.getMessage());
+			LOGGER.error("Création Mp3 impossible : {}", e.getMessage());
 			return Optional.empty();
 
 		}
@@ -49,20 +50,34 @@ public class MusicFactory {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
 
 			byte[] albumImageData = id3v2Tag.getAlbumImage();
+
+			String cover = null;
+			String mimeType = null;
 			if (albumImageData != null) {
 				try {
-					String cover = Base64.getEncoder().encodeToString(ImageUtils.scale(albumImageData, 80, 80));
-					String mimeType = id3v2Tag.getAlbumImageMimeType();
-					music.setCover("data:" + mimeType + ";base64," + cover);
+					cover = Base64.getEncoder().encodeToString(util.scale(albumImageData, 80, 80));
+					mimeType = id3v2Tag.getAlbumImageMimeType();
+				
 				} catch (StorageException e) {
-					LOGGER.error("Création cover Mp3 impossible : {}",e.getMessage());
+					LOGGER.error("Création cover Mp3 impossible : {}", e.getMessage());
 				}
+			} 
+			if(cover == null){
+					try {
+						cover = Base64.getEncoder().encodeToString(util.getNoCover());
+						mimeType = "image/jpeg";
+					} catch (StorageException e) {
+						LOGGER.error("Création NoCover impossible : {}", e.getMessage());
+					}
+					
 			}
+			music.setCover("data:" + mimeType + ";base64," + cover);
+		
 			music.setDuration(LocalTime.MIN.plusSeconds(mp3file.getLengthInSeconds()).toString());
 
 			music.setTitle(id3v2Tag.getTitle());
 			Artist artist = artistFactory.getIntance(id3v2Tag.getArtist());
-			//TODO Album
+			// TODO Album
 			// Artist albumArtist =
 			// ArtistFactory.getIntance(id3v2Tag.getAlbumArtist());
 			Album album = new Album();
