@@ -1,6 +1,5 @@
 package fr.aleclerc.rasp.music.player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import fr.aleclerc.rasp.music.api.AMedia;
 import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.IPlayer;
-import fr.aleclerc.rasp.music.api.IPlayerListener;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.api.utils.Tuple;
@@ -25,13 +23,14 @@ public class Player implements IPlayer {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-	private List<IPlayerListener> listeners = new ArrayList<IPlayerListener>();
 	private EPlayerState state;
 	private int currentNum = -1;
 	private int nbMusic = 0;
 	private final Playlist playlist;
 	private final BehaviorSubject<EPlayerState> stateSubject;
 	private final BehaviorSubject<Tuple<Long, Long>> timeSubject;
+	private final BehaviorSubject<Media> currentMediaSubject;
+	private final BehaviorSubject<List<AMedia>> playlistSubject;
 
 	@Autowired
 	private MediaFactory musicFactory;
@@ -39,17 +38,21 @@ public class Player implements IPlayer {
 	public Player() {
 		this.playlist = new Playlist();
 		this.state = EPlayerState.STOP;
-		this.stateSubject = BehaviorSubject.create(state);
+		this.stateSubject = BehaviorSubject.create();
 		this.timeSubject = BehaviorSubject.create();
+		this.currentMediaSubject = BehaviorSubject.create();
+		this.playlistSubject = BehaviorSubject.create();
+	}
+	private List<AMedia> playlistToList(){
+		return playlist.stream()//
+				.map(m -> (AMedia) m)//
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public void stop() throws PlayerException {
 		LOGGER.trace("Stop");
 		this.getCurrentMedia().getMediaPlayer().stop();
-		for (IPlayerListener listener : listeners) {
-			listener.onStop();
-		}
 		this.setState(EPlayerState.STOP);
 	}
 
@@ -57,7 +60,6 @@ public class Player implements IPlayer {
 	public void play() throws PlayerException {
 		LOGGER.trace("play");
 		this.getCurrentMedia().getMediaPlayer().play();
-		listeners.stream().forEach(l -> l.onPlay(this.getCurrentMedia()));
 		this.setState(EPlayerState.PLAY);
 	}
 
@@ -65,10 +67,6 @@ public class Player implements IPlayer {
 	public void pause() throws PlayerException {
 		LOGGER.trace("pause");
 		this.getCurrentMedia().getMediaPlayer().pause();
-
-		for (IPlayerListener listener : listeners) {
-			listener.onPause();
-		}
 		this.setState(EPlayerState.PAUSE);
 	}
 
@@ -109,18 +107,6 @@ public class Player implements IPlayer {
 
 	}
 
-	@Override
-	public void addPlayerListener(IPlayerListener listener) {
-		LOGGER.trace("addPlayerListener");
-		listeners.add(listener);
-
-	}
-
-	@Override
-	public void removePlayerListener(IPlayerListener listener) {
-		LOGGER.trace("removePlayerListener");
-		listeners.remove(listener);
-	}
 
 	@Override
 	public EPlayerState getState() {
@@ -145,7 +131,7 @@ public class Player implements IPlayer {
 		if (currentNum == -1) {
 			currentNum++;
 		}
-		listeners.stream().forEach(l -> l.onAdd(media));
+		playlistSubject.onNext(playlistToList());
 		return true;
 
 	}
@@ -164,14 +150,7 @@ public class Player implements IPlayer {
 		LOGGER.trace("setCurrentNum");
 		if (num >= 0 && num < playlist.size()) {
 			this.currentNum = num;
-			/*
-			 * if (this.currentNum > 4) { Media media = playlist.remove(0);
-			 * this.currentNum--; listeners.stream().forEach(l ->
-			 * l.onRemove(media)); }
-			 */
-
-			listeners.stream().forEach(l -> l.onChangeCurrent(this.getCurrentMedia()));
-
+			currentMediaSubject.onNext(this.getCurrentMedia());
 			return true;
 		}
 		return false;
@@ -192,7 +171,7 @@ public class Player implements IPlayer {
 		 * (PlaylistListener listener : listeners) { listener.onRemove(music); }
 		 * break; } }
 		 */
-
+		playlistSubject.onNext(playlistToList());
 	}
 
 	@Override
@@ -202,7 +181,7 @@ public class Player implements IPlayer {
 			final Media media = this.getCurrentMedia();
 			media.getMusic().setCurrentTime(newTime);
 			long lengthLocal = media.getMediaPlayer().getLength();
-			LOGGER.debug("updade time : {} / {}",newTime, lengthLocal);
+			LOGGER.trace("updade time : {} / {}",newTime, lengthLocal);
 			this.timeSubject.onNext(Tuple.tuple(newTime, lengthLocal));
 		} catch (Exception e) {
 			LOGGER.error("updateTime error : {}", e.getMessage());
@@ -230,6 +209,7 @@ public class Player implements IPlayer {
 
 	private void setState(EPlayerState state) {
 		this.state = state;
+		LOGGER.debug(this.state.name());
 		this.stateSubject.onNext(this.state);
 	}
 
@@ -241,5 +221,15 @@ public class Player implements IPlayer {
 	@Override
 	public Observable<Tuple<Long, Long>> getTimeStream() {
 		return this.timeSubject.asObservable();
+	}
+
+	@Override
+	public Observable<AMedia> getCurrentMediaStream() {
+		return this.currentMediaSubject.asObservable().map(m -> (AMedia) m );
+	}
+
+	@Override
+	public Observable<List<AMedia>> getPlaylistStream() {
+		return this.playlistSubject.asObservable();
 	}
 }

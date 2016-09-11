@@ -1,21 +1,22 @@
 package fr.aleclerc.rasp.music.ws.webSocket;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 
 import fr.aleclerc.rasp.music.api.AMedia;
 import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.IPlayer;
-import fr.aleclerc.rasp.music.api.IPlayerListener;
 import fr.aleclerc.rasp.music.ws.EAction;
 
-@Controller
-public class WebSocketBroker implements IPlayerListener {
+@Configuration
+public class WebSocketBroker {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(WebSocketBroker.class.getClass());
 
@@ -40,10 +41,20 @@ public class WebSocketBroker implements IPlayerListener {
 		player.getTimeStream()//
 		.map(t -> new Message(EAction.TIMECHANGE, t.getA(), t.getB()))//
 		.subscribe(m -> {
-			//Message m =  new Message(EAction.TIMECHANGE, t.getA(), t.getB());
 			LOGGER.debug("change time : {}", m);
 			template.convertAndSend("/player/timechange", m);
 		}, e -> LOGGER.error("change time : {}", e.getMessage()));
+		
+		// CHANGE CURRENT MEDIA
+		player.getCurrentMediaStream()//
+		.subscribe(this::onChangeCurrent,  e -> LOGGER.error("change media : {}", e.getMessage()));
+		
+		// CHANGE PLAYLIST
+		player.getPlaylistStream()
+		.subscribe(p ->{
+			System.out.println(p);
+			template.convertAndSend("/player/add", p.get(p.size()-1));
+		},  e -> LOGGER.error("change playlist : {}", e.getMessage()));
 	}
 
 	private void sendFromState(EPlayerState state) {
@@ -64,51 +75,44 @@ public class WebSocketBroker implements IPlayerListener {
 		}
 	}
 
-	@Override
-	public void onAdd(AMedia music) {
+	
+	public void onPlaylistUpdate(List<AMedia> music) {
 		LOGGER.debug("Send onAdd : {}", music);
 		template.convertAndSend("/player/add", music);
 
 	}
 
-	@Override
+	
 	public void onPlay(AMedia music) {
 		LOGGER.debug("Send onPlay : {}", music);
 		template.convertAndSend("/player/play", music);
 	}
 
-	@Override
+	
 	public void onPause() {
 		LOGGER.debug("Send onPause");
 		template.convertAndSend("/player/pause", new Message(EAction.PAUSE));
 
 	}
 
-	@Override
+	
 	public void onStop() {
 		LOGGER.debug("Send onStop");
 		template.convertAndSend("/player/stop", new Message(EAction.STOP));
 
 	}
 
-	@Override
+	
 	public void onRemove(AMedia music) {
 		LOGGER.debug("Send onRemove : {}", music);
 		template.convertAndSend("/player/remove", music);
 	}
 
-	@Override
+	
 	public void onChangeCurrent(AMedia music) {
 		LOGGER.debug("Send onChangeCurrent : {}", music);
 		template.convertAndSend("/player/change", music);
 	}
 
-	@Override
-	public void ontimeChanged(Long currentTime, Long percentage, Long length) {
-		LOGGER.debug("Send ontimeChanged : {}", currentTime);
-		// template.convertAndSend("/player/timechange", new
-		// Message("timechange", currentTime, percentage, length));
-
-	}
 
 }

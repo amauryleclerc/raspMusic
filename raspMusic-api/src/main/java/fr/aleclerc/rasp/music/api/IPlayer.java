@@ -7,7 +7,7 @@ import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.api.utils.Tuple;
 import rx.Observable;
 
-public interface IPlayer extends IPlayerListenerRegistry{
+public interface IPlayer {
 	
 	public void play() throws PlayerException;
 	
@@ -20,8 +20,6 @@ public interface IPlayer extends IPlayerListenerRegistry{
 	public void previous() throws PlayerException;
 	
 	public EPlayerState getState()  throws PlayerException;
-	
-	public Observable<EPlayerState> getStateStream();
 	
 	public void changeTime(Long time) throws PlayerException;
 	
@@ -41,5 +39,11 @@ public interface IPlayer extends IPlayerListenerRegistry{
 	
 	public List<AMedia> getMediaPlaylist();
 	
+	public Observable<EPlayerState> getStateStream();
+	
 	public Observable<Tuple<Long,Long>> getTimeStream();
+	
+	public Observable<AMedia> getCurrentMediaStream();
+	
+	public Observable<List<AMedia>> getPlaylistStream();
 }
