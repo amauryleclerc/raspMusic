@@ -1,35 +1,34 @@
 package fr.aleclerc.rasp.music.ws.webSocket;
 
 import fr.aleclerc.rasp.music.api.EPlayerState;
+import fr.aleclerc.rasp.music.ws.EAction;
 
 public class Message {
-	private String action;
+	private EAction action;
 	private long currentTime = 0;
-	private long percentage = 0;
 	private long length = 0;
 	
-	public Message(String action) {
+	public Message(EAction action) {
 		super();
 		this.action = action;
 	}
 	public Message(EPlayerState state) {
 		super();
-		this.action = state.name();
+		this.action = EAction.fromPlayerState(state);
 	}
 
-	public Message(String action, Long currentTime, Long percentage, Long length) {
+	public Message(EAction action, Long currentTime, Long length) {
 		super();
 		this.action = action;
 		this.currentTime = currentTime;
-		this.percentage = percentage;
-		this.setLength(length);
+		this.length = length;
 	}
 
-	public String getAction() {
+	public EAction getAction() {
 		return action;
 	}
 
-	public void setAction(String action) {
+	public void setAction(EAction action) {
 		this.action = action;
 	}
 
@@ -44,14 +43,6 @@ public class Message {
 
 	public void setCurrentTime(long currentTime) {
 		this.currentTime = currentTime;
-	}
-
-	public long getPercentage() {
-		return percentage;
-	}
-
-	public void setPercentage(long percentage) {
-		this.percentage = percentage;
 	}
 
 	public long getLength() {

@@ -15,6 +15,7 @@ import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.IPlayerListener;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
+import fr.aleclerc.rasp.music.api.utils.Tuple;
 import fr.aleclerc.rasp.music.player.factory.MediaFactory;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
@@ -28,23 +29,20 @@ public class Player implements IPlayer {
 	private EPlayerState state;
 	private int currentNum = -1;
 	private int nbMusic = 0;
-	private long lastPercentage = 0;
 	private final Playlist playlist;
 	private final BehaviorSubject<EPlayerState> stateSubject;
+	private final BehaviorSubject<Tuple<Long, Long>> timeSubject;
 
-	
-	
 	@Autowired
 	private MediaFactory musicFactory;
 
-
-	public Player (){
+	public Player() {
 		this.playlist = new Playlist();
 		this.state = EPlayerState.STOP;
 		this.stateSubject = BehaviorSubject.create(state);
+		this.timeSubject = BehaviorSubject.create();
 	}
-	
-	
+
 	@Override
 	public void stop() throws PlayerException {
 		LOGGER.trace("Stop");
@@ -166,11 +164,11 @@ public class Player implements IPlayer {
 		LOGGER.trace("setCurrentNum");
 		if (num >= 0 && num < playlist.size()) {
 			this.currentNum = num;
-		/*	if (this.currentNum > 4) {
-				Media media = playlist.remove(0);
-				this.currentNum--;
-				listeners.stream().forEach(l -> l.onRemove(media));
-			}*/
+			/*
+			 * if (this.currentNum > 4) { Media media = playlist.remove(0);
+			 * this.currentNum--; listeners.stream().forEach(l ->
+			 * l.onRemove(media)); }
+			 */
 
 			listeners.stream().forEach(l -> l.onChangeCurrent(this.getCurrentMedia()));
 
@@ -200,22 +198,14 @@ public class Player implements IPlayer {
 	@Override
 	public void updateTime(final long newTime) {
 		LOGGER.trace("updateTime");
-		long percentageLocal = (long) 0;
-		long lengthLocal = (long) 0;
 		try {
-			Media media = this.getCurrentMedia();
+			final Media media = this.getCurrentMedia();
 			media.getMusic().setCurrentTime(newTime);
-			lengthLocal = media.getMediaPlayer().getLength();
-			percentageLocal = 100 * newTime / lengthLocal;
+			long lengthLocal = media.getMediaPlayer().getLength();
+			LOGGER.debug("updade time : {} / {}",newTime, lengthLocal);
+			this.timeSubject.onNext(Tuple.tuple(newTime, lengthLocal));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (percentageLocal != lastPercentage) {
-			lastPercentage = percentageLocal;
-			final long percentage = percentageLocal;
-			final long length = lengthLocal;
-			listeners.stream().forEach(listener -> listener.ontimeChanged(newTime, percentage, length));
+			LOGGER.error("updateTime error : {}", e.getMessage());
 		}
 
 	}
@@ -238,14 +228,18 @@ public class Player implements IPlayer {
 		return this.playlist.stream().map(media -> (AMedia) media).collect(Collectors.toList());
 	}
 
-	private void setState(EPlayerState state){
+	private void setState(EPlayerState state) {
 		this.state = state;
 		this.stateSubject.onNext(this.state);
 	}
 
-
 	@Override
 	public Observable<EPlayerState> getStateStream() {
 		return this.stateSubject.asObservable();
+	}
+
+	@Override
+	public Observable<Tuple<Long, Long>> getTimeStream() {
+		return this.timeSubject.asObservable();
 	}
 }

@@ -1,8 +1,10 @@
 package fr.aleclerc.rasp.music.api;
 
 import java.util.List;
+
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
+import fr.aleclerc.rasp.music.api.utils.Tuple;
 import rx.Observable;
 
 public interface IPlayer extends IPlayerListenerRegistry{
@@ -38,4 +40,6 @@ public interface IPlayer extends IPlayerListenerRegistry{
 	public List<Music> getPlaylist();
 	
 	public List<AMedia> getMediaPlaylist();
+	
+	public Observable<Tuple<Long,Long>> getTimeStream();
 }
