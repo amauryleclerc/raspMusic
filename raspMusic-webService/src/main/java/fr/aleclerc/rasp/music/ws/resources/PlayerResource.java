@@ -14,9 +14,9 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import fr.aleclerc.rasp.music.api.AMedia;
-import fr.aleclerc.rasp.music.api.EPlayerState;
 import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
@@ -97,17 +97,12 @@ public class PlayerResource {
 	@GET
 	@Path("/state")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message getState() throws Exception {
-		EPlayerState state = player.getState();
-		LOGGER.debug("getState : {}", state);
-		if (state.equals(EPlayerState.PAUSE)) {
-			return new Message("PAUSE");
-		} else if (state.equals(EPlayerState.PLAY)) {
-			return new Message("PLAY");
-		} else if (state.equals(EPlayerState.STOP)) {
-			return new Message("STOP");
-		}
-		return null;
+	public DeferredResult<Message> getState() throws Exception {
+	    DeferredResult<Message> deffered = new DeferredResult<Message>();
+		this.player.getStateStream()//
+		.map(s ->new Message(s))//
+		.subscribe(m -> deffered.setResult(m), e -> deffered.setErrorResult(e));
+		return deffered;
 	}
 
 	@GET

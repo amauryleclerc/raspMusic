@@ -7,28 +7,56 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import fr.aleclerc.rasp.music.api.AMedia;
+import fr.aleclerc.rasp.music.api.EPlayerState;
+import fr.aleclerc.rasp.music.api.IPlayer;
 import fr.aleclerc.rasp.music.api.IPlayerListener;
 
-
 @Controller
-public class WebSocketBroker  implements IPlayerListener {
-	
+public class WebSocketBroker implements IPlayerListener {
+
 	private final Logger LOGGER = LoggerFactory.getLogger(WebSocketBroker.class.getClass());
-	
+
 	@Autowired
-	SimpMessagingTemplate template;
-	
+	private SimpMessagingTemplate template;
+
+	@Autowired
+	private IPlayer player;
+
+	public WebSocketBroker() {
+//	 player.getStateStream().subscribe(s -> {
+//			LOGGER.debug("change state : {}", s);
+//			this.sendFromState(s);
+//		}, e -> LOGGER.error("change state : {}", e.getMessage()));
+	}
+
+	private void sendFromState(EPlayerState state) {
+		final AMedia media = player.getCurrentMedia();
+		switch (state) {
+		case PLAY:
+			this.onPlay(media);
+			break;
+		case STOP:
+			this.onStop();
+			break;
+		case PAUSE:
+			this.onPause();
+			break;
+		default:
+			LOGGER.error("pas de correspondance : {}", state);
+			break;
+		}
+	}
 
 	@Override
 	public void onAdd(AMedia music) {
-		LOGGER.debug("Send onAdd : {}",music);
+		LOGGER.debug("Send onAdd : {}", music);
 		template.convertAndSend("/player/add", music);
 
 	}
 
 	@Override
 	public void onPlay(AMedia music) {
-		LOGGER.debug("Send onPlay : {}",music);
+		LOGGER.debug("Send onPlay : {}", music);
 		template.convertAndSend("/player/play", music);
 	}
 
@@ -48,23 +76,21 @@ public class WebSocketBroker  implements IPlayerListener {
 
 	@Override
 	public void onRemove(AMedia music) {
-		LOGGER.debug("Send onRemove : {}",music);
+		LOGGER.debug("Send onRemove : {}", music);
 		template.convertAndSend("/player/remove", music);
 	}
 
 	@Override
 	public void onChangeCurrent(AMedia music) {
-		LOGGER.debug("Send onChangeCurrent : {}",music);
+		LOGGER.debug("Send onChangeCurrent : {}", music);
 		template.convertAndSend("/player/change", music);
 	}
 
-	
-
 	@Override
 	public void ontimeChanged(Long currentTime, Long percentage, Long length) {
-		LOGGER.debug("Send ontimeChanged : {}",currentTime);
+		LOGGER.debug("Send ontimeChanged : {}", currentTime);
 		template.convertAndSend("/player/timechange", new Message("timechange", currentTime, percentage, length));
-		
+
 	}
 
 }

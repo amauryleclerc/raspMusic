@@ -1,5 +1,7 @@
 package fr.aleclerc.rasp.music.ws.webSocket;
 
+import fr.aleclerc.rasp.music.api.EPlayerState;
+
 public class Message {
 	private String action;
 	private long currentTime = 0;
@@ -9,6 +11,10 @@ public class Message {
 	public Message(String action) {
 		super();
 		this.action = action;
+	}
+	public Message(EPlayerState state) {
+		super();
+		this.action = state.name();
 	}
 
 	public Message(String action, Long currentTime, Long percentage, Long length) {

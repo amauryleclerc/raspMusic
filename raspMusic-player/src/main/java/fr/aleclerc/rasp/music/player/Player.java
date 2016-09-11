@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import fr.aleclerc.rasp.music.api.IPlayerListener;
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
 import fr.aleclerc.rasp.music.player.factory.MediaFactory;
+import rx.Observable;
+import rx.subjects.BehaviorSubject;
 
 @Service
 public class Player implements IPlayer {
@@ -25,20 +25,26 @@ public class Player implements IPlayer {
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	private List<IPlayerListener> listeners = new ArrayList<IPlayerListener>();
-	private EPlayerState state = EPlayerState.STOP;
+	private EPlayerState state;
 	private int currentNum = -1;
 	private int nbMusic = 0;
 	private long lastPercentage = 0;
-	private Playlist playlist;
+	private final Playlist playlist;
+	private final BehaviorSubject<EPlayerState> stateSubject;
 
+	
+	
 	@Autowired
 	private MediaFactory musicFactory;
 
-	@PostConstruct
-	public void init() {
-		playlist = new Playlist();
-	}
 
+	public Player (){
+		this.playlist = new Playlist();
+		this.state = EPlayerState.STOP;
+		this.stateSubject = BehaviorSubject.create(state);
+	}
+	
+	
 	@Override
 	public void stop() throws PlayerException {
 		LOGGER.trace("Stop");
@@ -46,7 +52,7 @@ public class Player implements IPlayer {
 		for (IPlayerListener listener : listeners) {
 			listener.onStop();
 		}
-		this.state = EPlayerState.STOP;
+		this.setState(EPlayerState.STOP);
 	}
 
 	@Override
@@ -54,7 +60,7 @@ public class Player implements IPlayer {
 		LOGGER.trace("play");
 		this.getCurrentMedia().getMediaPlayer().play();
 		listeners.stream().forEach(l -> l.onPlay(this.getCurrentMedia()));
-		this.state = EPlayerState.PLAY;
+		this.setState(EPlayerState.PLAY);
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class Player implements IPlayer {
 		for (IPlayerListener listener : listeners) {
 			listener.onPause();
 		}
-		this.state = EPlayerState.PAUSE;
+		this.setState(EPlayerState.PAUSE);
 	}
 
 	@Override
@@ -232,4 +238,14 @@ public class Player implements IPlayer {
 		return this.playlist.stream().map(media -> (AMedia) media).collect(Collectors.toList());
 	}
 
+	private void setState(EPlayerState state){
+		this.state = state;
+		this.stateSubject.onNext(this.state);
+	}
+
+
+	@Override
+	public Observable<EPlayerState> getStateStream() {
+		return this.stateSubject.asObservable();
+	}
 }

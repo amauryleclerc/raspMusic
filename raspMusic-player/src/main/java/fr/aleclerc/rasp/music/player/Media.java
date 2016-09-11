@@ -10,9 +10,10 @@ public class Media extends AMedia {
 	
 
 	@JsonIgnore
-	private transient MediaPlayer mediaPlayer = null;
+	private final transient MediaPlayer mediaPlayer;
 
 	public Media(MediaPlayer mediaPlayer){
+		super();
 		this.mediaPlayer = mediaPlayer;
 	}
 	@JsonIgnore

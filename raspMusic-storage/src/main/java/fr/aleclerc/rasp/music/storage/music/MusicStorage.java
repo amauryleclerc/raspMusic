@@ -3,7 +3,6 @@ package fr.aleclerc.rasp.music.storage.music;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,19 +56,7 @@ public class MusicStorage implements IStorage<Music> {
 
 	}
 
-	private void searchMusic() throws StorageException {
-		LOGGER.trace("Search music");
-		try {
-			Files.walk(Paths.get(RaspConf.getPropValue("music.folder.path")))//
-					.filter(filePath -> Files.isRegularFile(filePath))//
-					.peek(filePath -> LOGGER.info("Music find : {} ", filePath))
-					.map(filePath -> new File(filePath.toUri())).map(uri -> musicFactory.getIntance(uri))//
-					.filter(music -> music.isPresent())//
-					.forEach(music -> this.add(music.get()));
-		} catch (IOException e) {
-			new StorageException(e);
-		}
-	}
+
 
 	@PostConstruct
 	private void searchMusicASync() throws StorageException {
