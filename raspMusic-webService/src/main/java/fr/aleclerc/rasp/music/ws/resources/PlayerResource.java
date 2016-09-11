@@ -1,12 +1,15 @@
 package fr.aleclerc.rasp.music.ws.resources;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,7 +32,7 @@ import fr.aleclerc.rasp.music.ws.webSocket.Message;
 public class PlayerResource {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private IPlayer player;
 
@@ -43,12 +46,8 @@ public class PlayerResource {
 		} catch (PlayerException e) {
 			LOGGER.error(e.getMessage());
 		}
-		try {
-			return player.getCurrent();
-		} catch (PlayerException e) {
-			LOGGER.error(e.getMessage());
-		}
-		return null;
+		return player.getCurrent().getMusic();
+
 	}
 
 	@POST
@@ -98,10 +97,10 @@ public class PlayerResource {
 	@Path("/state")
 	@Produces(MediaType.APPLICATION_JSON)
 	public DeferredResult<Message> getState() throws Exception {
-	    DeferredResult<Message> deffered = new DeferredResult<Message>();
+		DeferredResult<Message> deffered = new DeferredResult<Message>();
 		this.player.getStateStream()//
-		.map(s ->new Message(s))//
-		.subscribe(m -> deffered.setResult(m), e -> deffered.setErrorResult(e));
+				.map(s -> new Message(s))//
+				.subscribe(m -> deffered.setResult(m), e -> deffered.setErrorResult(e));
 		return deffered;
 	}
 
@@ -116,14 +115,13 @@ public class PlayerResource {
 	@Path("/current")
 	public AMedia getCurrent() throws Exception {
 		LOGGER.debug("getCurrent");
-		return player.getCurrentMedia();
+		return player.getCurrent();
 	}
 
 	@PUT
-	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addMusic(String musicStr) {
-		LOGGER.debug("addMusic : {} ",musicStr);
+		LOGGER.debug("addMusic : {} ", musicStr);
 		Music music = null;
 		try {
 			music = MapperUtil.readAsObjectOf(MusicLocal.class, musicStr);
@@ -140,21 +138,19 @@ public class PlayerResource {
 		try {
 			player.add(music);
 		} catch (PlayerException e) {
-			LOGGER.error("Error ajout music : {} ",e.getMessage());
+			LOGGER.error("Error ajout music : {} ", e.getMessage());
 			return Response.serverError().build();
 		}
-		
+
 		return Response.ok().build();
 	}
 
-	@PUT
-	@Path("/remove")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response removeMusic(String musicStr) throws Exception {
-		LOGGER.debug("remove music : {} ",musicStr);
-		Music music = MapperUtil.readAsObjectOf(Music.class, musicStr);
-		player.remove(music);
-
+	@DELETE
+	@Path("{id}")
+	public Response removeMusic(@PathParam("id") String id) {
+		LOGGER.debug("remove music : {} ", id);
+		player.remove(UUID.fromString(id));
+		System.out.println(id);
 		return Response.ok().build();
 	}
 }

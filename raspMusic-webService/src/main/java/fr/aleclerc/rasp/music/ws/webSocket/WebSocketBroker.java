@@ -52,15 +52,15 @@ public class WebSocketBroker {
 		// CHANGE PLAYLIST
 		player.getPlaylistStream()
 		.subscribe(p ->{
-			System.out.println(p);
-			template.convertAndSend("/player/add", p.get(p.size()-1));
+			template.convertAndSend("/player/playlist", p);
 		},  e -> LOGGER.error("change playlist : {}", e.getMessage()));
 	}
 
 	private void sendFromState(EPlayerState state) {
-		final AMedia media = player.getCurrentMedia();
+	
 		switch (state) {
 		case PLAY:
+			final AMedia media = player.getCurrent();
 			this.onPlay(media);
 			break;
 		case STOP:

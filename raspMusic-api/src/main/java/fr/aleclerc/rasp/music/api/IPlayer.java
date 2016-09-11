@@ -1,6 +1,7 @@
 package fr.aleclerc.rasp.music.api;
 
 import java.util.List;
+import java.util.UUID;
 
 import fr.aleclerc.rasp.music.api.exceptions.PlayerException;
 import fr.aleclerc.rasp.music.api.pojo.Music;
@@ -27,11 +28,9 @@ public interface IPlayer {
 	
 	public boolean add(Music music)  throws PlayerException;
 	
-	public Music getCurrent() throws PlayerException;
+	//public Music getCurrent() throws PlayerException;
 	
-	public AMedia getCurrentMedia()  throws RuntimeException;
-	
-	public void remove(Music music)  throws PlayerException;
+	public AMedia getCurrent()  throws RuntimeException;
 	
 	public void updateTime(long newTime)  throws PlayerException;
 	
@@ -46,4 +45,7 @@ public interface IPlayer {
 	public Observable<AMedia> getCurrentMediaStream();
 	
 	public Observable<List<AMedia>> getPlaylistStream();
+
+	public void remove(UUID id);
+
 }
